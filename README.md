@@ -1,7 +1,7 @@
 # CATS (Carrier Administration and Traversal System)
-CATS is an interface for viewing information about your fleet carrier, and guiding it across many thousands of light years automatically.
+CATS is an Elite Dangerous fleet carrier auto-plotter and flight computer.
 <br>
-Owning multiple carriers in this game requires the use of alt accounts, so this app also allows you to view stats about carriers across multiple accounts.
+This app also allows you to view stats about carriers across multiple accounts.
 
 ## Features
 ### Admin interface
