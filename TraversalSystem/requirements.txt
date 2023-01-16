@@ -1,0 +1,8 @@
+PyDirectInput~=1.0.4
+PyAutoGUI~=0.9.53
+pyperclip~=1.8.2
+PyGetWindow~=0.0.9
+pytesseract~=0.3.8
+opencv-python~=4.5.4.60
+pyscreenshot~=3.0
+discord-webhook~=0.16.3

@@ -1,0 +1,4 @@
+webhook_url=
+journal_directory=
+tritium_slot=
+route_file=route.txt
