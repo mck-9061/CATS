@@ -21,6 +21,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
 * The traversal system currently only works on displays running at 1920x1080, assumes Elite is on your primary display, and assumes Elite is also running at 1920x1080.
+* If you come across a problem, feel free to open an issue on GitHub or shoot me a message on Discord at mck#9061
 
 ## Installation
 If you only want to use the admin interface, no additional installation is required. Just download from the Releases page and run.<br>
