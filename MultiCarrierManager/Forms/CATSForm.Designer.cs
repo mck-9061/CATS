@@ -45,6 +45,7 @@ namespace MultiCarrierManager {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -228,12 +229,23 @@ namespace MultiCarrierManager {
             this.label4.TabIndex = 23;
             this.label4.Text = "ETA:";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(383, 104);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(153, 23);
+            this.button2.TabIndex = 24;
+            this.button2.Text = "Get route automatically...";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // CATSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1053, 559);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -258,6 +270,8 @@ namespace MultiCarrierManager {
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button button2;
 
         private System.Windows.Forms.Label label4;
 

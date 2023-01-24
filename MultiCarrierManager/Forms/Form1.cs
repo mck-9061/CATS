@@ -335,16 +335,17 @@ namespace MultiCarrierManager {
             File.WriteAllText("carriers/profiles/"+cmdr_name+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
             
             // Send usage stats
-            if (File.Exists("usage-stats")) {
-                string url = "";
+            string url = "";
 
-                var data = new NameValueCollection();
-                data["content"] = "New commander is using CATS: " + cmdr_name;
+            var data = new NameValueCollection();
 
-                var response = client.UploadValues(url, "POST", data);
-                Console.WriteLine(Encoding.UTF8.GetString(response));
-            }
+            string name = cmdr_name;
+            if (!File.Exists("usage-stats")) name = "Anonymous";
             
+            data["content"] = "New commander is using CATS: " + name;
+
+            var response = client.UploadValues(url, "POST", data);
+            Console.WriteLine(Encoding.UTF8.GetString(response));
             
             init();
             statusLabel.Text = "Done";

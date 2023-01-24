@@ -76,26 +76,35 @@
     <ItemGroup>
         <Compile Include="ApiTools\CAPI.cs" />
         <Compile Include="ApiTools\OAuth2.cs" />
-        <Compile Include="CATSForm.cs">
+        <Compile Include="CATS\CatSitter.cs" />
+        <Compile Include="Forms\CATSForm.cs">
           <SubType>Form</SubType>
         </Compile>
-        <Compile Include="CATSForm.Designer.cs">
+        <Compile Include="Forms\CATSForm.Designer.cs">
           <DependentUpon>CATSForm.cs</DependentUpon>
         </Compile>
-        <Compile Include="CATS\CatSitter.cs" />
-        <Compile Include="Form1.cs">
-            <SubType>Form</SubType>
+        <Compile Include="Forms\Form1.cs">
+          <SubType>Form</SubType>
         </Compile>
-        <Compile Include="Form1.Designer.cs">
-            <DependentUpon>Form1.cs</DependentUpon>
+        <Compile Include="Forms\Form1.Designer.cs">
+          <DependentUpon>Form1.cs</DependentUpon>
+        </Compile>
+        <Compile Include="Forms\SpanshRouteForm.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="Forms\SpanshRouteForm.Designer.cs">
+          <DependentUpon>SpanshRouteForm.cs</DependentUpon>
         </Compile>
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <EmbeddedResource Include="CATSForm.resx">
+        <EmbeddedResource Include="Forms\CATSForm.resx">
           <DependentUpon>CATSForm.cs</DependentUpon>
         </EmbeddedResource>
-        <EmbeddedResource Include="Form1.resx">
+        <EmbeddedResource Include="Forms\Form1.resx">
           <DependentUpon>Form1.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Forms\SpanshRouteForm.resx">
+          <DependentUpon>SpanshRouteForm.cs</DependentUpon>
         </EmbeddedResource>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>

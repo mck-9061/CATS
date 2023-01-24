@@ -180,5 +180,14 @@ namespace MultiCarrierManager {
                 }
             }
         }
+
+        private void button2_Click(object sender, EventArgs e) {
+            if (!SpanshRouteForm.isOpen) {
+                SpanshRouteForm.isOpen = true;
+                SpanshRouteForm form = new SpanshRouteForm();
+                form.Show();
+                Close();
+            }
+        }
     }
 }
