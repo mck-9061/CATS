@@ -27,11 +27,11 @@ namespace MultiCarrierManager.CATS {
         public string finalSystem { get; set; }
         private string nextSystem;
 
-
+ 
         public void run_cmd() {
             output.Text = "";
             process = new Process();
-            process.StartInfo.FileName = "python";
+            process.StartInfo.FileName = "CATS\\Python39\\python.exe";
             process.StartInfo.WorkingDirectory = "CATS";
             process.StartInfo.Arguments = "-u main.py";
             process.StartInfo.UseShellExecute = false;

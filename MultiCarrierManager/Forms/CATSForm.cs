@@ -66,6 +66,7 @@ namespace MultiCarrierManager {
                 loadButton.Enabled = false;
                 importButton.Enabled = false;
                 button1.Enabled = false;
+                button2.Enabled = false;
                 cats.run_cmd();
             }
         }
@@ -78,6 +79,7 @@ namespace MultiCarrierManager {
                 loadButton.Enabled = true;
                 importButton.Enabled = true;
                 button1.Enabled = true;
+                button2.Enabled = true;
                 cats.close();
 
                 this.Text = "Carrier Administration and Traversal System (CATS)";

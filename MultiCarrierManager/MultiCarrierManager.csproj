@@ -32,6 +32,9 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+    <PropertyGroup>
+      <PostBuildEvent>echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem" "$(OutDir)CATS"</PostBuildEvent>
+    </PropertyGroup>
     <ItemGroup>
         <Reference Include="mscorlib" />
         <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">

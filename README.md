@@ -16,6 +16,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * Keeps track of jump time (in case a jump is longer than 15 minutes)
 * Discord integration
 * Import routes from the Spansh fleet carrier router
+* Generate routes between two systems automatically using Spansh's API
 
 ## Limitations
 * This only works on Windows and probably won't be ported to anything else.
@@ -24,11 +25,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * If you come across a problem, feel free to open an issue on GitHub or shoot me a message on Discord at mck#9061
 
 ## Installation
-If you only want to use the admin interface, no additional installation is required. Just download from the Releases page and run.<br>
-To use the traversal system, you'll need to do a bit more setup:
-* Install Python. The system has been tested on Python 3.9, though it should work on other 3.x versions.
-* Install the required Python modules. Open a command line in the CATS directory of the downloaded files, and run ```pip install -r requirements.txt```.
-* Install Tesseract. This is needed to read the jump time. Here's an installation guide: https://medium.com/quantrium-tech/installing-and-using-tesseract-4-on-windows-10-4f7930313f82 Reboot your PC after installing and setting the environment variables.
+The release comes bundled with everything you need to use both the admin panel and the traversal system. Just run the executable and you're good to go.
 
 ## Traversal system usage
 * Dock with your carrier.

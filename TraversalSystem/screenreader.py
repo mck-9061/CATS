@@ -3,6 +3,7 @@ import pytesseract
 import cv2
 import pyscreenshot as ImageGrab
 
+pytesseract.pytesseract.tesseract_cmd = "tesseract\\tesseract.exe"
 
 def text_in_box(x1, y1, x2, y2, skipProcess=False):
     try:

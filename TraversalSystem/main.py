@@ -31,6 +31,8 @@ from screenreader import time_until_jump
 
 import pygetwindow as gw
 
+
+
 # ----Options----
 # How many up presses to reach tritium in carrier hold:
 global tritium_slot
