@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -23,6 +25,8 @@ namespace MultiCarrierManager {
             this.Shown += new System.EventHandler(this.Form1_Shown);
         }
         List<Tuple<string, JObject>> carriers = new List<Tuple<string, JObject>>();
+
+        private WebClient client = new WebClient();
         
 
         private void Form1_Shown(object sender, EventArgs e) {
@@ -330,6 +334,18 @@ namespace MultiCarrierManager {
             File.WriteAllText("carriers/"+cmdr_name+".json", c.ToString(Newtonsoft.Json.Formatting.Indented));
             File.WriteAllText("carriers/profiles/"+cmdr_name+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
             
+            // Send usage stats
+            if (File.Exists("usage-stats")) {
+                string url = "";
+
+                var data = new NameValueCollection();
+                data["content"] = "New commander is using CATS: " + cmdr_name;
+
+                var response = client.UploadValues(url, "POST", data);
+                Console.WriteLine(Encoding.UTF8.GetString(response));
+            }
+            
+            
             init();
             statusLabel.Text = "Done";
         }
@@ -419,6 +435,22 @@ namespace MultiCarrierManager {
             
 
             return value;
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show(
+                $"CATS sends usage statistics to the developer by default, which you can opt out of " +
+                $"if you want. {Environment.NewLine}{Environment.NewLine}Do you want to opt out?", "Privacy",
+                MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes) {
+                MessageBox.Show(
+                    "You have opted out of usage statistics. You can opt in again by opening this again and clicking No.");
+                if (File.Exists("usage-stats")) File.Delete("usage-stats");
+            }
+            else {
+                File.WriteAllText("usage-stats", "true");
+            }
         }
     }
 }

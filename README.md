@@ -1,7 +1,7 @@
 # CATS (Carrier Administration and Traversal System)
-CATS is an interface for viewing information about your fleet carrier, and guiding it across many thousands of light years automatically.
+CATS is an Elite Dangerous fleet carrier auto-plotter and flight computer.
 <br>
-Owning multiple carriers in this game requires the use of alt accounts, so this app also allows you to view stats about carriers across multiple accounts.
+This app also allows you to view stats about carriers across multiple accounts.
 
 ## Features
 ### Admin interface
@@ -21,6 +21,7 @@ Owning multiple carriers in this game requires the use of alt accounts, so this 
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
 * The traversal system currently only works on displays running at 1920x1080, assumes Elite is on your primary display, and assumes Elite is also running at 1920x1080.
+* If you come across a problem, feel free to open an issue on GitHub or shoot me a message on Discord at mck#9061
 
 ## Installation
 If you only want to use the admin interface, no additional installation is required. Just download from the Releases page and run.<br>
@@ -33,10 +34,10 @@ To use the traversal system, you'll need to do a bit more setup:
 * Dock with your carrier.
 * Make sure your cursor is over the "Carrier Services" option, and that your internal panel (right) is on the home tab.
 * Open the traversal system from the admin interface. Fill in the options:
-    * Tritium slot: how many up-presses it takes to get to Tritium in the cargo transfer menu. IMPORTANT - take out a unit of Tritium first, as this changes where it's positioned.
-    * Webhook URL: The URL to send Discord updates to.
-    * Journal Dir: The directory of your Elite Dangerous journal files.
-    * Route: Put each system on a new line. Alternatively, import from a plain text list of systems, or a CSV from Spansh's FC plotter.
+  * Tritium slot: how many up-presses it takes to get to Tritium in the cargo transfer menu. IMPORTANT - take out a unit of Tritium first, as this changes where it's positioned.
+  * Webhook URL: The URL to send Discord updates to.
+  * Journal Dir: The directory of your Elite Dangerous journal files.
+  * Route: Put each system on a new line. Alternatively, import from a plain text list of systems, or a CSV from Spansh's FC plotter.
 * Save the settings with the button at the top.
 * Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route". Save again if you've changed this.
 * Click "Run CATS"! It should now start to plot jumps.
@@ -46,6 +47,6 @@ Use of programs like this is technically against Frontier's TOS. While they have
 Use of the admin interface without the traversal system carries no risk, as it's simply reading from FDev's API.
 
 ## Privacy
-All data for this app is stored locally; no information is sent to a server or to the developer.
+By default, usage statistics are sent to the developer. You can opt out of this easily, just use the privacy button on the main menu.
 <br><br>
 o7

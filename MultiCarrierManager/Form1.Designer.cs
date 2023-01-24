@@ -84,6 +84,7 @@ namespace MultiCarrierManager {
             this.systemLabel1 = new System.Windows.Forms.Label();
             this.callsignLabel1 = new System.Windows.Forms.Label();
             this.nameLabel1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.managerTab.SuspendLayout();
             this.carrierTemplate.SuspendLayout();
@@ -102,6 +103,7 @@ namespace MultiCarrierManager {
             // 
             // managerTab
             // 
+            this.managerTab.Controls.Add(this.button1);
             this.managerTab.Controls.Add(this.label2);
             this.managerTab.Controls.Add(this.listView1);
             this.managerTab.Controls.Add(this.catsButton);
@@ -455,6 +457,16 @@ namespace MultiCarrierManager {
             this.nameLabel1.TabIndex = 0;
             this.nameLabel1.Text = "Name:";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(890, 507);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(84, 21);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Privacy...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -468,6 +480,8 @@ namespace MultiCarrierManager {
             this.carrierTemplate.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button button1;
 
         private System.Windows.Forms.Label label2;
 

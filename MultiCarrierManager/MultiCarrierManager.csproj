@@ -76,7 +76,6 @@
     <ItemGroup>
         <Compile Include="ApiTools\CAPI.cs" />
         <Compile Include="ApiTools\OAuth2.cs" />
-        <Compile Include="ApiTools\OAuth2.cs.template" />
         <Compile Include="CATSForm.cs">
           <SubType>Form</SubType>
         </Compile>
@@ -123,7 +122,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="CATS\route.txt" />
-      <Content Include="README.md" />
+      <Content Include="usage-stats" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
