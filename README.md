@@ -16,6 +16,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * Keeps track of jump time (in case a jump is longer than 15 minutes)
 * Discord integration
 * Import routes from the Spansh fleet carrier router
+* Automatically generate a route between two systems
 
 ## Limitations
 * This only works on Windows and probably won't be ported to anything else.
