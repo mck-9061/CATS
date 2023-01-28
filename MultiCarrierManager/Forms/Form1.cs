@@ -68,6 +68,8 @@ namespace MultiCarrierManager {
                 string name = ConvertHex(carrier["name"]["vanityName"].ToString());
                 string cmdrName = file.Split('\\').Last().Replace(".json", "");
                 
+                if (Program.settings.UsageStats) Program.logger.Log("Carrier:" + name);
+                
                 carriers.Add(Tuple.Create(cmdrName, carrier));
 
                 TabPage page = new TabPage();
@@ -84,11 +86,10 @@ namespace MultiCarrierManager {
             }
 
             label2.Text = "Your total net worth: " + totalWorth.ToString("N0") + " CR";
+            Program.logger.Log("LoadedMain");
         }
 
-        private void label2_Click(object sender, EventArgs e) {
-            throw new System.NotImplementedException();
-        }
+        private void label2_Click(object sender, EventArgs e) { }
         
         public string ConvertHex(String hexString)
         {
@@ -245,8 +246,7 @@ namespace MultiCarrierManager {
                 buyList1.Items.Add(item);
             }
             
-            
-            
+            Program.logger.Log("LoadedCarrierPage");
         }
 
         private bool canSend = true;
@@ -313,6 +313,7 @@ namespace MultiCarrierManager {
 
 
             statusLabel.Text = "Done";
+            Program.logger.Log("RefreshedStats");
         }
 
         private void AddCarrierButton_Click(object sender, EventArgs e) {
@@ -334,29 +335,23 @@ namespace MultiCarrierManager {
             File.WriteAllText("carriers/"+cmdr_name+".json", c.ToString(Newtonsoft.Json.Formatting.Indented));
             File.WriteAllText("carriers/profiles/"+cmdr_name+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
             
-            // Send usage stats
-            string url = "";
-
-            var data = new NameValueCollection();
 
             string name = cmdr_name;
-            if (!File.Exists("usage-stats")) name = "Anonymous";
-            
-            data["content"] = "New commander is using CATS: " + name;
+            if (!Program.settings.UsageStats) name = "Anonymous";
 
-            var response = client.UploadValues(url, "POST", data);
-            Console.WriteLine(Encoding.UTF8.GetString(response));
+            Program.logger.Log("CarrierAdded:"+name);
             
             init();
             statusLabel.Text = "Done";
         }
+        
 
         private void catsButton_Click(object sender, EventArgs e) {
-            if (!CatSitter.isWindowOpen) {
-                CatSitter.isWindowOpen = true;
-                CATSForm form = new CATSForm();
-                form.Show();
-            }
+            Program.logger.Log("SwitchedToTraversal");
+            Hide();
+            CATSForm form = new CATSForm();
+            form.ShowDialog();
+            Close();
         }
 
         private long GetCommanderValue(JObject cmdr, JObject carrier) {
@@ -447,11 +442,19 @@ namespace MultiCarrierManager {
             if (result == DialogResult.Yes) {
                 MessageBox.Show(
                     "You have opted out of usage statistics. You can opt in again by opening this again and clicking No.");
-                if (File.Exists("usage-stats")) File.Delete("usage-stats");
+                Program.settings.SetUsageStats(false);
             }
             else {
-                File.WriteAllText("usage-stats", "true");
+                Program.settings.SetUsageStats(true);
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.UserClosing) {
+                Program.logger.Log("End");
+                Program.logger.Upload();
+            }
+            
         }
     }
 }

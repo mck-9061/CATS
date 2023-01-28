@@ -39,6 +39,7 @@ namespace MultiCarrierManager {
             System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] { "Pioneer Supplies", "Available" }, -1);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.managerTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
@@ -84,7 +85,6 @@ namespace MultiCarrierManager {
             this.systemLabel1 = new System.Windows.Forms.Label();
             this.callsignLabel1 = new System.Windows.Forms.Label();
             this.nameLabel1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.managerTab.SuspendLayout();
             this.carrierTemplate.SuspendLayout();
@@ -117,6 +117,16 @@ namespace MultiCarrierManager {
             this.managerTab.TabIndex = 0;
             this.managerTab.Text = "Manager";
             this.managerTab.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(890, 507);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(84, 21);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Privacy...";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -457,16 +467,6 @@ namespace MultiCarrierManager {
             this.nameLabel1.TabIndex = 0;
             this.nameLabel1.Text = "Name:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(890, 507);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 21);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Privacy...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -475,6 +475,7 @@ namespace MultiCarrierManager {
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "ED Multi Carrier Manager";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.managerTab.ResumeLayout(false);
             this.carrierTemplate.ResumeLayout(false);

@@ -24,14 +24,13 @@ import random
 import threading
 import pyperclip
 import datetime
+import sys
 
 import journalwatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
 from screenreader import time_until_jump
 
 import pygetwindow as gw
-
-
 
 # ----Options----
 # How many up presses to reach tritium in carrier hold:
@@ -120,8 +119,9 @@ def latest_journal():
 def slight_random_time(time):
     return random.random() + time
 
+
 def follow_button_sequence(sequence_name):
-    sequence = open("sequences/"+sequence_name, "r").read().split("\n")
+    sequence = open("sequences/" + sequence_name, "r").read().split("\n")
 
     for line in sequence:
         if line.__contains__(":"):
@@ -141,19 +141,48 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
-    # Navigate menu
-    follow_button_sequence("restock_nav_1.txt")
+    if not sys.argv[1] == "--manual":
+        # Navigate menu
+        follow_button_sequence("restock_nav_1.txt")
 
-    for i in range(tritium_slot):
-        pydirectinput.press('up')
-        time.sleep(slight_random_time(0.1))
+        for i in range(tritium_slot):
+            pydirectinput.press('up')
+            time.sleep(slight_random_time(0.1))
 
-    follow_button_sequence("restock_nav_2.txt")
+        follow_button_sequence("restock_nav_2.txt")
 
-    print("Tritium successfully refuelled.")
+        print("Tritium successfully refuelled.")
 
 
 def jump_to_system(system_name):
+    if sys.argv[1] == "--manual":
+        # Manual jumping
+        pyperclip.copy(system_name.lower())
+        print(
+            "alert:Please plot the jump to %s. It has been copied to your clipboard. Then, leave your keyboard alone while the jump time is read." % system_name)
+        while journalwatcher.last_carrier_request() != system_name:
+            time.sleep(1)
+
+        timeToJump = time_until_jump()
+        print(timeToJump.strip())
+
+        failCount = 0
+
+        while len(timeToJump.split(':')) == 1:
+            print("Trying again... (" + str(failCount) + ")")
+            timeToJump = time_until_jump()
+            print(timeToJump.strip())
+            failCount += 1
+
+        time.sleep(6)
+        pydirectinput.press('backspace')
+        time.sleep(slight_random_time(0.1))
+        pydirectinput.press('backspace')
+
+        print("alert:It is now safe to use your keyboard and mouse.")
+
+        return timeToJump.strip()
+
     follow_button_sequence("jump_nav_1.txt")
 
     pyautogui.moveTo(921, 115)
@@ -169,7 +198,7 @@ def jump_to_system(system_name):
     time.sleep(slight_random_time(0.1))
     pydirectinput.keyUp("ctrl")
     time.sleep(slight_random_time(3.0))
-    #pydirectinput.press('down')
+    # pydirectinput.press('down')
     pyautogui.moveTo(930, 150)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
@@ -234,8 +263,8 @@ def main_loop():
     th = threading.Thread(target=process_journal, args=(latestJournal,))
     th.start()
 
-    #win = gw.getWindowsWithTitle(window_name)[0]
-    #win.activate()
+    # win = gw.getWindowsWithTitle(window_name)[0]
+    # win.activate()
 
     lineNo = 0
     saved = False
@@ -257,7 +286,7 @@ def main_loop():
 
     finalLine = route.split("\n")[len(route.split("\n")) - 1]
     jumpsLeft = len(route.split("\n")) + 1
-    
+
     d = 1;
     while finalLine == "" or finalLine == "\n":
         d += 1
@@ -265,7 +294,7 @@ def main_loop():
 
     routeName = "Carrier Updates: Route to " + finalLine
 
-    print("Destination: "+finalLine)
+    print("Destination: " + finalLine)
 
     a1 = route.split("\n")
     a = []
@@ -274,7 +303,8 @@ def main_loop():
     for i in a1:
         if (not i == "") and (not i == "\n"):
             a.append(i)
-        else: continue
+        else:
+            continue
         if a1.index(i) < lineNo: continue
         delta = delta + datetime.timedelta(seconds=1320)
     arrivalTime = arrivalTime + delta
@@ -286,7 +316,7 @@ def main_loop():
 
         line = a[i]
 
-        #win.activate()
+        # win.activate()
         time.sleep(3)
 
         print("Next stop: " + line)
@@ -415,7 +445,7 @@ def main_loop():
 
                 elif totalTime == 150:
                     print("Restocking tritium...")
-                    #win.activate()
+                    # win.activate()
                     time.sleep(2)
                     th = threading.Thread(target=restock_tritium)
                     th.start()

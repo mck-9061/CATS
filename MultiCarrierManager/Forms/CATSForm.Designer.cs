@@ -46,6 +46,7 @@ namespace MultiCarrierManager {
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -170,9 +171,9 @@ namespace MultiCarrierManager {
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 4);
+            this.button1.Location = new System.Drawing.Point(130, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(651, 28);
+            this.button1.Size = new System.Drawing.Size(533, 28);
             this.button1.TabIndex = 18;
             this.button1.Text = "Save all settings";
             this.button1.UseVisualStyleBackColor = true;
@@ -239,12 +240,23 @@ namespace MultiCarrierManager {
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(8, 4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(116, 28);
+            this.button3.TabIndex = 25;
+            this.button3.Text = "Open Admin Panel";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // CATSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1053, 559);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
@@ -267,9 +279,12 @@ namespace MultiCarrierManager {
             this.Controls.Add(this.label2);
             this.Name = "CATSForm";
             this.Text = "Carrier Administration and Traversal System (CATS)";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CATSForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button button3;
 
         private System.Windows.Forms.Button button2;
 

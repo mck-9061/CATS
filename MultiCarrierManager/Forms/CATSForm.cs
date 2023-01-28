@@ -21,11 +21,11 @@ namespace MultiCarrierManager {
             loadFromRouteFile();
             loadSettingsFile();
             populateComboBox();
+            Program.logger.Log("TraversalFormLoaded");
         }
 
 
         private void CATSForm_Closed(object sender, EventArgs e) {
-            CatSitter.isWindowOpen = false;
             cats.close();
         }
 
@@ -58,7 +58,9 @@ namespace MultiCarrierManager {
 
         private void runButton_Click(object sender, EventArgs e) {
             if (!cats.isRunning) {
+                Program.logger.Log("TraversalRunning");
                 cats.finalSystem = (string) comboBox1.Items[comboBox1.Items.Count - 1];
+                if (Program.settings.UsageStats) Program.logger.Log("Destination:"+cats.finalSystem);
                 
                 cats.isRunning = true;
                 stopButton.Enabled = true;
@@ -73,6 +75,7 @@ namespace MultiCarrierManager {
 
         private void stopButton_Click(object sender, EventArgs e) {
             if (cats.isRunning) {
+                Program.logger.Log("TraversalStopped");
                 cats.isRunning = false;
                 stopButton.Enabled = false;
                 runButton.Enabled = true;
@@ -82,7 +85,7 @@ namespace MultiCarrierManager {
                 button2.Enabled = true;
                 cats.close();
 
-                this.Text = "Carrier Administration and Traversal System (CATS)";
+                Text = "Carrier Administration and Traversal System (CATS)";
             }
         }
 
@@ -94,6 +97,8 @@ namespace MultiCarrierManager {
             foreach (string l in lines) {
                 box.Text = box.Text + l + Environment.NewLine;
             }
+            
+            Program.logger.Log("RouteLoaded");
         }
 
         private void loadSettingsFile() {
@@ -112,6 +117,8 @@ namespace MultiCarrierManager {
                     textBox3.Text = line.Replace("tritium_slot=", "");
                 }
             }
+            
+            Program.logger.Log("TraversalSettingsLoaded");
         }
 
         private void loadButton_Click(object sender, EventArgs e) {
@@ -185,10 +192,25 @@ namespace MultiCarrierManager {
 
         private void button2_Click(object sender, EventArgs e) {
             if (!SpanshRouteForm.isOpen) {
+                Hide();
                 SpanshRouteForm.isOpen = true;
                 SpanshRouteForm form = new SpanshRouteForm();
-                form.Show();
+                form.ShowDialog();
                 Close();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e) {
+            Hide();
+            Form1 form = new Form1();
+            form.ShowDialog();
+            Close();
+        }
+
+        private void CATSForm_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.UserClosing) {
+                Program.logger.Log("End");
+                Program.logger.Upload();
             }
         }
     }

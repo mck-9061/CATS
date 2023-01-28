@@ -14,8 +14,6 @@ namespace MultiCarrierManager.CATS {
         private Label countdownLabel;
         private Label etaLabel;
         public bool isRunning { get; set; }
-
-        public static bool isWindowOpen = false;
         
         public CatSitter(TextBox output, CATSForm form, Label countdownLabel, Label etaLabel) {
             this.output = output;
@@ -34,6 +32,7 @@ namespace MultiCarrierManager.CATS {
             process.StartInfo.FileName = "CATS\\Python39\\python.exe";
             process.StartInfo.WorkingDirectory = "CATS";
             process.StartInfo.Arguments = "-u main.py";
+            if (!Program.settings.AutoPlot) process.StartInfo.Arguments += " --manual";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.OutputDataReceived += new DataReceivedEventHandler((s2, e2) => {
@@ -75,6 +74,9 @@ namespace MultiCarrierManager.CATS {
                             form.Text = "Carrier Administration and Traversal System (CATS)";
                         } else if (line.StartsWith("ETA:")) {
                             etaLabel.Text = line;
+                        } else if (line.StartsWith("alert:")) {
+                            string alert = line.Split(':')[1];
+                            MessageBox.Show(alert, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
                     catch (Exception e) {
