@@ -25,7 +25,6 @@ namespace MultiCarrierManager {
 
 
         private void CATSForm_Closed(object sender, EventArgs e) {
-            CatSitter.isWindowOpen = false;
             cats.close();
         }
 
@@ -185,11 +184,19 @@ namespace MultiCarrierManager {
 
         private void button2_Click(object sender, EventArgs e) {
             if (!SpanshRouteForm.isOpen) {
+                Hide();
                 SpanshRouteForm.isOpen = true;
                 SpanshRouteForm form = new SpanshRouteForm();
-                form.Show();
+                form.ShowDialog();
                 Close();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e) {
+            Hide();
+            Form1 form = new Form1();
+            form.ShowDialog();
+            Close();
         }
     }
 }

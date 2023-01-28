@@ -15,9 +15,10 @@ namespace MultiCarrierManager {
         }
 
         private void SpanshRouteForm_FormClosing_1(object sender, FormClosingEventArgs e) {
+            Hide();
             isOpen = false;
             CATSForm form = new CATSForm();
-            form.Show();
+            form.ShowDialog();
         }
 
         private async void button1_Click(object sender, EventArgs e) {
@@ -70,7 +71,7 @@ namespace MultiCarrierManager {
             destinations.Remove(destinations[0]);
             
             File.WriteAllLines("CATS\\route.txt", destinations.ToArray());
-            
+
             Close();
         }
     }

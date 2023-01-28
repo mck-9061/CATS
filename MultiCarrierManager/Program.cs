@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MultiCarrierManager.CATS;
 
 namespace MultiCarrierManager {
     static class Program {
@@ -16,7 +17,13 @@ namespace MultiCarrierManager {
             settings = new SettingsManager("settings/settings.ini");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            if (settings.OpenToTraversal) {
+                Application.Run(new CATSForm());
+            } else {
+                Application.Run(new Form1());
+            }
+            
         }
     }
 }

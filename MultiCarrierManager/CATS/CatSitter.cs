@@ -14,8 +14,6 @@ namespace MultiCarrierManager.CATS {
         private Label countdownLabel;
         private Label etaLabel;
         public bool isRunning { get; set; }
-
-        public static bool isWindowOpen = false;
         
         public CatSitter(TextBox output, CATSForm form, Label countdownLabel, Label etaLabel) {
             this.output = output;

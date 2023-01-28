@@ -349,13 +349,13 @@ namespace MultiCarrierManager {
             init();
             statusLabel.Text = "Done";
         }
+        
 
         private void catsButton_Click(object sender, EventArgs e) {
-            if (!CatSitter.isWindowOpen) {
-                CatSitter.isWindowOpen = true;
-                CATSForm form = new CATSForm();
-                form.Show();
-            }
+            Hide();
+            CATSForm form = new CATSForm();
+            form.ShowDialog();
+            Close();
         }
 
         private long GetCommanderValue(JObject cmdr, JObject carrier) {
@@ -451,6 +451,10 @@ namespace MultiCarrierManager {
             else {
                 Program.settings.SetUsageStats(true);
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+            
         }
     }
 }
