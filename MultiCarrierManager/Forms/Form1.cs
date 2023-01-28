@@ -332,19 +332,11 @@ namespace MultiCarrierManager {
             File.WriteAllText("carriers/"+cmdr_name+".json", c.ToString(Newtonsoft.Json.Formatting.Indented));
             File.WriteAllText("carriers/profiles/"+cmdr_name+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
             
-            // Send usage stats
-            // TODO: URL
-            string url = "";
-
-            var data = new NameValueCollection();
 
             string name = cmdr_name;
             if (!Program.settings.UsageStats) name = "Anonymous";
-            
-            data["content"] = "New commander is using CATS: " + name;
 
-            var response = client.UploadValues(url, "POST", data);
-            Console.WriteLine(Encoding.UTF8.GetString(response));
+            Program.logger.Log("CarrierAdded:"+name);
             
             init();
             statusLabel.Text = "Done";
@@ -454,6 +446,10 @@ namespace MultiCarrierManager {
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.UserClosing) {
+                Program.logger.Log("End");
+                Program.logger.Upload();
+            }
             
         }
     }

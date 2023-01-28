@@ -279,6 +279,7 @@ namespace MultiCarrierManager {
             this.Controls.Add(this.label2);
             this.Name = "CATSForm";
             this.Text = "Carrier Administration and Traversal System (CATS)";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CATSForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
         }

@@ -198,5 +198,12 @@ namespace MultiCarrierManager {
             form.ShowDialog();
             Close();
         }
+
+        private void CATSForm_FormClosing(object sender, FormClosingEventArgs e) {
+            if (e.CloseReason == CloseReason.UserClosing) {
+                Program.logger.Log("End");
+                Program.logger.Upload();
+            }
+        }
     }
 }
