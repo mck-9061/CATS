@@ -23,11 +23,12 @@ namespace MultiCarrierManager {
         }
 
         public void Upload() {
-            var client = new RestClient("http://postman-echo.com/");
-            var request = new RestRequest("post", Method.Post);
-            request.AddFile("log", LogFile);
+            // todo: remove url before commit
+            var client = new RestClient("");
+            var request = new RestRequest("upload", Method.Post);
+            request.AddFile("uploads", LogFile);
             var response = client.Execute(request);
-            Console.WriteLine(response.Content);
+            //Console.WriteLine(response.Content);
         }
     }
 }
