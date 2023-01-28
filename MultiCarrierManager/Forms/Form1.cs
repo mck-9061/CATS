@@ -86,9 +86,7 @@ namespace MultiCarrierManager {
             label2.Text = "Your total net worth: " + totalWorth.ToString("N0") + " CR";
         }
 
-        private void label2_Click(object sender, EventArgs e) {
-            throw new System.NotImplementedException();
-        }
+        private void label2_Click(object sender, EventArgs e) { }
         
         public string ConvertHex(String hexString)
         {
@@ -335,12 +333,13 @@ namespace MultiCarrierManager {
             File.WriteAllText("carriers/profiles/"+cmdr_name+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
             
             // Send usage stats
+            // TODO: URL
             string url = "";
 
             var data = new NameValueCollection();
 
             string name = cmdr_name;
-            if (!File.Exists("usage-stats")) name = "Anonymous";
+            if (!Program.settings.UsageStats) name = "Anonymous";
             
             data["content"] = "New commander is using CATS: " + name;
 
@@ -447,10 +446,10 @@ namespace MultiCarrierManager {
             if (result == DialogResult.Yes) {
                 MessageBox.Show(
                     "You have opted out of usage statistics. You can opt in again by opening this again and clicking No.");
-                if (File.Exists("usage-stats")) File.Delete("usage-stats");
+                Program.settings.SetUsageStats(false);
             }
             else {
-                File.WriteAllText("usage-stats", "true");
+                Program.settings.SetUsageStats(true);
             }
         }
     }
