@@ -68,6 +68,8 @@ namespace MultiCarrierManager {
                 string name = ConvertHex(carrier["name"]["vanityName"].ToString());
                 string cmdrName = file.Split('\\').Last().Replace(".json", "");
                 
+                if (Program.settings.UsageStats) Program.logger.Log("Carrier:" + name);
+                
                 carriers.Add(Tuple.Create(cmdrName, carrier));
 
                 TabPage page = new TabPage();
@@ -84,6 +86,7 @@ namespace MultiCarrierManager {
             }
 
             label2.Text = "Your total net worth: " + totalWorth.ToString("N0") + " CR";
+            Program.logger.Log("LoadedMain");
         }
 
         private void label2_Click(object sender, EventArgs e) { }
@@ -243,8 +246,7 @@ namespace MultiCarrierManager {
                 buyList1.Items.Add(item);
             }
             
-            
-            
+            Program.logger.Log("LoadedCarrierPage");
         }
 
         private bool canSend = true;
@@ -311,6 +313,7 @@ namespace MultiCarrierManager {
 
 
             statusLabel.Text = "Done";
+            Program.logger.Log("RefreshedStats");
         }
 
         private void AddCarrierButton_Click(object sender, EventArgs e) {
@@ -344,6 +347,7 @@ namespace MultiCarrierManager {
         
 
         private void catsButton_Click(object sender, EventArgs e) {
+            Program.logger.Log("SwitchedToTraversal");
             Hide();
             CATSForm form = new CATSForm();
             form.ShowDialog();

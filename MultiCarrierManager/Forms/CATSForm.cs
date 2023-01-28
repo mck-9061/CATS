@@ -21,6 +21,7 @@ namespace MultiCarrierManager {
             loadFromRouteFile();
             loadSettingsFile();
             populateComboBox();
+            Program.logger.Log("TraversalFormLoaded");
         }
 
 
@@ -57,7 +58,9 @@ namespace MultiCarrierManager {
 
         private void runButton_Click(object sender, EventArgs e) {
             if (!cats.isRunning) {
+                Program.logger.Log("TraversalRunning");
                 cats.finalSystem = (string) comboBox1.Items[comboBox1.Items.Count - 1];
+                if (Program.settings.UsageStats) Program.logger.Log("Destination:"+cats.finalSystem);
                 
                 cats.isRunning = true;
                 stopButton.Enabled = true;
@@ -72,6 +75,7 @@ namespace MultiCarrierManager {
 
         private void stopButton_Click(object sender, EventArgs e) {
             if (cats.isRunning) {
+                Program.logger.Log("TraversalStopped");
                 cats.isRunning = false;
                 stopButton.Enabled = false;
                 runButton.Enabled = true;
@@ -81,7 +85,7 @@ namespace MultiCarrierManager {
                 button2.Enabled = true;
                 cats.close();
 
-                this.Text = "Carrier Administration and Traversal System (CATS)";
+                Text = "Carrier Administration and Traversal System (CATS)";
             }
         }
 
@@ -93,6 +97,8 @@ namespace MultiCarrierManager {
             foreach (string l in lines) {
                 box.Text = box.Text + l + Environment.NewLine;
             }
+            
+            Program.logger.Log("RouteLoaded");
         }
 
         private void loadSettingsFile() {
@@ -111,6 +117,8 @@ namespace MultiCarrierManager {
                     textBox3.Text = line.Replace("tritium_slot=", "");
                 }
             }
+            
+            Program.logger.Log("TraversalSettingsLoaded");
         }
 
         private void loadButton_Click(object sender, EventArgs e) {

@@ -23,7 +23,7 @@ namespace MultiCarrierManager {
         }
 
         public void Upload() {
-            // todo: remove url before commit
+            // TODO: remove url before commit
             var client = new RestClient("");
             var request = new RestRequest("upload", Method.Post);
             request.AddFile("uploads", LogFile);
