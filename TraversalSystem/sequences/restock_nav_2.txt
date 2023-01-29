@@ -1,4 +1,4 @@
-left:10
+d:10
 space
 space
 backspace

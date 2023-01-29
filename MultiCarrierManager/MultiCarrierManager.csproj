@@ -32,8 +32,9 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
-      <PostBuildEvent>echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem" "$(OutDir)CATS" &amp;&amp; echo F|xcopy /Y "$(SolutionDir)MultiCarrierManager\settings.ini" "$(OutDir)settings\settings.ini"</PostBuildEvent>
+      <PostBuildEvent>echo D|xcopy /E /Y /S "$(TargetDir)" "$(ProjectDir)bin\patch\" &amp;&amp; echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem" "$(TargetDir)CATS" &amp;&amp; echo F|xcopy /Y "$(SolutionDir)MultiCarrierManager\settings.ini" "$(TargetDir)settings\settings.ini"</PostBuildEvent>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">

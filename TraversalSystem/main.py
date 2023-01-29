@@ -146,7 +146,7 @@ def restock_tritium():
         follow_button_sequence("restock_nav_1.txt")
 
         for i in range(tritium_slot):
-            pydirectinput.press('up')
+            pydirectinput.press('w')
             time.sleep(slight_random_time(0.1))
 
         follow_button_sequence("restock_nav_2.txt")

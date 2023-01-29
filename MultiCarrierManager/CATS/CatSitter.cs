@@ -33,6 +33,7 @@ namespace MultiCarrierManager.CATS {
             process.StartInfo.WorkingDirectory = "CATS";
             process.StartInfo.Arguments = "-u main.py";
             if (!Program.settings.AutoPlot) process.StartInfo.Arguments += " --manual";
+            else process.StartInfo.Arguments += " --auto";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.OutputDataReceived += new DataReceivedEventHandler((s2, e2) => {
