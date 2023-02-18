@@ -29,8 +29,9 @@ namespace MultiCarrierManager {
             {
                 { "source", textBox1.Text },
                 { "destinations", textBox2.Text },
+                // todo: change this to the carrier's used capacity minus tritium in market
                 { "capacity_used", "0" },
-                { "calculate_starting_fuel", "0" }
+                { "calculate_starting_fuel", "1" }
             };
 
             var content = new FormUrlEncodedContent(values);
@@ -63,7 +64,10 @@ namespace MultiCarrierManager {
             JObject parsed = JObject.Parse(responseString);
             JToken jumps = parsed["result"]["jumps"];
             List<string> destinations = new List<string>();
-
+            
+            
+            Console.WriteLine(jumps[0]["tritium_in_market"].ToString());
+            
             foreach (JToken jump in jumps) {
                 destinations.Add(jump["name"].ToString());
             }
