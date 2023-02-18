@@ -45,6 +45,6 @@ Use of programs like this is technically against Frontier's TOS. While they have
 Use of the admin interface without the traversal system carries no risk, as it's simply reading from FDev's API.
 
 ## Privacy
-By default, usage statistics are sent to the developer. You can opt out of this easily, just use the privacy button on the main menu.
+By default, usage statistics are sent to the developer. You can anonymise these in the options menu.
 <br><br>
 o7
