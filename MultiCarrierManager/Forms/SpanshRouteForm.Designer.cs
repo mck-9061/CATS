@@ -26,6 +26,7 @@ namespace MultiCarrierManager {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpanshRouteForm));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -96,6 +97,7 @@ namespace MultiCarrierManager {
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SpanshRouteForm";
             this.Text = "Get route from Spansh";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpanshRouteForm_FormClosing_1);
