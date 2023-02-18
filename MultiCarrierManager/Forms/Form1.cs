@@ -24,6 +24,9 @@ namespace MultiCarrierManager {
             InitializeComponent();
             this.Shown += new System.EventHandler(this.Form1_Shown);
         }
+        // lord above why did I not use objects for this....
+        // i wrote this fucking code like 2 months ago why is it this bad
+        // what was i thinking
         List<Tuple<string, JObject>> carriers = new List<Tuple<string, JObject>>();
 
         private WebClient client = new WebClient();

@@ -30,6 +30,8 @@ namespace MultiCarrierManager {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -66,11 +68,30 @@ namespace MultiCarrierManager {
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(414, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(294, 23);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "label2";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(414, 35);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(294, 21);
+            this.comboBox1.TabIndex = 5;
+            // 
             // SpanshRouteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 130);
+            this.ClientSize = new System.Drawing.Size(720, 130);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -78,9 +99,13 @@ namespace MultiCarrierManager {
             this.Name = "SpanshRouteForm";
             this.Text = "Get route from Spansh";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpanshRouteForm_FormClosing_1);
+            this.Load += new System.EventHandler(this.SpanshRouteForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;

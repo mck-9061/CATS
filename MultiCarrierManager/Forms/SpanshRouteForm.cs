@@ -78,5 +78,48 @@ namespace MultiCarrierManager {
 
             Close();
         }
+
+        private void SpanshRouteForm_Load(object sender, EventArgs e) {
+            if (Program.settings.GetTritium) {
+                label2.Text = "Select carrier for Tritium requirements:";
+                comboBox1.Enabled = true;
+                
+                // Populate combo box with carriers
+                string[] files = Directory.GetFiles("carriers");
+                foreach (string file in files) {
+                    string text = File.ReadAllText(file);
+                    JObject carrier = JObject.Parse(text);
+                    string name = ConvertHex(carrier["name"]["vanityName"].ToString());
+                    comboBox1.Items.Add(name);
+                }
+            } else {
+                label2.Text = "Turn on Tritium requirements in settings to select carrier.";
+                comboBox1.Enabled = false;
+            }
+        }
+        
+        public string ConvertHex(String hexString)
+        {
+            try
+            {
+                string ascii = string.Empty;
+
+                for (int i = 0; i < hexString.Length; i += 2)
+                {
+                    String hs = string.Empty;
+
+                    hs   = hexString.Substring(i,2);
+                    uint decval =   System.Convert.ToUInt32(hs, 16);
+                    char character = System.Convert.ToChar(decval);
+                    ascii += character;
+
+                }
+
+                return ascii;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+            return string.Empty;
+        }
     }
 }
