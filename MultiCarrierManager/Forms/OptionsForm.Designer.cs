@@ -93,6 +93,7 @@ namespace MultiCarrierManager {
             this.Controls.Add(this.checkBox1);
             this.Name = "OptionsForm";
             this.Text = "Options";
+            this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.ResumeLayout(false);
         }
 
