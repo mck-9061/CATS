@@ -184,7 +184,6 @@
             <DependentUpon>Settings.settings</DependentUpon>
             <DesignTimeSharedInput>True</DesignTimeSharedInput>
         </Compile>
-        <None Include="StandardDockingComputer_Ingame.png" />
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />

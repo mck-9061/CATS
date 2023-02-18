@@ -17,6 +17,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * Discord integration
 * Import routes from the Spansh fleet carrier router
 * Generate routes between two systems automatically using Spansh's API
+* Checks if you have enough Tritium for the route
 
 ## Limitations
 * This only works on Windows and probably won't be ported to anything else.
