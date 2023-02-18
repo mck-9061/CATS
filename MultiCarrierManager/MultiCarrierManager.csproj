@@ -7,11 +7,12 @@
         <ProjectGuid>{D70A1006-80F3-4E20-B024-08EE898D25CF}</ProjectGuid>
         <OutputType>Exe</OutputType>
         <RootNamespace>MultiCarrierManager</RootNamespace>
-        <AssemblyName>MultiCarrierManager</AssemblyName>
+        <AssemblyName>CATS</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
         <Deterministic>true</Deterministic>
+        <ApplicationIcon>icon.ico</ApplicationIcon>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +35,7 @@
     </PropertyGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <PropertyGroup>
-      <PostBuildEvent>echo D|xcopy /E /Y /S "$(TargetDir)" "$(ProjectDir)bin\patch\" &amp;&amp; echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem" "$(TargetDir)CATS" &amp;&amp; echo F|xcopy /Y "$(SolutionDir)MultiCarrierManager\settings.ini" "$(TargetDir)settings\settings.ini"</PostBuildEvent>
+      <PostBuildEvent>echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem" "$(TargetDir)CATS" &amp;&amp; echo F|xcopy /Y "$(SolutionDir)MultiCarrierManager\settings.ini" "$(TargetDir)settings\settings.ini"</PostBuildEvent>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
@@ -135,6 +136,12 @@
         <Compile Include="Forms\Form1.Designer.cs">
           <DependentUpon>Form1.cs</DependentUpon>
         </Compile>
+        <Compile Include="Forms\OptionsForm.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="Forms\OptionsForm.Designer.cs">
+          <DependentUpon>OptionsForm.cs</DependentUpon>
+        </Compile>
         <Compile Include="Forms\SpanshRouteForm.cs">
           <SubType>Form</SubType>
         </Compile>
@@ -151,6 +158,9 @@
         <EmbeddedResource Include="Forms\Form1.resx">
           <DependentUpon>Form1.cs</DependentUpon>
         </EmbeddedResource>
+        <EmbeddedResource Include="Forms\OptionsForm.resx">
+          <DependentUpon>OptionsForm.cs</DependentUpon>
+        </EmbeddedResource>
         <EmbeddedResource Include="Forms\SpanshRouteForm.resx">
           <DependentUpon>SpanshRouteForm.cs</DependentUpon>
         </EmbeddedResource>
@@ -163,6 +173,7 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Resources.resx</DependentUpon>
         </Compile>
+        <None Include="icon.ico" />
         <None Include="packages.config" />
         <None Include="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>

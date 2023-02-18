@@ -37,6 +37,7 @@ namespace MultiCarrierManager {
             System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] { "Bartender", "Available" }, -1);
             System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] { "Vista Genomics", "Available" }, -1);
             System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] { "Pioneer Supplies", "Available" }, -1);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.managerTab = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -187,7 +188,7 @@ namespace MultiCarrierManager {
             this.catsButton.Name = "catsButton";
             this.catsButton.Size = new System.Drawing.Size(154, 41);
             this.catsButton.TabIndex = 4;
-            this.catsButton.Text = "Open CATS";
+            this.catsButton.Text = "Open Traversal System";
             this.catsButton.UseVisualStyleBackColor = true;
             this.catsButton.Click += new System.EventHandler(this.catsButton_Click);
             // 
@@ -473,6 +474,7 @@ namespace MultiCarrierManager {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 564);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "ED Multi Carrier Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

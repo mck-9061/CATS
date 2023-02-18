@@ -10,6 +10,7 @@ namespace MultiCarrierManager {
         public bool UsageStats { get; private set; }
         public bool AutoPlot { get; private set; }
         public bool OpenToTraversal { get; private set; }
+        public bool GetTritium { get; private set; }
 
         public SettingsManager(string file) {
             FileName = file;
@@ -52,6 +53,11 @@ namespace MultiCarrierManager {
         public void SetOpenToTraversal(bool b) {
             OpenToTraversal = b;
             ReplaceInArray("open-to-traversal", b);
+        }
+
+        public void SetGetTritium(bool b) {
+            GetTritium = b;
+            ReplaceInArray("get-tritium", b);
         }
     }
 }

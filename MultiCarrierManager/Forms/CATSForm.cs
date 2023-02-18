@@ -213,5 +213,10 @@ namespace MultiCarrierManager {
                 Program.logger.Upload();
             }
         }
+
+        private void OptionsButton_Click(object sender, EventArgs e) {
+            OptionsForm form = new OptionsForm();
+            form.ShowDialog();
+        }
     }
 }

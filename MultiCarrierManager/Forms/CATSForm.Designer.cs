@@ -26,6 +26,7 @@ namespace MultiCarrierManager {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CATSForm));
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -47,6 +48,7 @@ namespace MultiCarrierManager {
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.OptionsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -73,13 +75,13 @@ namespace MultiCarrierManager {
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(651, 324);
+            this.textBox2.Size = new System.Drawing.Size(651, 315);
             this.textBox2.TabIndex = 7;
             // 
             // runButton
             // 
             this.runButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.runButton.Location = new System.Drawing.Point(12, 484);
+            this.runButton.Location = new System.Drawing.Point(12, 475);
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(651, 29);
             this.runButton.TabIndex = 8;
@@ -91,7 +93,7 @@ namespace MultiCarrierManager {
             // 
             this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.stopButton.Enabled = false;
-            this.stopButton.Location = new System.Drawing.Point(12, 519);
+            this.stopButton.Location = new System.Drawing.Point(12, 510);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(651, 29);
             this.stopButton.TabIndex = 9;
@@ -173,7 +175,7 @@ namespace MultiCarrierManager {
             // 
             this.button1.Location = new System.Drawing.Point(130, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(533, 28);
+            this.button1.Size = new System.Drawing.Size(406, 28);
             this.button1.TabIndex = 18;
             this.button1.Text = "Save all settings";
             this.button1.UseVisualStyleBackColor = true;
@@ -184,7 +186,7 @@ namespace MultiCarrierManager {
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(130, 460);
+            this.comboBox1.Location = new System.Drawing.Point(130, 451);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(533, 21);
             this.comboBox1.TabIndex = 19;
@@ -193,7 +195,7 @@ namespace MultiCarrierManager {
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 458);
+            this.label3.Location = new System.Drawing.Point(12, 449);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 23);
             this.label3.TabIndex = 20;
@@ -207,16 +209,16 @@ namespace MultiCarrierManager {
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(372, 460);
+            this.textBox1.Size = new System.Drawing.Size(355, 451);
             this.textBox1.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(669, 522);
+            this.label1.Location = new System.Drawing.Point(669, 513);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(372, 23);
+            this.label1.Size = new System.Drawing.Size(355, 23);
             this.label1.TabIndex = 22;
             this.label1.Text = "Current jump:";
             // 
@@ -224,9 +226,9 @@ namespace MultiCarrierManager {
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(669, 487);
+            this.label4.Location = new System.Drawing.Point(669, 478);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(372, 23);
+            this.label4.Size = new System.Drawing.Size(355, 23);
             this.label4.TabIndex = 23;
             this.label4.Text = "ETA:";
             // 
@@ -250,12 +252,23 @@ namespace MultiCarrierManager {
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // OptionsButton
+            // 
+            this.OptionsButton.Location = new System.Drawing.Point(542, 4);
+            this.OptionsButton.Name = "OptionsButton";
+            this.OptionsButton.Size = new System.Drawing.Size(121, 28);
+            this.OptionsButton.TabIndex = 26;
+            this.OptionsButton.Text = "Options";
+            this.OptionsButton.UseVisualStyleBackColor = true;
+            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
+            // 
             // CATSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1053, 559);
+            this.ClientSize = new System.Drawing.Size(1036, 550);
+            this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label4);
@@ -277,12 +290,15 @@ namespace MultiCarrierManager {
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CATSForm";
             this.Text = "Carrier Administration and Traversal System (CATS)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CATSForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button OptionsButton;
 
         private System.Windows.Forms.Button button3;
 
