@@ -327,6 +327,8 @@ namespace MultiCarrierManager {
             Console.WriteLine(req.AuthURL);
             auth = req.GetAuth();
             
+            //auth.Save("temp");
+            
             var capi = new CAPI(auth);
             var profile = capi.GetProfile();
 
