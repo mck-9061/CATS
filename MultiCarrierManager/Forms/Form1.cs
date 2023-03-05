@@ -420,12 +420,24 @@ namespace MultiCarrierManager {
                     value += long.Parse(token["crewMember"]["hiringPrice"].ToString());
                     carrierValue += long.Parse(token["crewMember"]["hiringPrice"].ToString());
                 }
+                catch (FormatException e) {
+                    Console.WriteLine("Null carrier service found");
+                }
                 catch (Exception e) {
-                    foreach (JToken t in token) {
-                        // again, really fucking stupid
-                        value += long.Parse(t["crewMember"]["hiringPrice"].ToString());
-                        carrierValue += long.Parse(t["crewMember"]["hiringPrice"].ToString());
+                    try {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(e.StackTrace);
+                        foreach (JToken t in token) {
+                            // again, really fucking stupid
+                            value += long.Parse(t["crewMember"]["hiringPrice"].ToString());
+                            carrierValue += long.Parse(t["crewMember"]["hiringPrice"].ToString());
+                        }
                     }
+                    catch (FormatException e2) {
+                        // I hate fdev
+                        Console.WriteLine("Null carrier service found");
+                    }
+                    
                 }
             }
 
