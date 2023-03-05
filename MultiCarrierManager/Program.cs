@@ -36,6 +36,8 @@ namespace MultiCarrierManager {
                 List<String> allowedReleases = new List<string>();
                 allowedReleases.Add("1.1.1");
                 allowedReleases.Add("1.2");
+                allowedReleases.Add("1.2.1");
+                allowedReleases.Add("1.2.2");
                 
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");
