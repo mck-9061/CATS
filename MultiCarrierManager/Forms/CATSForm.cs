@@ -50,9 +50,14 @@ namespace MultiCarrierManager {
             box.SelectedIndex = 0;
 
             if (File.Exists("CATS\\save.txt")) {
-                int index = Convert.ToInt32(File.ReadAllText("CATS\\save.txt"));
-                if (index == 0) File.Delete("CATS\\save.txt");
-                else box.SelectedIndex = index;
+                try {
+                    int index = Convert.ToInt32(File.ReadAllText("CATS\\save.txt"));
+                    if (index == 0) File.Delete("CATS\\save.txt");
+                    else box.SelectedIndex = index;
+                } catch (Exception) {
+                    File.Delete("CATS\\save.txt");
+                    box.SelectedIndex = 0;
+                }
             }
         }
 

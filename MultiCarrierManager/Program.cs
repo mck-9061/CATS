@@ -18,6 +18,9 @@ namespace MultiCarrierManager {
         /// 
         [STAThread]
         static void Main() {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(ErrorPopupHandler);
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(ErrorPopupHandler);
+            
             settings = new SettingsManager("settings/settings.ini");
             logger = new Logger();
             Application.EnableVisualStyles();
@@ -34,10 +37,9 @@ namespace MultiCarrierManager {
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("1.1.1");
-                allowedReleases.Add("1.2");
-                allowedReleases.Add("1.2.1");
                 allowedReleases.Add("1.2.2");
+                allowedReleases.Add("1.3");
+                logger.Log("Version: 1.3");
                 
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");
@@ -55,6 +57,23 @@ namespace MultiCarrierManager {
                 Application.Run(new Form1());
             }
             
+        }
+
+
+        static void ErrorPopupHandler(object sender, UnhandledExceptionEventArgs args) {
+            Exception e = (Exception) args.ExceptionObject;
+            Console.Error.WriteLine(e.Message);
+            Console.Error.WriteLine(e.StackTrace);
+            logger.LogError(e.Message);
+            logger.LogError(e.StackTrace);
+        }
+        
+        static void ErrorPopupHandler(object sender, System.Threading.ThreadExceptionEventArgs args) {
+            Exception e = (Exception) args.Exception;
+            Console.Error.WriteLine(e.Message);
+            Console.Error.WriteLine(e.StackTrace);
+            logger.LogError(e.Message);
+            logger.LogError(e.StackTrace);
         }
     }
 }

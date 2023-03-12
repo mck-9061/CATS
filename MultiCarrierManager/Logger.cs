@@ -18,7 +18,23 @@ namespace MultiCarrierManager {
         }
 
         public void Log(string l) {
-            LogLines.Add(l);
+            LogLines.Add("[Event] [" + DateTime.Now.ToString("dd-MM-yy hh:mm:ss") + "] " + l);
+            File.WriteAllLines(LogFile, LogLines.ToArray());
+        }
+
+        public void LogOutput(string l) {
+            Console.WriteLine(l);
+            LogLines.Add("[Program Output] [" + DateTime.Now.ToString("dd-MM-yy hh:mm:ss") + "] " + l);
+            File.WriteAllLines(LogFile, LogLines.ToArray());
+        }
+        
+        public void LogError(string l) {
+            LogLines.Add("[Error] [" + DateTime.Now.ToString("dd-MM-yy hh:mm:ss") + "] " + l);
+            File.WriteAllLines(LogFile, LogLines.ToArray());
+        }
+        
+        public void LogCats(string l) {
+            LogLines.Add("[CATS Output] [" + DateTime.Now.ToString("dd-MM-yy hh:mm:ss") + "] " + l);
             File.WriteAllLines(LogFile, LogLines.ToArray());
         }
 

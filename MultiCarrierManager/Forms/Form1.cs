@@ -113,7 +113,7 @@ namespace MultiCarrierManager {
 
                 return ascii;
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { Program.logger.LogOutput(ex.Message); }
 
             return string.Empty;
         }
@@ -274,7 +274,7 @@ namespace MultiCarrierManager {
                 {
                     statusLabel.Text = "Please re-authorize " + cmdr;
                     var req = OAuth2.Authorize();
-                    Console.WriteLine(req.AuthURL);
+                    Program.logger.LogOutput(req.AuthURL);
                     auth = req.GetAuth();
                 }
             
@@ -290,7 +290,7 @@ namespace MultiCarrierManager {
                 catch (WebException exception) {
                     statusLabel.Text = "Please re-authorize " + cmdr;
                     var req = OAuth2.Authorize();
-                    Console.WriteLine(req.AuthURL);
+                    Program.logger.LogOutput(req.AuthURL);
                     auth = req.GetAuth();
                     
                     capi = new CAPI(auth);
@@ -324,7 +324,7 @@ namespace MultiCarrierManager {
 
             OAuth2 auth = null;
             var req = OAuth2.Authorize();
-            Console.WriteLine(req.AuthURL);
+            Program.logger.LogOutput(req.AuthURL);
             auth = req.GetAuth();
             
             //auth.Save("temp");
@@ -361,7 +361,7 @@ namespace MultiCarrierManager {
 
         private long GetCommanderValue(JObject cmdr, JObject carrier) {
             ListViewItem item = new ListViewItem();
-            Console.WriteLine(cmdr["commander"]["name"].ToString());
+            Program.logger.LogOutput(cmdr["commander"]["name"].ToString());
             item.Text = cmdr["commander"]["name"].ToString();
             
             // Start at 5bil (carrier cost)
@@ -421,12 +421,12 @@ namespace MultiCarrierManager {
                     carrierValue += long.Parse(token["crewMember"]["hiringPrice"].ToString());
                 }
                 catch (FormatException e) {
-                    Console.WriteLine("Null carrier service found");
+                    Program.logger.LogOutput("Null carrier service found");
                 }
                 catch (Exception e) {
                     try {
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(e.StackTrace);
+                        Program.logger.LogOutput(e.Message);
+                        Program.logger.LogOutput(e.StackTrace);
                         foreach (JToken t in token) {
                             // again, really fucking stupid
                             value += long.Parse(t["crewMember"]["hiringPrice"].ToString());
@@ -435,7 +435,7 @@ namespace MultiCarrierManager {
                     }
                     catch (FormatException e2) {
                         // I hate fdev
-                        Console.WriteLine("Null carrier service found");
+                        Program.logger.LogOutput("Null carrier service found");
                     }
                     
                 }
@@ -448,22 +448,6 @@ namespace MultiCarrierManager {
             
 
             return value;
-        }
-
-        private void button1_Click(object sender, EventArgs e) {
-            DialogResult result = MessageBox.Show(
-                $"CATS sends usage statistics to the developer by default, which you can opt out of " +
-                $"if you want. {Environment.NewLine}{Environment.NewLine}Do you want to opt out?", "Privacy",
-                MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.Yes) {
-                MessageBox.Show(
-                    "You have opted out of usage statistics. You can opt in again by opening this again and clicking No.");
-                Program.settings.SetUsageStats(false);
-            }
-            else {
-                Program.settings.SetUsageStats(true);
-            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
