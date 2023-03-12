@@ -47,6 +47,7 @@ namespace MultiCarrierManager.CATS {
                     try {
                         string line = e2.Data;
                         output.AppendText(line + Environment.NewLine);
+                        Program.logger.LogCats(line);
 
                         if (line == "Beginning in 5...") {
                             form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Starting up...";
@@ -81,7 +82,7 @@ namespace MultiCarrierManager.CATS {
                         }
                     }
                     catch (Exception e) {
-                        Console.WriteLine("Exception while writing to console, possible force CATS process kill");
+                        Program.logger.LogOutput("Exception while writing to console, possible force CATS process kill");
                     }
                 }
             });

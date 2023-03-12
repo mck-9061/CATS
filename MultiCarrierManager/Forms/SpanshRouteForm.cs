@@ -45,7 +45,7 @@ namespace MultiCarrierManager {
                         usedCapacity = 25000 - Convert.ToInt32(carrier["capacity"]["freeSpace"]) - tritInMarket;
                         
                         tritInMarket += Convert.ToInt32(carrier["fuel"]);
-                        Console.WriteLine(tritInMarket);
+                        Program.logger.LogOutput(Convert.ToString(tritInMarket));
                     }
                 }
             }
@@ -60,11 +60,11 @@ namespace MultiCarrierManager {
 
             var content = new FormUrlEncodedContent(values);
 
-            Console.WriteLine("Sending...");
+            Program.logger.LogOutput("Sending...");
             var response = await client.PostAsync("https://spansh.co.uk/api/fleetcarrier/route", content);
-            Console.WriteLine(response.StatusCode.ToString());
+            Program.logger.LogOutput(response.StatusCode.ToString());
             var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(responseString);
+            Program.logger.LogOutput(responseString);
 
             label1.Text = "Waiting for route...";
 
@@ -72,11 +72,11 @@ namespace MultiCarrierManager {
             // Send requests for route
             do {
                 System.Threading.Thread.Sleep(3000);
-                Console.WriteLine(responseString.Split('"')[3]);
+                Program.logger.LogOutput(responseString.Split('"')[3]);
                 response = await client.GetAsync("https://spansh.co.uk/api/results/" + responseString.Split('"')[3]);
 
                 responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseString);
+                Program.logger.LogOutput(responseString);
             } while (responseString.Split('"')[1] != "error" && (responseString.Split('"')[7] == "started" || responseString.Split('"')[7] == "unstarted"));
 
             if (responseString.Split('"')[1] == "error") {
@@ -154,7 +154,7 @@ namespace MultiCarrierManager {
 
                 return ascii;
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { Program.logger.LogOutput(ex.Message); }
 
             return string.Empty;
         }
