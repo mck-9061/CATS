@@ -40,7 +40,6 @@ namespace MultiCarrierManager {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.managerTab = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
@@ -104,7 +103,6 @@ namespace MultiCarrierManager {
             // 
             // managerTab
             // 
-            this.managerTab.Controls.Add(this.button1);
             this.managerTab.Controls.Add(this.label2);
             this.managerTab.Controls.Add(this.listView1);
             this.managerTab.Controls.Add(this.catsButton);
@@ -118,16 +116,6 @@ namespace MultiCarrierManager {
             this.managerTab.TabIndex = 0;
             this.managerTab.Text = "Manager";
             this.managerTab.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(890, 507);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 21);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Privacy...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -483,8 +471,6 @@ namespace MultiCarrierManager {
             this.carrierTemplate.ResumeLayout(false);
             this.ResumeLayout(false);
         }
-
-        private System.Windows.Forms.Button button1;
 
         private System.Windows.Forms.Label label2;
 

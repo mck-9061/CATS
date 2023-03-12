@@ -450,22 +450,6 @@ namespace MultiCarrierManager {
             return value;
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-            DialogResult result = MessageBox.Show(
-                $"CATS sends usage statistics to the developer by default, which you can opt out of " +
-                $"if you want. {Environment.NewLine}{Environment.NewLine}Do you want to opt out?", "Privacy",
-                MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.Yes) {
-                MessageBox.Show(
-                    "You have opted out of usage statistics. You can opt in again by opening this again and clicking No.");
-                Program.settings.SetUsageStats(false);
-            }
-            else {
-                Program.settings.SetUsageStats(true);
-            }
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
             if (e.CloseReason == CloseReason.UserClosing) {
                 Program.logger.Log("End");
