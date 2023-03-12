@@ -13,6 +13,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * Automatic jump plotting
 * Tritium restocking
 * Route time estimations
+* GUI
 * Keeps track of jump time (in case a jump is longer than 15 minutes)
 * Discord integration
 * Import routes from the Spansh fleet carrier router
@@ -22,7 +23,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 ## Limitations
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
-* The traversal system currently only works on displays running at 1920x1080, assumes Elite is on your primary display, and assumes Elite is also running at 1920x1080.
+* The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested. If it doesn't work with your display, feel free to reach out on Discord or open an issue on GitHub.
 * If you come across a problem, feel free to open an issue on GitHub or shoot me a message on Discord at mck#9061
 
 ## Installation

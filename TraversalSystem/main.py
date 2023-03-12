@@ -25,12 +25,16 @@ import threading
 import pyperclip
 import datetime
 import sys
+import ctypes
 
 import journalwatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
 from screenreader import time_until_jump
 
 import pygetwindow as gw
+
+user32 = ctypes.windll.user32
+ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
 # ----Options----
 # How many up presses to reach tritium in carrier hold:
@@ -49,6 +53,19 @@ webhook_url = ""
 
 global journal_directory
 journal_directory = ""
+
+
+# Get the screen resolution
+screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+
+# Get the ratio of the screen resolution to 1920x1080
+global width_ratio
+global height_ratio
+width_ratio = screen_width / 1920
+height_ratio = screen_height / 1080
+
+print("Screen resolution: " + str(screen_width) + "x" + str(screen_height))
+
 
 
 def load_settings():
@@ -155,6 +172,8 @@ def restock_tritium():
 
 
 def jump_to_system(system_name):
+    global width_ratio
+    global height_ratio
     if sys.argv[1] == "--manual":
         # Manual jumping
         pyperclip.copy(system_name.lower())
@@ -185,9 +204,9 @@ def jump_to_system(system_name):
 
     follow_button_sequence("jump_nav_1.txt")
 
-    pyautogui.moveTo(921, 115)
+    pyautogui.moveTo(921*width_ratio, 115*height_ratio)
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(930, 115)
+    pyautogui.moveTo(930*width_ratio, 115*height_ratio)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     pyperclip.copy(system_name.lower())
@@ -199,11 +218,11 @@ def jump_to_system(system_name):
     pydirectinput.keyUp("ctrl")
     time.sleep(slight_random_time(3.0))
     # pydirectinput.press('down')
-    pyautogui.moveTo(930, 150)
+    pyautogui.moveTo(930*width_ratio, 150*height_ratio)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(1496, 422)
+    pyautogui.moveTo(1496*width_ratio, 422*height_ratio)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
 
