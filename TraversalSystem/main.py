@@ -182,14 +182,14 @@ def jump_to_system(system_name):
         while journalwatcher.last_carrier_request() != system_name:
             time.sleep(1)
 
-        timeToJump = time_until_jump()
+        timeToJump = time_until_jump(width_ratio, height_ratio)
         print(timeToJump.strip())
 
         failCount = 0
 
         while len(timeToJump.split(':')) == 1:
             print("Trying again... (" + str(failCount) + ")")
-            timeToJump = time_until_jump()
+            timeToJump = time_until_jump(width_ratio, height_ratio)
             print(timeToJump.strip())
             failCount += 1
 
@@ -241,14 +241,14 @@ def jump_to_system(system_name):
         follow_button_sequence("jump_fail.txt")
         return 0
 
-    timeToJump = time_until_jump()
+    timeToJump = time_until_jump(width_ratio, height_ratio)
     print(timeToJump.strip())
 
     failCount = 0
 
     while len(timeToJump.split(':')) == 1:
         print("Trying again... (" + str(failCount) + ")")
-        timeToJump = time_until_jump()
+        timeToJump = time_until_jump(width_ratio, height_ratio)
         print(timeToJump.strip())
         failCount += 1
 
