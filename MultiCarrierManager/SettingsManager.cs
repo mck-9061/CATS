@@ -23,6 +23,8 @@ namespace MultiCarrierManager {
                     AutoPlot = Convert.ToBoolean(line.Split('=')[1]);
                 } else if (line.StartsWith("open-to-traversal")) {
                     OpenToTraversal = Convert.ToBoolean(line.Split('=')[1]);
+                } else if (line.StartsWith("get-tritium")) {
+                    GetTritium = Convert.ToBoolean(line.Split('=')[1]);
                 }
             }
         }
