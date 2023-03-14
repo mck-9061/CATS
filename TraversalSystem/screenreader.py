@@ -5,6 +5,7 @@ import pyscreenshot as ImageGrab
 
 pytesseract.pytesseract.tesseract_cmd = "tesseract\\tesseract.exe"
 
+
 def text_in_box(x1, y1, x2, y2, skipProcess=False):
     try:
         os.remove("ss.png")
@@ -35,5 +36,5 @@ def text_in_box(x1, y1, x2, y2, skipProcess=False):
     return pytesseract.image_to_string(tessImage, config=custom_config)
 
 
-def time_until_jump():
-    return text_in_box(1478, 1008, 1554, 1027, True)
+def time_until_jump(width_ratio, height_ratio):
+    return text_in_box(int(1478 * width_ratio), int(1008 * height_ratio), int(1554 * width_ratio), int(1027 * height_ratio), True)
