@@ -47,7 +47,7 @@ namespace MultiCarrierManager.CATS {
                     try {
                         string line = e2.Data;
                         output.AppendText(line + Environment.NewLine);
-                        Program.logger.LogCats(line);
+                        if (!(line.StartsWith("journal_directory=") && !Program.settings.UsageStats)) Program.logger.LogCats(line);
 
                         if (line == "Beginning in 5...") {
                             form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Starting up...";
