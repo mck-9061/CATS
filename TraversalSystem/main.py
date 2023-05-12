@@ -187,7 +187,7 @@ def jump_to_system(system_name):
 
         failCount = 0
 
-        while len(timeToJump.split(':')) == 1:
+        while len(timeToJump.split(':')) != 3:
             print("Trying again... (" + str(failCount) + ")")
             timeToJump = time_until_jump(width_ratio, height_ratio)
             print(timeToJump.strip())
@@ -222,7 +222,7 @@ def jump_to_system(system_name):
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(1496*width_ratio, 422*height_ratio)
+    pyautogui.moveTo(1496*width_ratio, 400*height_ratio)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
 
@@ -246,7 +246,7 @@ def jump_to_system(system_name):
 
     failCount = 0
 
-    while len(timeToJump.split(':')) == 1:
+    while len(timeToJump.split(':')) != 3:
         print("Trying again... (" + str(failCount) + ")")
         timeToJump = time_until_jump(width_ratio, height_ratio)
         print(timeToJump.strip())
