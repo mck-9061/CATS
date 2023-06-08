@@ -37,7 +37,7 @@ namespace MultiCarrierManager {
             LogLines.Add("[CATS Output] [" + DateTime.Now.ToString("dd-MM-yy hh:mm:ss") + "] " + l);
             File.WriteAllLines(LogFile, LogLines.ToArray());
         }
-
+        
         public void Upload() {
             // TODO: remove url before commit
             var client = new RestClient("");

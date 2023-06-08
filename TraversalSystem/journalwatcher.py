@@ -5,10 +5,12 @@ global firstRun
 global lastCarrierRequest
 global lastUsedFileName
 global lastFuel
+global hasJumped
 
 firstRun = True
 lastJournalText = ""
 lastCarrierRequest = ""
+hasJumped = False
 
 lastFuel = 1000
 
@@ -19,6 +21,7 @@ def process_journal(file_name):
     global lastCarrierRequest
     global lastUsedFileName
     global lastFuel
+    global hasJumped
 
     lastUsedFileName = file_name
 
@@ -59,6 +62,8 @@ def process_journal(file_name):
                     print("alert:Your Tritium is running low.")
 
                 lastFuel = int(fuel)
+            elif event == "Location":
+                hasJumped = True
 
         lastJournalText = journalText
     firstRun = False
@@ -69,3 +74,12 @@ def last_carrier_request():
     global lastCarrierRequest
     process_journal(lastUsedFileName)
     return lastCarrierRequest
+    
+def reset_jump():
+    global hasJumped
+    hasJumped = False
+    
+def get_jumped():
+    global hasJumped
+    process_journal(lastUsedFileName)
+    return hasJumped

@@ -66,6 +66,8 @@ height_ratio = screen_height / 1080
 
 print("Screen resolution: " + str(screen_width) + "x" + str(screen_height))
 
+pyautogui.FAILSAFE = False
+
 
 
 def load_settings():
@@ -240,9 +242,15 @@ def jump_to_system(system_name):
         print("Re-attempting...")
         follow_button_sequence("jump_fail.txt")
         return 0
-
-    timeToJump = time_until_jump(width_ratio, height_ratio)
-    print(timeToJump.strip())
+        
+        
+    if not sys.argv[2] == "--default":
+        timeToJump = time_until_jump(width_ratio, height_ratio)
+        print(timeToJump.strip())
+    else:
+        print("OCR disabled. Assuming usual time.")
+        timeToJump = "0:13:10"
+    
 
     failCount = 0
 
@@ -306,7 +314,7 @@ def main_loop():
     finalLine = route.split("\n")[len(route.split("\n")) - 1]
     jumpsLeft = len(route.split("\n")) + 1
 
-    d = 1;
+    d = 1
     while finalLine == "" or finalLine == "\n":
         d += 1
         finalLine = route.split("\n")[len(route.split("\n")) - d]
@@ -346,8 +354,14 @@ def main_loop():
 
         try:
             timeToJump = jump_to_system(line)
-            while timeToJump == 0: timeToJump = jump_to_system(line)
+            
+            while timeToJump == 0: 
+                timeToJump = jump_to_system(line)
+            
+                
             print("Navigation complete. Jump occurs in " + timeToJump + ". Counting down...")
+            
+            journalwatcher.reset_jump()
 
             hours = int(timeToJump.split(':')[0])
             minutes = int(timeToJump.split(':')[1])
@@ -379,8 +393,8 @@ def main_loop():
                                      "The Carrier's route is as follows:\n" +
                                      route +
                                      "\nEstimated time until first jump: " + timeToJump +
-                                     "\nEstimated time of route completion: " + arrivalTime.strftime(
-                                         "%d %b %Y %H:%M %Z") +
+                                     "\nEstimated time of route completion: " + arrivalTime.strftime("%d %b %Y %H:%M %Z") +
+                                     "\nNote that OCR is disabled - jump times are likely to be inaccurate" +
                                      "\no7", routeName, "Wait...",
                                      "Wait...")
                     time.sleep(2)
@@ -455,6 +469,13 @@ def main_loop():
                 elif totalTime == 320:
                     update_fields(7, 7)
                 elif totalTime == 300:
+                
+                    if sys.argv[2] == "--default":
+                        print("Pausing execution until jump is confirmed...")
+                        c = False
+                        while not c:
+                            c = journalwatcher.get_jumped()
+                            if not c: time.sleep(10)
                     print("Jump complete!")
                     update_fields(8, 7)
                 elif totalTime == 151:

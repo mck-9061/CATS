@@ -36,6 +36,7 @@ def post_with_fields(subject, webhook_url, message, routeName, carrierStage, mai
         embed = DiscordEmbed(title=subject, description=message)
         embed.set_image(url=photo)
         embed.set_author(name=routeName)
+        
         embed.set_footer(text="Carrier Administration and Traversal System")
     
         embed.add_embed_field(name="Jump stage", value=carrierStage)
