@@ -160,7 +160,7 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
-    if not sys.argv[1] == "--manual":
+    if not sys.argv[1] == "--manual" and not sys.argv[3] == "--nofuel":
         # Navigate menu
         follow_button_sequence("restock_nav_1.txt")
 
@@ -295,6 +295,9 @@ def main_loop():
 
     lineNo = 0
     saved = False
+    
+    if sys.argv[3] == "--nofuel":
+        print("Tritium refuelling is disabled!")
 
     if os.path.exists("save.txt"):
         print("Save file found. Setting up...")
