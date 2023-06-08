@@ -66,6 +66,8 @@ height_ratio = screen_height / 1080
 
 print("Screen resolution: " + str(screen_width) + "x" + str(screen_height))
 
+pyautogui.FAILSAFE = False
+
 
 
 def load_settings():
@@ -158,7 +160,7 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
-    if not sys.argv[1] == "--manual":
+    if not sys.argv[1] == "--manual" and not sys.argv[3] == "--nofuel":
         # Navigate menu
         follow_button_sequence("restock_nav_1.txt")
 
@@ -187,7 +189,7 @@ def jump_to_system(system_name):
 
         failCount = 0
 
-        while len(timeToJump.split(':')) == 1:
+        while len(timeToJump.split(':')) != 3:
             print("Trying again... (" + str(failCount) + ")")
             timeToJump = time_until_jump(width_ratio, height_ratio)
             print(timeToJump.strip())
@@ -222,7 +224,7 @@ def jump_to_system(system_name):
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(1496*width_ratio, 422*height_ratio)
+    pyautogui.moveTo(1496*width_ratio, 400*height_ratio)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
 
@@ -240,13 +242,19 @@ def jump_to_system(system_name):
         print("Re-attempting...")
         follow_button_sequence("jump_fail.txt")
         return 0
-
-    timeToJump = time_until_jump(width_ratio, height_ratio)
-    print(timeToJump.strip())
+        
+        
+    if not sys.argv[2] == "--default":
+        timeToJump = time_until_jump(width_ratio, height_ratio)
+        print(timeToJump.strip())
+    else:
+        print("OCR disabled. Assuming usual time.")
+        timeToJump = "0:13:10"
+    
 
     failCount = 0
 
-    while len(timeToJump.split(':')) == 1:
+    while len(timeToJump.split(':')) != 3:
         print("Trying again... (" + str(failCount) + ")")
         timeToJump = time_until_jump(width_ratio, height_ratio)
         print(timeToJump.strip())
@@ -287,6 +295,9 @@ def main_loop():
 
     lineNo = 0
     saved = False
+    
+    if sys.argv[3] == "--nofuel":
+        print("Tritium refuelling is disabled!")
 
     if os.path.exists("save.txt"):
         print("Save file found. Setting up...")
@@ -306,7 +317,7 @@ def main_loop():
     finalLine = route.split("\n")[len(route.split("\n")) - 1]
     jumpsLeft = len(route.split("\n")) + 1
 
-    d = 1;
+    d = 1
     while finalLine == "" or finalLine == "\n":
         d += 1
         finalLine = route.split("\n")[len(route.split("\n")) - d]
@@ -346,8 +357,14 @@ def main_loop():
 
         try:
             timeToJump = jump_to_system(line)
-            while timeToJump == 0: timeToJump = jump_to_system(line)
+            
+            while timeToJump == 0: 
+                timeToJump = jump_to_system(line)
+            
+                
             print("Navigation complete. Jump occurs in " + timeToJump + ". Counting down...")
+            
+            journalwatcher.reset_jump()
 
             hours = int(timeToJump.split(':')[0])
             minutes = int(timeToJump.split(':')[1])
@@ -379,8 +396,8 @@ def main_loop():
                                      "The Carrier's route is as follows:\n" +
                                      route +
                                      "\nEstimated time until first jump: " + timeToJump +
-                                     "\nEstimated time of route completion: " + arrivalTime.strftime(
-                                         "%d %b %Y %H:%M %Z") +
+                                     "\nEstimated time of route completion: " + arrivalTime.strftime("%d %b %Y %H:%M %Z") +
+                                     "\nNote that OCR is disabled - jump times are likely to be inaccurate" +
                                      "\no7", routeName, "Wait...",
                                      "Wait...")
                     time.sleep(2)
@@ -455,6 +472,13 @@ def main_loop():
                 elif totalTime == 320:
                     update_fields(7, 7)
                 elif totalTime == 300:
+                
+                    if sys.argv[2] == "--default":
+                        print("Pausing execution until jump is confirmed...")
+                        c = False
+                        while not c:
+                            c = journalwatcher.get_jumped()
+                            if not c: time.sleep(10)
                     print("Jump complete!")
                     update_fields(8, 7)
                 elif totalTime == 151:

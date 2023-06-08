@@ -34,6 +34,10 @@ namespace MultiCarrierManager.CATS {
             process.StartInfo.Arguments = "-u main.py";
             if (!Program.settings.AutoPlot) process.StartInfo.Arguments += " --manual";
             else process.StartInfo.Arguments += " --auto";
+            if (Program.settings.DisableOCR) process.StartInfo.Arguments += " --default";
+            else process.StartInfo.Arguments += " --ocr";
+            if (Program.settings.DisableRefuel) process.StartInfo.Arguments += " --nofuel";
+            else process.StartInfo.Arguments += " --fuel";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.OutputDataReceived += new DataReceivedEventHandler((s2, e2) => {
