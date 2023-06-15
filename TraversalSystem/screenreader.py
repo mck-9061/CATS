@@ -6,35 +6,77 @@ import pyscreenshot as ImageGrab
 pytesseract.pytesseract.tesseract_cmd = "tesseract\\tesseract.exe"
 
 
-def text_in_box(x1, y1, x2, y2, skipProcess=False):
-    try:
-        os.remove("ss.png")
-        os.remove("ss_processed.png")
-    except FileNotFoundError:
-        print("File doesn't exist")
-
-    im = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-
-    im.save("ss.png")
-
-    tessImage = cv2.imread("ss.png")
-    tessImage = cv2.cvtColor(tessImage, cv2.COLOR_BGR2GRAY)
-
-    if not skipProcess:
-        tessImage = cv2.threshold(tessImage, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-        scale_percent = 150  # percent of original size
-        width = int(tessImage.shape[1] * scale_percent / 100)
-        height = int(tessImage.shape[0] * scale_percent / 100)
-        dim = (width, height)
-
-        # resize image
-        tessImage = cv2.resize(tessImage, dim, interpolation=cv2.INTER_AREA)
-
-    cv2.imwrite("ss_processed.png", tessImage)
-
-    custom_config = r'--oem 3 --psm 6'
-    return pytesseract.image_to_string(tessImage, config=custom_config)
-
-
 def time_until_jump(width_ratio, height_ratio):
-    return text_in_box(int(1478 * width_ratio), int(1008 * height_ratio), int(1554 * width_ratio), int(1027 * height_ratio), True)
+    try:
+        os.remove("h.png")
+        os.remove("h_processed.png")
+        os.remove("m1.png")
+        os.remove("m1_processed.png")
+        os.remove("m2.png")
+        os.remove("m2_processed.png")
+        os.remove("s1.png")
+        os.remove("s1_processed.png")
+        os.remove("s2.png")
+        os.remove("s2_processed.png")
+    except FileNotFoundError:
+        pass
+        
+    y1 = int(431*height_ratio)
+    y2 = int(444*height_ratio)
+
+    h = ImageGrab.grab(bbox=(int(147*width_ratio), y1, int(158*width_ratio), y2))
+    m1 = ImageGrab.grab(bbox=(int(164*width_ratio), y1, int(174*width_ratio), y2))
+    m2 = ImageGrab.grab(bbox=(int(175*width_ratio), y1, int(188*width_ratio), y2))
+    s1 = ImageGrab.grab(bbox=(int(193*width_ratio), y1, int(206*width_ratio), y2))
+    s2 = ImageGrab.grab(bbox=(int(207*width_ratio), y1, int(218*width_ratio), y2))
+
+    h.save("h.png")
+    m1.save("m1.png")
+    m2.save("m2.png")
+    s1.save("s1.png")
+    s2.save("s2.png")
+    
+    f = ""
+    custom_config = r'--oem 0 --psm 10 -c tessedit_char_whitelist=0123456789'
+
+    tessImage = cv2.imread("h.png")
+    tessImage = cv2.cvtColor(tessImage, cv2.COLOR_BGR2GRAY)
+    tessImage = cv2.copyMakeBorder(tessImage, 7, 7, 7, 7, cv2.BORDER_CONSTANT, value=[1, 0, 0])
+    tessImage = cv2.resize(tessImage, (100, 100))
+    cv2.imwrite("h_processed.png", tessImage)
+    
+    f += pytesseract.image_to_string(tessImage, config=custom_config) + ":"
+    
+    tessImage = cv2.imread("m1.png")
+    tessImage = cv2.cvtColor(tessImage, cv2.COLOR_BGR2GRAY)
+    tessImage = cv2.copyMakeBorder(tessImage, 7, 7, 7, 7, cv2.BORDER_CONSTANT, value=[1, 0, 0])
+    tessImage = cv2.resize(tessImage, (100, 100))
+    cv2.imwrite("m1_processed.png", tessImage)
+    
+    f += pytesseract.image_to_string(tessImage, config=custom_config)
+    
+    tessImage = cv2.imread("m2.png")
+    tessImage = cv2.cvtColor(tessImage, cv2.COLOR_BGR2GRAY)
+    tessImage = cv2.copyMakeBorder(tessImage, 7, 7, 7, 7, cv2.BORDER_CONSTANT, value=[1, 0, 0])
+    tessImage = cv2.resize(tessImage, (100, 100))
+    cv2.imwrite("m2_processed.png", tessImage)
+    
+    f += pytesseract.image_to_string(tessImage, config=custom_config) + ":"
+    
+    tessImage = cv2.imread("s1.png")
+    tessImage = cv2.cvtColor(tessImage, cv2.COLOR_BGR2GRAY)
+    tessImage = cv2.copyMakeBorder(tessImage, 7, 7, 7, 7, cv2.BORDER_CONSTANT, value=[1, 0, 0])
+    tessImage = cv2.resize(tessImage, (100, 100))
+    cv2.imwrite("s1_processed.png", tessImage)
+    
+    f += pytesseract.image_to_string(tessImage, config=custom_config)
+    
+    tessImage = cv2.imread("s2.png")
+    tessImage = cv2.cvtColor(tessImage, cv2.COLOR_BGR2GRAY)
+    tessImage = cv2.copyMakeBorder(tessImage, 7, 7, 7, 7, cv2.BORDER_CONSTANT, value=[1, 0, 0])
+    tessImage = cv2.resize(tessImage, (100, 100))
+    cv2.imwrite("s2_processed.png", tessImage)
+    
+    f += pytesseract.image_to_string(tessImage, config=custom_config)
+    
+    return f.replace("\n", "")

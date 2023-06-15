@@ -27,7 +27,7 @@ namespace MultiCarrierManager {
             Application.SetCompatibleTextRenderingDefault(false);
             
             logger.Log("Start");
-            
+
             // Check for updates by checking the latest github release
             try {
                 var client = new RestClient("https://api.github.com/repos/");
@@ -37,11 +37,11 @@ namespace MultiCarrierManager {
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("1.3");
-                allowedReleases.Add("1.3.1");
                 allowedReleases.Add("1.3.2");
-                logger.Log("Version: 1.3.2");
-                
+                allowedReleases.Add("1.4");
+                allowedReleases.Add("1.4.1");
+                logger.Log("Version: 1.4.1");
+
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");
                 }

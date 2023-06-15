@@ -195,7 +195,6 @@ def jump_to_system(system_name):
             print(timeToJump.strip())
             failCount += 1
 
-        time.sleep(6)
         pydirectinput.press('backspace')
         time.sleep(slight_random_time(0.1))
         pydirectinput.press('backspace')
@@ -249,7 +248,7 @@ def jump_to_system(system_name):
         print(timeToJump.strip())
     else:
         print("OCR disabled. Assuming usual time.")
-        timeToJump = "0:13:10"
+        timeToJump = "0:15:10"
     
 
     failCount = 0
@@ -260,7 +259,6 @@ def jump_to_system(system_name):
         print(timeToJump.strip())
         failCount += 1
 
-    time.sleep(6)
     pydirectinput.press('backspace')
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('backspace')
@@ -370,7 +368,7 @@ def main_loop():
             minutes = int(timeToJump.split(':')[1])
             seconds = int(timeToJump.split(':')[2])
 
-            totalTime = (hours * 3600) + (minutes * 60) + seconds - 12
+            totalTime = (hours * 3600) + (minutes * 60) + seconds - 6
 
             if totalTime > 900:
                 arrivalTime = arrivalTime + datetime.timedelta(seconds=totalTime - 900)
