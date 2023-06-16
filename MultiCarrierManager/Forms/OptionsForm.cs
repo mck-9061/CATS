@@ -13,7 +13,6 @@ namespace MultiCarrierManager {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            Program.settings.SetUsageStats(!checkBox1.Checked);
             Program.settings.SetAutoPlot(checkBox2.Checked);
             Program.settings.SetOpenToTraversal(checkBox3.Checked);
 
@@ -40,7 +39,6 @@ namespace MultiCarrierManager {
         }
 
         private void OptionsForm_Load(object sender, EventArgs e) {
-            checkBox1.Checked = !Program.settings.UsageStats;
             checkBox2.Checked = Program.settings.AutoPlot;
             checkBox3.Checked = Program.settings.OpenToTraversal;
             checkBox4.Checked = Program.settings.GetTritium;

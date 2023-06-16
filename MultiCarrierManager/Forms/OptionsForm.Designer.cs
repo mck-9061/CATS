@@ -25,10 +25,8 @@ namespace MultiCarrierManager {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -37,19 +35,9 @@ namespace MultiCarrierManager {
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // checkBox1
-            // 
-            this.checkBox1.Location = new System.Drawing.Point(12, 12);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(333, 24);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Anonymise usage statistics";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // checkBox2
             // 
-            this.checkBox2.Location = new System.Drawing.Point(12, 42);
+            this.checkBox2.Location = new System.Drawing.Point(12, 12);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(333, 24);
             this.checkBox2.TabIndex = 1;
@@ -58,7 +46,7 @@ namespace MultiCarrierManager {
             // 
             // checkBox3
             // 
-            this.checkBox3.Location = new System.Drawing.Point(12, 72);
+            this.checkBox3.Location = new System.Drawing.Point(12, 42);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(333, 24);
             this.checkBox3.TabIndex = 2;
@@ -67,7 +55,7 @@ namespace MultiCarrierManager {
             // 
             // checkBox4
             // 
-            this.checkBox4.Location = new System.Drawing.Point(12, 102);
+            this.checkBox4.Location = new System.Drawing.Point(12, 72);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(333, 24);
             this.checkBox4.TabIndex = 3;
@@ -76,10 +64,10 @@ namespace MultiCarrierManager {
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(12, 194);
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button1.Location = new System.Drawing.Point(12, 164);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(344, 44);
+            this.button1.Size = new System.Drawing.Size(344, 45);
             this.button1.TabIndex = 4;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
@@ -87,7 +75,7 @@ namespace MultiCarrierManager {
             // 
             // checkBox5
             // 
-            this.checkBox5.Location = new System.Drawing.Point(12, 132);
+            this.checkBox5.Location = new System.Drawing.Point(12, 102);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(333, 24);
             this.checkBox5.TabIndex = 5;
@@ -96,7 +84,7 @@ namespace MultiCarrierManager {
             // 
             // checkBox6
             // 
-            this.checkBox6.Location = new System.Drawing.Point(12, 162);
+            this.checkBox6.Location = new System.Drawing.Point(12, 132);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(333, 24);
             this.checkBox6.TabIndex = 6;
@@ -107,14 +95,13 @@ namespace MultiCarrierManager {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 250);
+            this.ClientSize = new System.Drawing.Size(368, 221);
             this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.Name = "OptionsForm";
             this.Text = "Options";
@@ -127,7 +114,6 @@ namespace MultiCarrierManager {
 
         private System.Windows.Forms.Button button1;
 
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;

@@ -65,7 +65,7 @@ namespace MultiCarrierManager {
             if (!cats.isRunning) {
                 Program.logger.Log("TraversalRunning");
                 cats.finalSystem = (string) comboBox1.Items[comboBox1.Items.Count - 1];
-                if (Program.settings.UsageStats) Program.logger.Log("Destination:"+cats.finalSystem);
+                Program.logger.Log("Destination:"+cats.finalSystem);
                 
                 cats.isRunning = true;
                 stopButton.Enabled = true;

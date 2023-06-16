@@ -7,7 +7,6 @@ namespace MultiCarrierManager {
         public string[] IniFile;
         public string FileName;
         
-        public bool UsageStats { get; private set; }
         public bool AutoPlot { get; private set; }
         public bool OpenToTraversal { get; private set; }
         public bool GetTritium { get; private set; }
@@ -19,9 +18,7 @@ namespace MultiCarrierManager {
             IniFile = File.ReadAllLines(file);
 
             foreach (string line in IniFile) {
-                if (line.StartsWith("usage-stats")) {
-                    UsageStats = Convert.ToBoolean(line.Split('=')[1]);
-                } else if (line.StartsWith("auto-plot-jumps")) {
+                if (line.StartsWith("auto-plot-jumps")) {
                     AutoPlot = Convert.ToBoolean(line.Split('=')[1]);
                 } else if (line.StartsWith("open-to-traversal")) {
                     OpenToTraversal = Convert.ToBoolean(line.Split('=')[1]);
@@ -47,11 +44,7 @@ namespace MultiCarrierManager {
             
             File.WriteAllLines(FileName, IniFile);
         }
-
-        public void SetUsageStats(bool b) {
-            UsageStats = b;
-            ReplaceInArray("usage-stats", b);
-        }
+        
         
         public void SetAutoPlot(bool b) {
             AutoPlot = b;

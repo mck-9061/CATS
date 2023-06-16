@@ -46,7 +46,5 @@ The release comes bundled with everything you need to use both the admin panel a
 Use of programs like this is technically against Frontier's TOS. While they haven't yet banned people for automating carrier jumps, the developer does not take any responsibility for any actions that could be taken against your account.<br>
 Use of the admin interface without the traversal system carries no risk, as it's simply reading from FDev's API.
 
-## Privacy
-By default, usage statistics are sent to the developer. You can opt out of this easily, just use the privacy button on the main menu.
 <br><br>
 o7

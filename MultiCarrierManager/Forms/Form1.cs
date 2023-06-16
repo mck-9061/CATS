@@ -71,7 +71,7 @@ namespace MultiCarrierManager {
                 string name = ConvertHex(carrier["name"]["vanityName"].ToString());
                 string cmdrName = file.Split('\\').Last().Replace(".json", "");
                 
-                if (Program.settings.UsageStats) Program.logger.Log("Carrier:" + name);
+                Program.logger.Log("Carrier:" + name);
                 
                 carriers.Add(Tuple.Create(cmdrName, carrier));
 
@@ -342,7 +342,6 @@ namespace MultiCarrierManager {
             
 
             string name = cmdr_name;
-            if (!Program.settings.UsageStats) name = "Anonymous";
 
             Program.logger.Log("CarrierAdded:"+name);
             
