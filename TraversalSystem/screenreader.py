@@ -2,11 +2,12 @@ import os
 import pytesseract
 import cv2
 import pyscreenshot as ImageGrab
+import reshandler as res
 
 pytesseract.pytesseract.tesseract_cmd = "tesseract\\tesseract.exe"
 
 
-def time_until_jump(width_ratio, height_ratio):
+def time_until_jump():
     try:
         os.remove("h.png")
         os.remove("h_processed.png")
@@ -21,14 +22,14 @@ def time_until_jump(width_ratio, height_ratio):
     except FileNotFoundError:
         pass
         
-    y1 = int(431*height_ratio)
-    y2 = int(444*height_ratio)
+    y1 = res.timeUpperY
+    y2 = res.timeLowerY
 
-    h = ImageGrab.grab(bbox=(int(147*width_ratio), y1, int(158*width_ratio), y2))
-    m1 = ImageGrab.grab(bbox=(int(164*width_ratio), y1, int(174*width_ratio), y2))
-    m2 = ImageGrab.grab(bbox=(int(175*width_ratio), y1, int(188*width_ratio), y2))
-    s1 = ImageGrab.grab(bbox=(int(193*width_ratio), y1, int(206*width_ratio), y2))
-    s2 = ImageGrab.grab(bbox=(int(207*width_ratio), y1, int(218*width_ratio), y2))
+    h = ImageGrab.grab(bbox=(res.hourX1, y1, res.hourX2, y2))
+    m1 = ImageGrab.grab(bbox=(res.min1x1, y1, res.min1x2, y2))
+    m2 = ImageGrab.grab(bbox=(res.min2x1, y1, res.min2x2, y2))
+    s1 = ImageGrab.grab(bbox=(res.sec1x1, y1, res.sec1x2, y2))
+    s2 = ImageGrab.grab(bbox=(res.sec2x1, y1, res.sec2x2, y2))
 
     h.save("h.png")
     m1.save("m1.png")
