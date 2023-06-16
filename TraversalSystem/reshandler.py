@@ -17,35 +17,44 @@ def setup(w, h):
     line = ""
 
     with open("res.csv", "r", encoding="utf-8") as file:
+        j = 0
         for l in file.readlines():
+            j += 1
+            if j == 1:
+                continue
+
             s = l.split(",")
-            if s[0] == w and s[1] == h:
+            if int(s[0]) == w and int(s[1]) == h:
                 print("Resolution is officially supported!")
                 line = l
                 break
 
-        if line == "":
-            d = math.gcd(w, h)
-            rX = w / d
-            rY = h / d
+    if line == "":
+        d = math.gcd(w, h)
+        rX = w / d
+        rY = h / d
 
-            print("Resolution not officially supported. Looking for aspect ratio (%s)..." % (rX + ":" + rY))
+        print("Resolution not officially supported. Looking for aspect ratio (%s)..." % (str(rX) + ":" + str(rY)))
 
-            i = 0
+        i = 0
+
+        with open("res.csv", "r", encoding="utf-8") as file:
             for l in file.readlines():
                 i += 1
                 if i == 1:
                     continue
 
                 s = l.split(",")
-                resW = s[0]
-                resH = s[1]
+                resW = int(s[0])
+                resH = int(s[1])
                 resGCD = math.gcd(resW, resH)
 
+                print(str(resW) + "x" + str(resH) + " @ " + str(resW/resGCD) + ":" + str(resH/resGCD))
+
                 if rX == resW/resGCD and rY == resH/resGCD:
-                    print("Resolution with same aspect ratio found: %s. This may not work completely." % (resW+"x"+resH))
+                    print("Resolution with same aspect ratio found: %s. This might not work completely." % (str(resW)+"x"+str(resH)))
                     line = l
-                    multiplier = resW / w
+                    multiplier = w / resW
                     break
 
             if line == "":
