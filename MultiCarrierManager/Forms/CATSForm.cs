@@ -113,7 +113,6 @@ namespace MultiCarrierManager {
             textBox3.Text = "";
             textBox5.Text = "";
             
-            
             foreach (string line in lines) {
                 if (line.StartsWith("webhook_url")) {
                     webhook = line.Replace("webhook_url=", "");

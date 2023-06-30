@@ -239,13 +239,13 @@ def jump_to_system(system_name):
         print("OCR disabled. Assuming usual time.")
         timeToJump = "0:15:10"
 
-    failCount = 0
-
-    while len(timeToJump.split(':')) != 3:
-        print("Trying again... (" + str(failCount) + ")")
-        timeToJump = time_until_jump()
-        print(timeToJump.strip())
-        failCount += 1
+    try:
+        # Check OCR gave a valid time
+        a = timeToJump.split(':')
+        testop = int(a[0]) + int(a[1]) + int(a[2])
+    except:
+        print("OCR failed! Assuming usual time.")
+        timeToJump = "0:15:00"
 
     pydirectinput.press('backspace')
     time.sleep(slight_random_time(0.1))
@@ -459,12 +459,13 @@ def main_loop():
                     update_fields(7, 7)
                 elif totalTime == 300:
 
-                    if sys.argv[2] == "--default":
-                        print("Pausing execution until jump is confirmed...")
-                        c = False
-                        while not c:
-                            c = journalwatcher.get_jumped()
-                            if not c: time.sleep(10)
+                    print("Pausing execution until jump is confirmed...")
+                    c = False
+                    while not c:
+                        c = journalwatcher.get_jumped()
+                        if not c:
+                            print("Jump not complete...")
+                            time.sleep(10)
                     print("Jump complete!")
                     update_fields(8, 7)
                 elif totalTime == 151:
