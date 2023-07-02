@@ -23,9 +23,9 @@ This app also allows you to view stats about carriers across multiple accounts.
 ## Limitations
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
-* The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested. If it doesn't work with your display, feel free to reach out on Discord or open an issue on GitHub.
+* The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested. If it doesn't work with your display, feel free to reach out on Discord.
 * It almost certainly won't work with resolutions that aren't 16:9. If you're using an ultrawide display, you can try setting the resolution to 1920x1080 and then stretching it to fit your display.
-* If you come across a problem, feel free to open an issue on GitHub or shoot me a message on Discord at mck#9061
+* If you come across a problem, feel free to join the Discord (see below)
 
 ## Installation
 The release comes bundled with everything you need to use both the admin panel and the traversal system. Just run the executable and you're good to go.
@@ -41,6 +41,9 @@ The release comes bundled with everything you need to use both the admin panel a
 * Save the settings with the button at the top.
 * Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route". Save again if you've changed this.
 * Click "Run CATS"! It should now start to plot jumps.
+
+## Support
+A lot of people were DMing me with similar issues, so I've made a Discord server - feel free to join for support, or just come say hi. https://discord.gg/57gHX6GfHy
 
 ## Traversal system disclaimer
 Use of programs like this is technically against Frontier's TOS. While they haven't yet banned people for automating carrier jumps, the developer does not take any responsibility for any actions that could be taken against your account.<br>
