@@ -17,20 +17,29 @@ namespace MultiCarrierManager {
         }
 
         private List<String> images = new List<string>();
+        private string[] optionsLines;
+        
         private void DiscordForm_Shown(object sender, EventArgs e) {
             string[] lines = File.ReadAllLines("CATS\\photos.txt");
             foreach (string line in lines) {
                 textBox1.Text += line + Environment.NewLine;
                 images.Add(line);
             }
+            
+            optionsLines = File.ReadAllLines("CATS\\settings.txt");
+            foreach (string line in optionsLines) {
+                if (line.StartsWith("webhook_url=")) textBox2.Text = line.Replace("webhook_url=", "");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e) {
             WebClient client = new WebClient();
 
-            foreach (string imageURL in images) {
-                byte[] data = client.DownloadData(imageURL + "?width=144&height=81");
-                imageList1.Images.Add(Image.FromStream(new MemoryStream(data)));
+            foreach (string imageURL in textBox1.Lines) {
+                try {
+                    byte[] data = client.DownloadData(imageURL + "?width=144&height=81");
+                    imageList1.Images.Add(Image.FromStream(new MemoryStream(data)));
+                } catch (Exception ex) {}
             }
 
             listView1.Items.Clear();
@@ -42,6 +51,24 @@ namespace MultiCarrierManager {
                 listView1.Items.Add(item);
                 i++;
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            File.WriteAllText("CATS\\photos.txt", textBox1.Text);
+            List<String> toWrite = new List<string>();
+            
+            foreach (string line in optionsLines) {
+                if (line.StartsWith("webhook_url")) {
+                    toWrite.Add("webhook_url="+textBox2.Text);
+                } else toWrite.Add(line);
+            }
+            
+            File.WriteAllLines("CATS\\settings.txt", toWrite);
+            Close();
         }
     }
 }

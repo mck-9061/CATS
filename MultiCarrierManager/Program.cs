@@ -37,10 +37,10 @@ namespace MultiCarrierManager {
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("1.3.2");
                 allowedReleases.Add("1.4");
                 allowedReleases.Add("1.4.1");
-                logger.Log("Version: 1.4.1");
+                allowedReleases.Add("1.5");
+                logger.Log("Version: 1.5");
 
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");
