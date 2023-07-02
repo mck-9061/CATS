@@ -49,7 +49,5 @@ A lot of people were DMing me with similar issues, so I've made a Discord server
 Use of programs like this is technically against Frontier's TOS. While they haven't yet banned people for automating carrier jumps, the developer does not take any responsibility for any actions that could be taken against your account.<br>
 Use of the admin interface without the traversal system carries no risk, as it's simply reading from FDev's API.
 
-## Privacy
-By default, usage statistics are sent to the developer. You can anonymise these in the options menu.
 <br><br>
 o7

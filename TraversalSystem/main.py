@@ -30,6 +30,7 @@ import ctypes
 import journalwatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
 from screenreader import time_until_jump
+import reshandler
 
 import pygetwindow as gw
 
@@ -54,20 +55,12 @@ webhook_url = ""
 global journal_directory
 journal_directory = ""
 
-
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-
-# Get the ratio of the screen resolution to 1920x1080
-global width_ratio
-global height_ratio
-width_ratio = screen_width / 1920
-height_ratio = screen_height / 1080
 
 print("Screen resolution: " + str(screen_width) + "x" + str(screen_height))
 
 pyautogui.FAILSAFE = False
-
 
 
 def load_settings():
@@ -174,8 +167,7 @@ def restock_tritium():
 
 
 def jump_to_system(system_name):
-    global width_ratio
-    global height_ratio
+
     if sys.argv[1] == "--manual":
         # Manual jumping
         pyperclip.copy(system_name.lower())
@@ -184,14 +176,14 @@ def jump_to_system(system_name):
         while journalwatcher.last_carrier_request() != system_name:
             time.sleep(1)
 
-        timeToJump = time_until_jump(width_ratio, height_ratio)
+        timeToJump = time_until_jump()
         print(timeToJump.strip())
 
         failCount = 0
 
         while len(timeToJump.split(':')) != 3:
             print("Trying again... (" + str(failCount) + ")")
-            timeToJump = time_until_jump(width_ratio, height_ratio)
+            timeToJump = time_until_jump()
             print(timeToJump.strip())
             failCount += 1
 
@@ -205,9 +197,7 @@ def jump_to_system(system_name):
 
     follow_button_sequence("jump_nav_1.txt")
 
-    pyautogui.moveTo(921*width_ratio, 115*height_ratio)
-    time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(930*width_ratio, 115*height_ratio)
+    pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameUpperY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     pyperclip.copy(system_name.lower())
@@ -219,11 +209,11 @@ def jump_to_system(system_name):
     pydirectinput.keyUp("ctrl")
     time.sleep(slight_random_time(3.0))
     # pydirectinput.press('down')
-    pyautogui.moveTo(930*width_ratio, 150*height_ratio)
+    pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameLowerY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(1496*width_ratio, 400*height_ratio)
+    pyautogui.moveTo(reshandler.jumpButtonX, reshandler.jumpButtonY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
 
@@ -241,23 +231,21 @@ def jump_to_system(system_name):
         print("Re-attempting...")
         follow_button_sequence("jump_fail.txt")
         return 0
-        
-        
+
     if not sys.argv[2] == "--default":
-        timeToJump = time_until_jump(width_ratio, height_ratio)
+        timeToJump = time_until_jump()
         print(timeToJump.strip())
     else:
         print("OCR disabled. Assuming usual time.")
         timeToJump = "0:15:10"
-    
 
-    failCount = 0
-
-    while len(timeToJump.split(':')) != 3:
-        print("Trying again... (" + str(failCount) + ")")
-        timeToJump = time_until_jump(width_ratio, height_ratio)
-        print(timeToJump.strip())
-        failCount += 1
+    try:
+        # Check OCR gave a valid time
+        a = timeToJump.split(':')
+        testop = int(a[0]) + int(a[1]) + int(a[2])
+    except:
+        print("OCR failed! Assuming usual time.")
+        timeToJump = "0:15:00"
 
     pydirectinput.press('backspace')
     time.sleep(slight_random_time(0.1))
@@ -293,7 +281,7 @@ def main_loop():
 
     lineNo = 0
     saved = False
-    
+
     if sys.argv[3] == "--nofuel":
         print("Tritium refuelling is disabled!")
 
@@ -355,13 +343,12 @@ def main_loop():
 
         try:
             timeToJump = jump_to_system(line)
-            
-            while timeToJump == 0: 
+
+            while timeToJump == 0:
                 timeToJump = jump_to_system(line)
-            
-                
+
             print("Navigation complete. Jump occurs in " + timeToJump + ". Counting down...")
-            
+
             journalwatcher.reset_jump()
 
             hours = int(timeToJump.split(':')[0])
@@ -394,7 +381,8 @@ def main_loop():
                                      "The Carrier's route is as follows:\n" +
                                      route +
                                      "\nEstimated time until first jump: " + timeToJump +
-                                     "\nEstimated time of route completion: " + arrivalTime.strftime("%d %b %Y %H:%M %Z") +
+                                     "\nEstimated time of route completion: " + arrivalTime.strftime(
+                                         "%d %b %Y %H:%M %Z") +
                                      "\nNote that OCR is disabled - jump times are likely to be inaccurate" +
                                      "\no7", routeName, "Wait...",
                                      "Wait...")
@@ -470,13 +458,14 @@ def main_loop():
                 elif totalTime == 320:
                     update_fields(7, 7)
                 elif totalTime == 300:
-                
-                    if sys.argv[2] == "--default":
-                        print("Pausing execution until jump is confirmed...")
-                        c = False
-                        while not c:
-                            c = journalwatcher.get_jumped()
-                            if not c: time.sleep(10)
+
+                    print("Pausing execution until jump is confirmed...")
+                    c = False
+                    while not c:
+                        c = journalwatcher.get_jumped()
+                        if not c:
+                            print("Jump not complete...")
+                            time.sleep(10)
                     print("Jump complete!")
                     update_fields(8, 7)
                 elif totalTime == 151:
@@ -535,6 +524,9 @@ def process_journal(file_name):
         time.sleep(1)
 
 
-if not main_loop():
-    print("Aborted.")
-raise SystemExit(0)
+if reshandler.setup(screen_width, screen_height) == 0:
+    raise SystemExit(0)
+else:
+    if not main_loop():
+        print("Aborted.")
+    raise SystemExit(0)

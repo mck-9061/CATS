@@ -37,10 +37,10 @@ namespace MultiCarrierManager {
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("1.3.2");
                 allowedReleases.Add("1.4");
                 allowedReleases.Add("1.4.1");
-                logger.Log("Version: 1.4.1");
+                allowedReleases.Add("1.5");
+                logger.Log("Version: 1.5");
 
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");
@@ -49,18 +49,14 @@ namespace MultiCarrierManager {
                 logger.Log("Error checking for updates: " + e.Message);
             }
 
-
-
-
             if (settings.OpenToTraversal) {
                 Application.Run(new CATSForm());
             } else {
                 Application.Run(new Form1());
             }
-            
         }
 
-
+        
         static void ErrorPopupHandler(object sender, UnhandledExceptionEventArgs args) {
             Exception e = (Exception) args.ExceptionObject;
             Console.Error.WriteLine(e.Message);
@@ -68,6 +64,7 @@ namespace MultiCarrierManager {
             logger.LogError(e.Message);
             logger.LogError(e.StackTrace);
         }
+        
         
         static void ErrorPopupHandler(object sender, System.Threading.ThreadExceptionEventArgs args) {
             Exception e = (Exception) args.Exception;

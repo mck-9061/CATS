@@ -39,11 +39,10 @@ namespace MultiCarrierManager {
         }
         
         public void Upload() {
-            // TODO: remove url before commit
-            var client = new RestClient("");
-            var request = new RestRequest("upload", Method.Post);
-            request.AddFile("uploads", LogFile);
-            var response = client.Execute(request);
+            // var client = new RestClient("");
+            // var request = new RestRequest("upload", Method.Post);
+            // request.AddFile("uploads", LogFile);
+            // var response = client.Execute(request);
             //Console.WriteLine(response.Content);
         }
     }

@@ -65,7 +65,7 @@ namespace MultiCarrierManager {
             if (!cats.isRunning) {
                 Program.logger.Log("TraversalRunning");
                 cats.finalSystem = (string) comboBox1.Items[comboBox1.Items.Count - 1];
-                if (Program.settings.UsageStats) Program.logger.Log("Destination:"+cats.finalSystem);
+                Program.logger.Log("Destination:"+cats.finalSystem);
                 
                 cats.isRunning = true;
                 stopButton.Enabled = true;
@@ -106,16 +106,16 @@ namespace MultiCarrierManager {
             Program.logger.Log("RouteLoaded");
         }
 
+        private string webhook;
+
         private void loadSettingsFile() {
             string[] lines = File.ReadAllLines("CATS\\settings.txt");
             textBox3.Text = "";
-            textBox4.Text = "";
             textBox5.Text = "";
-            
             
             foreach (string line in lines) {
                 if (line.StartsWith("webhook_url")) {
-                    textBox4.Text = line.Replace("webhook_url=", "");
+                    webhook = line.Replace("webhook_url=", "");
                 } else if (line.StartsWith("journal_directory")) {
                     textBox5.Text = line.Replace("journal_directory=", "");
                 } else if (line.StartsWith("tritium_slot")) {
@@ -146,13 +146,18 @@ namespace MultiCarrierManager {
 
         // Save settings
         private void button1_Click(object sender, EventArgs e) {
-            string webhook = textBox4.Text;
             string journal = textBox5.Text;
             string slot = textBox3.Text;
             string route = textBox2.Text;
             int index = comboBox1.SelectedIndex;
-
-
+            
+            string[] oldLines = File.ReadAllLines("CATS\\settings.txt");
+            foreach (string line in oldLines) {
+                if (line.StartsWith("webhook_url")) {
+                    webhook = line.Replace("webhook_url=", "");
+                }
+            }
+            
             string[] lines = new[] { "webhook_url="+webhook, "journal_directory="+journal, "tritium_slot="+slot, "route_file=route.txt" };
             File.WriteAllLines("CATS\\settings.txt", lines);
             File.WriteAllText("CATS\\route.txt", route);
@@ -226,6 +231,15 @@ namespace MultiCarrierManager {
 
         private void button4_Click(object sender, EventArgs e) {
             AboutForm form = new AboutForm();
+            form.ShowDialog();
+        }
+
+        private void CATSForm_Load(object sender, EventArgs e) {
+            
+        }
+
+        private void button5_Click(object sender, EventArgs e) {
+            DiscordForm form = new DiscordForm();
             form.ShowDialog();
         }
     }
