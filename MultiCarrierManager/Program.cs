@@ -55,7 +55,6 @@ namespace MultiCarrierManager {
                 Application.Run(new Form1());
             }
         }
-
         
         static void ErrorPopupHandler(object sender, UnhandledExceptionEventArgs args) {
             Exception e = (Exception) args.ExceptionObject;
@@ -64,8 +63,7 @@ namespace MultiCarrierManager {
             logger.LogError(e.Message);
             logger.LogError(e.StackTrace);
         }
-        
-        
+
         static void ErrorPopupHandler(object sender, System.Threading.ThreadExceptionEventArgs args) {
             Exception e = (Exception) args.Exception;
             Console.Error.WriteLine(e.Message);

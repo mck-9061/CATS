@@ -6,11 +6,13 @@ global lastCarrierRequest
 global lastUsedFileName
 global lastFuel
 global hasJumped
+global departureTime
 
 firstRun = True
 lastJournalText = ""
 lastCarrierRequest = ""
 hasJumped = False
+departureTime = ""
 
 lastFuel = 1000
 
@@ -22,6 +24,7 @@ def process_journal(file_name):
     global lastUsedFileName
     global lastFuel
     global hasJumped
+    global departureTime
 
     lastUsedFileName = file_name
 
@@ -51,8 +54,12 @@ def process_journal(file_name):
 
             elif event == "CarrierJumpRequest":
                 destination = line.split(':')[6].split('"')[1].strip()
-                print("Carrier destination: " + destination)
-                if not firstRun: lastCarrierRequest = destination
+
+                if not firstRun:
+                    lastCarrierRequest = destination
+                    print("Carrier destination: " + destination)
+                    departureTime = line.split('"')[25].strip()
+                    print("Departure time: " + departureTime)
 
             elif event == "CarrierStats":
                 fuel = line.split(':')[10].split(',')[0].strip()

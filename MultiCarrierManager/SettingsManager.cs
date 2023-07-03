@@ -11,7 +11,6 @@ namespace MultiCarrierManager {
         public bool OpenToTraversal { get; private set; }
         public bool GetTritium { get; private set; }
         public bool DisableRefuel { get; private set; }
-        public bool DisableOCR { get; private set; }
 
         public SettingsManager(string file) {
             FileName = file;
@@ -26,8 +25,6 @@ namespace MultiCarrierManager {
                     GetTritium = Convert.ToBoolean(line.Split('=')[1]);
                 } else if (line.StartsWith("disable-refuel")) {
                     DisableRefuel = Convert.ToBoolean(line.Split('=')[1]);
-                } else if (line.StartsWith("disable-ocr")) {
-                    DisableOCR = Convert.ToBoolean(line.Split('=')[1]);
                 }
             }
         }
@@ -65,11 +62,6 @@ namespace MultiCarrierManager {
         public void SetDisableRefuel(bool b) {
             DisableRefuel = b;
             ReplaceInArray("disable-refuel", b);
-        }
-        
-        public void SetDisableOCR(bool b) {
-            DisableOCR = b;
-            ReplaceInArray("disable-ocr", b);
         }
     }
 }

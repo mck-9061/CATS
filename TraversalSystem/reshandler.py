@@ -1,12 +1,12 @@
 ﻿import math
 
-global width, height, timeUpperY, timeLowerY, hourX1, hourX2, min1x1, min1x2, min2x1, min2x2, sec1x1, sec1x2, sec2x1, sec2x2, sysNameX, sysNameUpperY, sysNameLowerY, jumpButtonX, jumpButtonY
+global width, height, sysNameX, sysNameUpperY, sysNameLowerY, jumpButtonX, jumpButtonY
 
 global multiplier
 
 
 def setup(w, h):
-    global width, height, timeUpperY, timeLowerY, hourX1, hourX2, min1x1, min1x2, min2x1, min2x2, sec1x1, sec1x2, sec2x1, sec2x2, sysNameX, sysNameUpperY, sysNameLowerY, jumpButtonX, jumpButtonY
+    global width, height, sysNameX, sysNameUpperY, sysNameLowerY, jumpButtonX, jumpButtonY
 
     global multiplier
     multiplier = 1
@@ -64,22 +64,10 @@ def setup(w, h):
 
     lineArr = line.split(",")
 
-    timeUpperY = int(int(lineArr[2]) * multiplier)
-    timeLowerY = int(int(lineArr[3]) * multiplier)
-    hourX1 = int(int(lineArr[4]) * multiplier)
-    hourX2 = int(int(lineArr[5]) * multiplier)
-    min1x1 = int(int(lineArr[6]) * multiplier)
-    min1x2 = int(int(lineArr[7]) * multiplier)
-    min2x1 = int(int(lineArr[8]) * multiplier)
-    min2x2 = int(int(lineArr[9]) * multiplier)
-    sec1x1 = int(int(lineArr[10]) * multiplier)
-    sec1x2 = int(int(lineArr[11]) * multiplier)
-    sec2x1 = int(int(lineArr[12]) * multiplier)
-    sec2x2 = int(int(lineArr[13]) * multiplier)
-    sysNameX = int(int(lineArr[14]) * multiplier)
-    sysNameUpperY = int(int(lineArr[15]) * multiplier)
-    sysNameLowerY = int(int(lineArr[16]) * multiplier)
-    jumpButtonX = int(int(lineArr[17]) * multiplier)
-    jumpButtonY = int(int(lineArr[18]) * multiplier)
+    sysNameX = int(int(lineArr[2]) * multiplier)
+    sysNameUpperY = int(int(lineArr[3]) * multiplier)
+    sysNameLowerY = int(int(lineArr[4]) * multiplier)
+    jumpButtonX = int(int(lineArr[5]) * multiplier)
+    jumpButtonY = int(int(lineArr[6]) * multiplier)
 
     return 1

@@ -23,18 +23,6 @@ namespace MultiCarrierManager {
             
             Program.settings.SetDisableRefuel(checkBox5.Checked);
 
-            if (checkBox6.Checked && !Program.settings.DisableOCR) {
-                DialogResult result = MessageBox.Show(
-                    "IMPORTANT - By disabling OCR, CATS will assume every jump will take exactly 15 minutes and 10 seconds."+Environment.NewLine+Environment.NewLine
-                    +"During peak server load, jump times can be much longer than this."+Environment.NewLine+Environment.NewLine
-                    +"Please only disable OCR if you know what you're doing or if CATS is consistently failing to read the jump time."+Environment.NewLine+Environment.NewLine
-                    +"Are you sure you want to continue?", "Please read carefully", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result.Equals(DialogResult.Yes)) {
-                    Program.settings.SetDisableOCR(checkBox6.Checked);
-                }
-            } else Program.settings.SetDisableOCR(checkBox6.Checked);
-            
             Close();
         }
 
@@ -43,7 +31,6 @@ namespace MultiCarrierManager {
             checkBox3.Checked = Program.settings.OpenToTraversal;
             checkBox4.Checked = Program.settings.GetTritium;
             checkBox5.Checked = Program.settings.DisableRefuel;
-            checkBox6.Checked = Program.settings.DisableOCR;
         }
     }
 }
