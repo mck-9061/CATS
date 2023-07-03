@@ -24,7 +24,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
 * The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested. If it doesn't work with your display, feel free to reach out on Discord.
-* It almost certainly won't work with resolutions that aren't 16:9. If you're using an ultrawide display, you can try setting the resolution to 1920x1080 and then stretching it to fit your display.
+* Officially supported resolutions can be found in the `resolutions.md` file.
 * If you come across a problem, feel free to join the Discord (see below)
 
 ## Installation
