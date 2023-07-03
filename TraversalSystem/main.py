@@ -26,10 +26,10 @@ import pyperclip
 import datetime
 import sys
 import ctypes
+import pytz
 
 import journalwatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
-from screenreader import time_until_jump
 import reshandler
 
 import pygetwindow as gw
@@ -167,33 +167,24 @@ def restock_tritium():
 
 
 def jump_to_system(system_name):
-
     if sys.argv[1] == "--manual":
         # Manual jumping
         pyperclip.copy(system_name.lower())
         print(
-            "alert:Please plot the jump to %s. It has been copied to your clipboard. Then, leave your keyboard alone while the jump time is read." % system_name)
+            "alert:Please plot the jump to %s. It has been copied to your clipboard." % system_name)
         while journalwatcher.last_carrier_request() != system_name:
             time.sleep(1)
 
-        timeToJump = time_until_jump()
-        print(timeToJump.strip())
+        current_time = datetime.datetime.now(datetime.timezone.utc)
+        departure_time_str = journalwatcher.departureTime
+        departure_time = datetime.datetime.strptime(departure_time_str, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC)
 
-        failCount = 0
+        print(current_time)
+        print(departure_time)
 
-        while len(timeToJump.split(':')) != 3:
-            print("Trying again... (" + str(failCount) + ")")
-            timeToJump = time_until_jump()
-            print(timeToJump.strip())
-            failCount += 1
+        delta = departure_time - current_time
 
-        pydirectinput.press('backspace')
-        time.sleep(slight_random_time(0.1))
-        pydirectinput.press('backspace')
-
-        print("alert:It is now safe to use your keyboard and mouse.")
-
-        return timeToJump.strip()
+        return int(delta.total_seconds())
 
     follow_button_sequence("jump_nav_1.txt")
 
@@ -219,11 +210,6 @@ def jump_to_system(system_name):
 
     time.sleep(6)
 
-    # Navigate carrier menu
-    pydirectinput.press('s')
-    time.sleep(slight_random_time(0.1))
-    pydirectinput.press('space')
-
     if journalwatcher.last_carrier_request() != system_name:
         print(journalwatcher.lastCarrierRequest)
         print(system_name)
@@ -232,26 +218,36 @@ def jump_to_system(system_name):
         follow_button_sequence("jump_fail.txt")
         return 0
 
-    if not sys.argv[2] == "--default":
-        timeToJump = time_until_jump()
-        print(timeToJump.strip())
-    else:
-        print("OCR disabled. Assuming usual time.")
-        timeToJump = "0:15:10"
+    current_time = datetime.datetime.now(datetime.timezone.utc)
+    departure_time_str = journalwatcher.departureTime
+    departure_time = datetime.datetime.strptime(departure_time_str, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC)
 
-    try:
-        # Check OCR gave a valid time
-        a = timeToJump.split(':')
-        testop = int(a[0]) + int(a[1]) + int(a[2])
-    except:
-        print("OCR failed! Assuming usual time.")
-        timeToJump = "0:15:00"
+    print(current_time)
+    print(departure_time)
+
+    delta = departure_time - current_time
+
+    # keeping this here, commented, as a tribute to the shit I had to deal with when I had to use OCR
+    # if not sys.argv[2] == "--default":
+    #     timeToJump = time_until_jump()
+    #     print(timeToJump.strip())
+    # else:
+    #     print("OCR disabled. Assuming usual time.")
+    #     timeToJump = "0:15:10"
+    #
+    # try:
+    #     # Check OCR gave a valid time
+    #     a = timeToJump.split(':')
+    #     testop = int(a[0]) + int(a[1]) + int(a[2])
+    # except:
+    #     print("OCR failed! Assuming usual time.")
+    #     timeToJump = "0:15:00"
 
     pydirectinput.press('backspace')
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('backspace')
 
-    return timeToJump.strip()
+    return int(delta.total_seconds())
 
 
 global lineNo
@@ -339,7 +335,7 @@ def main_loop():
         print("Beginning navigation.")
         print("Please do not change windows until navigation is complete.")
 
-        print("ETA: " + arrivalTime.strftime("%d %b %Y %H:%M %Z"))
+        print("ETA: " + arrivalTime.strftime("%d %b %Y %H:%M"))
 
         try:
             timeToJump = jump_to_system(line)
@@ -347,19 +343,17 @@ def main_loop():
             while timeToJump == 0:
                 timeToJump = jump_to_system(line)
 
-            print("Navigation complete. Jump occurs in " + timeToJump + ". Counting down...")
+            fTime = str(datetime.timedelta(seconds=timeToJump))
+
+            print("Navigation complete. Jump occurs in " + fTime + ". Counting down...")
 
             journalwatcher.reset_jump()
 
-            hours = int(timeToJump.split(':')[0])
-            minutes = int(timeToJump.split(':')[1])
-            seconds = int(timeToJump.split(':')[2])
-
-            totalTime = (hours * 3600) + (minutes * 60) + seconds - 6
+            totalTime = timeToJump - 6
 
             if totalTime > 900:
                 arrivalTime = arrivalTime + datetime.timedelta(seconds=totalTime - 900)
-                print(arrivalTime.strftime("%d %b %Y %H:%M %Z"))
+                print(arrivalTime.strftime("%d %b %Y %H:%M"))
 
             if doneFirst:
                 previous_system = a[i - 1]
@@ -368,8 +362,8 @@ def main_loop():
                                                                 "The carrier is now jumping to the " + line + " system.\n"
                                                                                                               "Jumps remaining: " + str(
                                      jumpsLeft) +
-                                 "\nEstimated time until next jump: " + timeToJump +
-                                 "\nEstimated time of route completion: " + arrivalTime.strftime("%d %b %Y %H:%M %Z") +
+                                 "\nTime until next jump: " + fTime +
+                                 "\nEstimated time of route completion: " + arrivalTime.strftime("%d %b %Y %H:%M") +
                                  "\no7", routeName, "Wait...",
                                  "Wait...")
                 time.sleep(2)
@@ -380,10 +374,9 @@ def main_loop():
                                      "The Flight Computer has begun navigating the Carrier.\n"
                                      "The Carrier's route is as follows:\n" +
                                      route +
-                                     "\nEstimated time until first jump: " + timeToJump +
+                                     "\nTime until first jump: " + fTime +
                                      "\nEstimated time of route completion: " + arrivalTime.strftime(
-                                         "%d %b %Y %H:%M %Z") +
-                                     "\nNote that OCR is disabled - jump times are likely to be inaccurate" +
+                                         "%d %b %Y %H:%M") +
                                      "\no7", routeName, "Wait...",
                                      "Wait...")
                     time.sleep(2)
@@ -391,9 +384,9 @@ def main_loop():
                 else:
                     post_with_fields("Flight Resumed", webhook_url,
                                      "The Flight Computer has resumed navigation.\n"
-                                     "Estimated time until first jump: " + timeToJump +
+                                     "Time until first jump: " + fTime +
                                      "\nEstimated time of route completion: " + arrivalTime.strftime(
-                                         "%d %b %Y %H:%M %Z") +
+                                         "%d %b %Y %H:%M") +
                                      "\no7", routeName, "Wait...",
                                      "Wait..."
                                      )
