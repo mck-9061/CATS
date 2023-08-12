@@ -55,6 +55,9 @@ webhook_url = ""
 global journal_directory
 journal_directory = ""
 
+global power_saving
+power_saving = False
+
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
@@ -252,6 +255,60 @@ def jump_to_system(system_name):
 
 global lineNo
 
+global game_ready
+game_ready = False
+
+global latestJournal
+
+
+def open_game():
+    global game_ready
+    global latestJournal
+    print("Re-opening game...")
+
+    # Launch
+    os.startfile("steam://rungameid/359320")
+
+    # Wait for the game to load
+    j = latest_journal()
+
+    menu = False
+    while not menu:
+        f = open(j, "r").read()
+        if "Fileheader" in f:
+            print("Menu loaded")
+            menu = True
+        else:
+            print("Menu not loaded...")
+            time.sleep(10)
+
+    # Give it a bit to load properly
+    time.sleep(10)
+
+    # Start the game in solo mode
+    print("Starting game...")
+    pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameLowerY)
+    pyautogui.click()
+    follow_button_sequence("start_game.txt")
+
+    # Wait for the Location event
+    loaded = False
+    while not loaded:
+        f = open(j, "r").read()
+        if "Location" in f:
+            print("Game loaded")
+            loaded = True
+        else:
+            print("Game not loaded...")
+            # Just in case it didn't connect yet
+            pydirectinput.press("space")
+            time.sleep(10)
+
+
+    print("Switching to new journal...")
+    journalwatcher.reset_all()
+    latestJournal = latest_journal()
+
 
 def main_loop():
     global lineNo
@@ -259,6 +316,9 @@ def main_loop():
     global webhook_url
     global journal_directory
     global route_file
+    global power_saving
+    global game_ready
+    global latestJournal
 
     load_settings()
 
@@ -346,6 +406,12 @@ def main_loop():
             fTime = str(datetime.timedelta(seconds=timeToJump))
 
             print("Navigation complete. Jump occurs in " + fTime + ". Counting down...")
+            if power_saving:
+                print("Power saving mode is active. Closing game...")
+                follow_button_sequence("close_game.txt")
+                # Open the game again when the jump is complete
+                threading.Timer(timeToJump, open_game).start()
+                print("Game open scheduled")
 
             journalwatcher.reset_jump()
 
@@ -452,12 +518,18 @@ def main_loop():
                     update_fields(7, 7)
                 elif totalTime == 300:
 
-                    print("Pausing execution until jump is confirmed...")
-                    c = False
-                    while not c:
-                        c = journalwatcher.get_jumped()
-                        if not c:
-                            print("Jump not complete...")
+                    if not power_saving:
+                        print("Pausing execution until jump is confirmed...")
+                        c = False
+                        while not c:
+                            c = journalwatcher.get_jumped()
+                            if not c:
+                                print("Jump not complete...")
+                                time.sleep(10)
+                    else:
+                        print("Pausing execution until game is open and ready...")
+                        while not game_ready:
+                            print("Game not ready...")
                             time.sleep(10)
                     print("Jump complete!")
                     update_fields(8, 7)
@@ -520,6 +592,9 @@ def process_journal(file_name):
 if reshandler.setup(screen_width, screen_height) == 0:
     raise SystemExit(0)
 else:
+    if sys.argv[4] == "--power-saving":
+        power_saving = True
+
     if not main_loop():
         print("Aborted.")
     raise SystemExit(0)
