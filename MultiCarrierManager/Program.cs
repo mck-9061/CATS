@@ -35,7 +35,7 @@ namespace MultiCarrierManager {
                 var response = client.Execute(request);
                 dynamic json = JsonConvert.DeserializeObject(response.Content);
                 string tag = json.tag_name;
-
+                
                 List<String> allowedReleases = new List<string>();
                 allowedReleases.Add("2.0");
                 allowedReleases.Add("2.1");

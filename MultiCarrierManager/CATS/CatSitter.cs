@@ -38,6 +38,8 @@ namespace MultiCarrierManager.CATS {
             process.StartInfo.Arguments += " --ocr";
             if (Program.settings.DisableRefuel) process.StartInfo.Arguments += " --nofuel";
             else process.StartInfo.Arguments += " --fuel";
+            if (Program.settings.PowerSaving) process.StartInfo.Arguments += " --power-saving";
+            else process.StartInfo.Arguments += " --no-ps";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.OutputDataReceived += new DataReceivedEventHandler((s2, e2) => {

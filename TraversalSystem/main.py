@@ -27,6 +27,7 @@ import datetime
 import sys
 import ctypes
 import pytz
+import psutil
 
 import journalwatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
@@ -259,15 +260,19 @@ global game_ready
 game_ready = False
 
 global latestJournal
-
+global stopJournalThread
+stopJournalThread = False
 
 def open_game():
     global game_ready
     global latestJournal
+    global th
+    global stopJournalThread
     print("Re-opening game...")
 
     # Launch
     os.startfile("steam://rungameid/359320")
+    time.sleep(60)
 
     # Wait for the game to load
     j = latest_journal()
@@ -309,6 +314,11 @@ def open_game():
     journalwatcher.reset_all()
     latestJournal = latest_journal()
 
+    stopJournalThread = False
+    threading.Thread(target=process_journal, args=(latestJournal,)).start()
+
+    game_ready = True
+
 
 def main_loop():
     global lineNo
@@ -319,6 +329,7 @@ def main_loop():
     global power_saving
     global game_ready
     global latestJournal
+    global stopJournalThread
 
     load_settings()
 
@@ -408,10 +419,16 @@ def main_loop():
             print("Navigation complete. Jump occurs in " + fTime + ". Counting down...")
             if power_saving:
                 print("Power saving mode is active. Closing game...")
+                stopJournalThread = True
                 follow_button_sequence("close_game.txt")
                 # Open the game again when the jump is complete
                 threading.Timer(timeToJump, open_game).start()
                 print("Game open scheduled")
+                # Kill the launcher
+                for proc in psutil.process_iter():
+                    if proc.name() == "EDLaunch.exe":
+                        proc.kill()
+                print("Launcher killed")
 
             journalwatcher.reset_jump()
 
@@ -531,6 +548,7 @@ def main_loop():
                         while not game_ready:
                             print("Game not ready...")
                             time.sleep(10)
+                        totalTime = 152
                     print("Jump complete!")
                     update_fields(8, 7)
                 elif totalTime == 151:
@@ -570,7 +588,7 @@ def main_loop():
 
 
 def process_journal(file_name):
-    while True:
+    while not stopJournalThread:
         c = journalwatcher.process_journal(file_name)
         if not c:
             print("An error has occurred. Saving progress and aborting...")
@@ -587,6 +605,7 @@ def process_journal(file_name):
             raise SystemExit(0)
 
         time.sleep(1)
+    print("Journal thread halted")
 
 
 if reshandler.setup(screen_width, screen_height) == 0:
