@@ -35,11 +35,11 @@ namespace MultiCarrierManager {
                 var response = client.Execute(request);
                 dynamic json = JsonConvert.DeserializeObject(response.Content);
                 string tag = json.tag_name;
-
+                
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("1.5");
                 allowedReleases.Add("2.0");
-                logger.Log("Version: 2.0");
+                allowedReleases.Add("2.1");
+                logger.Log("Version: 2.1");
 
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");

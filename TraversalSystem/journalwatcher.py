@@ -17,6 +17,24 @@ departureTime = ""
 lastFuel = 1000
 
 
+def reset_all():
+    global lastJournalText
+    global firstRun
+    global lastCarrierRequest
+    global lastUsedFileName
+    global lastFuel
+    global hasJumped
+    global departureTime
+
+    firstRun = True
+    lastJournalText = ""
+    lastCarrierRequest = ""
+    hasJumped = False
+    departureTime = ""
+
+    lastFuel = 1000
+
+
 def process_journal(file_name):
     global lastJournalText
     global firstRun
@@ -41,18 +59,7 @@ def process_journal(file_name):
             event = line.split(':')[4].split('"')[1].strip()
             # print(event)
 
-            if event == "Music":
-                track = line.split(':')[5].split('"')[1].strip()
-                # print("Music track: " + track)
-
-                # if track == "MainMenu":
-                # print("Game has crashed!!")
-                # return False
-            if event == "Shutdown":
-                print("Game has crashed!!")
-                return False
-
-            elif event == "CarrierJumpRequest":
+            if event == "CarrierJumpRequest":
                 destination = line.split(':')[6].split('"')[1].strip()
 
                 if not firstRun:
