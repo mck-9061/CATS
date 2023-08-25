@@ -1,5 +1,5 @@
 # CATS (Carrier Administration and Traversal System)
-CATS is an Elite Dangerous fleet carrier auto-plotter and flight computer.
+CATS is an Elite Dangerous fleet carrier auto-plotter, autojumper, and flight computer.
 <br>
 This app also allows you to view stats about carriers across multiple accounts.
 
@@ -24,6 +24,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
 * The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested. If it doesn't work with your display, feel free to reach out on Discord.
+* Elite Dangerous should be running on your primary monitor in fullscreen.
 * Officially supported resolutions can be found in the `resolutions.md` file.
 * If you come across a problem, feel free to join the Discord (see below)
 
@@ -40,10 +41,11 @@ The release comes bundled with everything you need to use both the admin panel a
   * Route: Put each system on a new line. Alternatively, import from a plain text list of systems, or a CSV from Spansh's FC plotter.
 * Save the settings with the button at the top.
 * Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route". Save again if you've changed this.
-* Click "Run CATS"! It should now start to plot jumps.
+* Click "Run CATS", then tab to the Elite Dangerous window. It should now start to plot jumps.
 
 ## Support
-A lot of people were DMing me with similar issues, so I've made a Discord server - feel free to join for support, or just come say hi. https://discord.gg/57gHX6GfHy
+Feel free to join for support, or just come say hi. https://discord.gg/57gHX6GfHy
+Before making a support post, please check the FAQ channel to make sure your question hasn't already been answered.
 
 ## Traversal system disclaimer
 Use of programs like this is technically against Frontier's TOS. While they haven't yet banned people for automating carrier jumps, the developer does not take any responsibility for any actions that could be taken against your account.<br>
