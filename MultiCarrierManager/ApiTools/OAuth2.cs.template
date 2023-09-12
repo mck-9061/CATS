@@ -56,7 +56,7 @@ namespace MultiCarrierManager.ApiTools {
                     RedirectURI = $"http://localhost:{port}/";
                     AuthURL = AuthServerAuthURL +
                         "?scope=" + Uri.EscapeDataString(Scope) +
-                        "&audience=frontier" +
+                        "&audience=all" +
                         "&response_type=code" +
                         "&client_id=" + Uri.EscapeDataString(ClientID) +
                         "&code_challenge=" + Uri.EscapeDataString(challenge) +
