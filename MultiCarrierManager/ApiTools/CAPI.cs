@@ -12,7 +12,6 @@ namespace MultiCarrierManager.ApiTools {
         private const string CarrierURL = "https://companion.orerve.net/fleetcarrier";
         private const string JournalURL = "https://companion.orerve.net/journal";
 
-
         public OAuth2 OAuth { get; private set; }
 
         public CAPI(OAuth2 auth)
