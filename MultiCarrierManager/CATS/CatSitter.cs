@@ -7,7 +7,7 @@ namespace MultiCarrierManager.CATS {
     public class CatSitter {
         // Why rewrite my shit python script when I can just call it from c#? I'm sure this will cause no issues at all in the future!
         // also fuck your naming schemes I think the class name is cute
-
+        
         private TextBox output;
         private CATSForm form;
         private Process process;

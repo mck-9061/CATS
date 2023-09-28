@@ -1,8 +1,8 @@
-space-5
-d
-s
-d
-space-6
-s
-space
-space-4
+UI_Select-5
+UI_Right
+UI_Down
+UI_Right
+UI_Select-6
+UI_Down
+UI_Select
+UI_Select-4

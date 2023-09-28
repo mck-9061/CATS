@@ -12,7 +12,7 @@
 #   object oriented. Sue me.
 #   Maybe I'll refactor and document it at some point. I wouldn't count on it. Do it yourself and open a PR
 #   if it bothers you.
-#   At least it used to be much worse. Take a look at some of the old commits if you like. We love thousand-line
+#   At least it used to be much worse. Take a look at the legacy repo and old commits if you like. We love thousand-line
 #   python files that could be much simpler, right?
 
 
@@ -32,6 +32,7 @@ import psutil
 import journalwatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
 import reshandler
+import bind_handler
 
 import pygetwindow as gw
 
@@ -141,16 +142,19 @@ def follow_button_sequence(sequence_name):
 
     for line in sequence:
         if line.__contains__(":"):
-            pydirectinput.keyDown(line.split(":")[0])
+            key = bind_handler.getKey(line.split(":")[0])
+            pydirectinput.keyDown(key)
             time.sleep(slight_random_time(int(line.split(":")[1])))
-            pydirectinput.keyUp(line.split(":")[0])
+            pydirectinput.keyUp(key)
         else:
             wait_time = 0.1
             key = line
 
             if line.__contains__("-"):
                 wait_time = int(line.split("-")[1])
-                key = line.split("-")[0]
+                key = bind_handler.getKey(line.split("-")[0])
+            else:
+                key = bind_handler.getKey(line)
 
             pydirectinput.press(key)
             time.sleep(slight_random_time(wait_time))
@@ -162,7 +166,7 @@ def restock_tritium():
         follow_button_sequence("restock_nav_1.txt")
 
         for i in range(tritium_slot):
-            pydirectinput.press('w')
+            pydirectinput.press(bind_handler.getKey("UI_Up"))
             time.sleep(slight_random_time(0.1))
 
         follow_button_sequence("restock_nav_2.txt")
@@ -194,7 +198,7 @@ def jump_to_system(system_name):
 
     pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameUpperY)
     time.sleep(slight_random_time(0.1))
-    pydirectinput.press('space')
+    pydirectinput.press(bind_handler.getKey("UI_Select"))
     pyperclip.copy(system_name.lower())
     time.sleep(slight_random_time(1.0))
     pydirectinput.keyDown("ctrl")
@@ -206,11 +210,11 @@ def jump_to_system(system_name):
     # pydirectinput.press('down')
     pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameLowerY)
     time.sleep(slight_random_time(0.1))
-    pydirectinput.press('space')
+    pydirectinput.press(bind_handler.getKey("UI_Select"))
     time.sleep(slight_random_time(0.1))
     pyautogui.moveTo(reshandler.jumpButtonX, reshandler.jumpButtonY)
     time.sleep(slight_random_time(0.1))
-    pydirectinput.press('space')
+    pydirectinput.press(bind_handler.getKey("UI_Select"))
 
     time.sleep(6)
 
@@ -247,9 +251,9 @@ def jump_to_system(system_name):
     #     print("OCR failed! Assuming usual time.")
     #     timeToJump = "0:15:00"
 
-    pydirectinput.press('backspace')
+    pydirectinput.press(bind_handler.getKey("UI_Back"))
     time.sleep(slight_random_time(0.1))
-    pydirectinput.press('backspace')
+    pydirectinput.press(bind_handler.getKey("UI_Back"))
 
     return int(delta.total_seconds())
 
@@ -262,6 +266,7 @@ game_ready = False
 global latestJournal
 global stopJournalThread
 stopJournalThread = False
+
 
 def open_game():
     global game_ready
@@ -306,9 +311,8 @@ def open_game():
         else:
             print("Game not loaded...")
             # Just in case it didn't connect yet
-            pydirectinput.press("space")
+            pydirectinput.press(bind_handler.getKey("UI_Select"))
             time.sleep(10)
-
 
     print("Switching to new journal...")
     journalwatcher.reset_all()
@@ -331,7 +335,12 @@ def main_loop():
     global latestJournal
     global stopJournalThread
 
+    if bind_handler.init() == 0:
+        print("Please rebind this to a valid keyboard control.")
+        return 0
+
     load_settings()
+    os.environ['DISPLAY'] = ':0'
 
     time.sleep(5)
 
@@ -478,7 +487,8 @@ def main_loop():
 
 
         except Exception as e:
-            print(e)
+            print(type(e))
+            print(e.args)
             print("An error has occurred. Saving progress and aborting...")
             post_to_discord("Critical Error", webhook_url,
                             "An error has occurred with the Flight Computer.\n"
@@ -490,7 +500,7 @@ def main_loop():
             saveFile.write(str(lineNo))
             saveFile.close()
             print("Progress saved...")
-            return False
+            raise
 
         while totalTime > 0:
             print(totalTime)

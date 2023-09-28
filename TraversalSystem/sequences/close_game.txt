@@ -1,5 +1,5 @@
-escape-3
-up
-space
-right
-space
+Escape-3
+UI_Up
+UI_Select
+UI_Right
+UI_Select
