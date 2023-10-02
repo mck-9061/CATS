@@ -65,7 +65,10 @@ def process_journal(file_name):
                 if not firstRun:
                     lastCarrierRequest = destination
                     print("Carrier destination: " + destination)
-                    departureTime = line.split('"')[25].strip()
+                    try:
+                        departureTime = line.split('"')[25].strip()
+                    except:
+                        departureTime = line.split('"')[21].strip()
                     print("Departure time: " + departureTime)
 
             elif event == "CarrierStats":
