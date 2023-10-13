@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -300,8 +301,15 @@ namespace MultiCarrierManager {
                 
                 auth.Save(cmdr);
                 
-                File.WriteAllText("carriers/"+cmdr+".json", c.ToString(Newtonsoft.Json.Formatting.Indented));
-                File.WriteAllText("carriers/profiles/"+cmdr+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
+                Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
+                string path1 = "carriers/" + cmdr + ".json";
+                string path2 = "carriers/profiles/" + cmdr + ".json";
+                path1 = invalidChars.Replace(path1, "");
+                path2 = invalidChars.Replace(path2, "");
+            
+                File.WriteAllText(path1, c.ToString(Newtonsoft.Json.Formatting.Indented));
+                File.WriteAllText(path2, p.ToString(Newtonsoft.Json.Formatting.Indented));
+                
                 statusLabel.Text = "Updated " + cmdr + "...";
             }
 
@@ -337,8 +345,15 @@ namespace MultiCarrierManager {
 
             var c = capi.GetCarrier();
             var p = capi.GetProfile();
-            File.WriteAllText("carriers/"+cmdr_name+".json", c.ToString(Newtonsoft.Json.Formatting.Indented));
-            File.WriteAllText("carriers/profiles/"+cmdr_name+".json", p.ToString(Newtonsoft.Json.Formatting.Indented));
+            
+            Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
+            string path1 = "carriers/" + cmdr_name + ".json";
+            string path2 = "carriers/profiles/" + cmdr_name + ".json";
+            path1 = invalidChars.Replace(path1, "");
+            path2 = invalidChars.Replace(path2, "");
+            
+            File.WriteAllText(path1, c.ToString(Newtonsoft.Json.Formatting.Indented));
+            File.WriteAllText(path2, p.ToString(Newtonsoft.Json.Formatting.Indented));
             
 
             string name = cmdr_name;

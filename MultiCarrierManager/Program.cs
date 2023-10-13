@@ -37,9 +37,9 @@ namespace MultiCarrierManager {
                 string tag = json.tag_name;
                 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("2.1.1");
                 allowedReleases.Add("2.1.2");
-                logger.Log("Version: 2.1.2");
+                allowedReleases.Add("2.1.3");
+                logger.Log("Version: 2.1.3");
 
                 if (!allowedReleases.Contains(tag)) {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");

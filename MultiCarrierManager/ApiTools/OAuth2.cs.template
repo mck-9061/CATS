@@ -13,6 +13,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 
 namespace MultiCarrierManager.ApiTools {
@@ -207,11 +208,14 @@ namespace MultiCarrierManager.ApiTools {
             return new OAuth2Request();
         }
 
-        public static OAuth2 Load(string cmdr)
-        {
+        public static OAuth2 Load(string cmdr) {
             try
             {
-                var jo = JObject.Parse(File.ReadAllText("tokens/access-token-"+cmdr+".json"));
+                Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
+                string path = "tokens/access-token-" + cmdr + ".json";
+                path = invalidChars.Replace(path, "");
+                
+                var jo = JObject.Parse(File.ReadAllText(path));
 
                 return new OAuth2
                 {
@@ -225,9 +229,8 @@ namespace MultiCarrierManager.ApiTools {
                 return null;
             }
         }
-
-        public void Save(string cmdr)
-        {
+        
+        public void Save(string cmdr) {
             var jo = new JObject
             {
                 ["access_token"] = AccessToken,
@@ -235,8 +238,13 @@ namespace MultiCarrierManager.ApiTools {
                 ["token_type"] = TokenType
             };
 
+            Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
+            string path = "tokens/access-token-" + cmdr + ".json";
+            path = invalidChars.Replace(path, "");
+            Console.WriteLine(path);
+
             if (!Directory.Exists("tokens")) Directory.CreateDirectory("tokens");
-            File.WriteAllText("tokens/access-token-"+cmdr+".json", jo.ToString());
+            File.WriteAllText(path, jo.ToString());
         }
 
         public bool Refresh()
