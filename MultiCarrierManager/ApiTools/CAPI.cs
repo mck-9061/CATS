@@ -11,6 +11,7 @@ namespace MultiCarrierManager.ApiTools {
         private const string ShipyardURL = "https://companion.orerve.net/shipyard";
         private const string CarrierURL = "https://companion.orerve.net/fleetcarrier";
         private const string JournalURL = "https://companion.orerve.net/journal";
+        private const string DetailedCmdrURL = "https://api.orerve.net/2.0/website/user/commanders";
 
 
         public OAuth2 OAuth { get; private set; }

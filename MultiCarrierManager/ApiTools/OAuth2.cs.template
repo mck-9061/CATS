@@ -13,6 +13,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 
 namespace MultiCarrierManager.ApiTools {
@@ -121,6 +122,7 @@ namespace MultiCarrierManager.ApiTools {
                 }
 
                 var oauth = new OAuth2();
+                Console.WriteLine(jo.ToString());
                 oauth.AccessToken = jo.Value<string>("access_token");
                 oauth.RefreshToken = jo.Value<string>("refresh_token");
                 oauth.TokenType = jo.Value<string>("token_type");
@@ -209,9 +211,11 @@ namespace MultiCarrierManager.ApiTools {
 
         public static OAuth2 Load(string cmdr)
         {
-            try
-            {
-                var jo = JObject.Parse(File.ReadAllText("tokens/access-token-"+cmdr+".json"));
+            try {
+                string escapedName = Uri.EscapeDataString(cmdr);
+                string path = "tokens/access-token-" + escapedName + ".json";
+
+                var jo = JObject.Parse(File.ReadAllText(path));
 
                 return new OAuth2
                 {
@@ -235,8 +239,12 @@ namespace MultiCarrierManager.ApiTools {
                 ["token_type"] = TokenType
             };
 
+            string escapedName = Uri.EscapeDataString(cmdr);
+            string path = "tokens/access-token-" + escapedName + ".json";
+            Console.WriteLine(path);
+
             if (!Directory.Exists("tokens")) Directory.CreateDirectory("tokens");
-            File.WriteAllText("tokens/access-token-"+cmdr+".json", jo.ToString());
+            File.WriteAllText(path, jo.ToString());
         }
 
         public bool Refresh()
@@ -295,4 +303,5 @@ namespace MultiCarrierManager.ApiTools {
             return request;
         }
     }
+}
 }

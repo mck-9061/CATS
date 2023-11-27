@@ -7,7 +7,7 @@ global lastEmbed
 
 
 def post_to_discord(subject, webhook_url, message, routeName):
-    photosFile = open("photos.txt", "r")
+    photosFile = open("photos.txt", "r", encoding="utf-8")
     photo = random.choice(photosFile.read().split("\n"))
     photosFile.close()
 
@@ -27,7 +27,7 @@ def post_with_fields(subject, webhook_url, message, routeName, carrierStage, mai
     global lastEmbed
     
     try:
-        photosFile = open("photos.txt", "r")
+        photosFile = open("photos.txt", "r", encoding="utf-8")
         photo = random.choice(photosFile.read().split("\n"))
         photosFile.close()
     
