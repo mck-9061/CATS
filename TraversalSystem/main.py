@@ -74,7 +74,7 @@ def load_settings():
     global route_file
 
     try:
-        settingsFile = open("settings.txt", "r")
+        settingsFile = open("settings.txt", "r", encoding="utf-8")
         a = settingsFile.read().split('\n')
 
         try:
@@ -103,7 +103,7 @@ def load_settings():
 
 
     except:
-        settingsFile = open("settings.txt", "w+")
+        settingsFile = open("settings.txt", "w+", encoding="utf-8")
         settingsFile.write("webhook_url=\n"
                            "journal_directory=\n"
                            "tritium_slot=\n")
@@ -137,7 +137,7 @@ def slight_random_time(time):
 
 
 def follow_button_sequence(sequence_name):
-    sequence = open("sequences/" + sequence_name, "r").read().split("\n")
+    sequence = open("sequences/" + sequence_name, "r", encoding="utf-8").read().split("\n")
 
     for line in sequence:
         if line.__contains__(":"):
@@ -279,7 +279,7 @@ def open_game():
 
     menu = False
     while not menu:
-        f = open(j, "r").read()
+        f = open(j, "r", encoding="utf-8").read()
         if "Fileheader" in f:
             print("Menu loaded")
             menu = True
@@ -299,7 +299,7 @@ def open_game():
     # Wait for the Location event
     loaded = False
     while not loaded:
-        f = open(j, "r").read()
+        f = open(j, "r", encoding="utf-8").read()
         if "Location" in f:
             print("Game loaded")
             loaded = True
@@ -354,7 +354,7 @@ def main_loop():
 
     if os.path.exists("save.txt"):
         print("Save file found. Setting up...")
-        lineNo = int((open("save.txt", "r")).read())
+        lineNo = int((open("save.txt", "r", encoding="utf-8")).read())
         os.remove("save.txt")
 
         saved = True
@@ -364,7 +364,7 @@ def main_loop():
     # print("Stocking initial tritium...")
     # restock_tritium()
 
-    routeFile = open(route_file, "r")
+    routeFile = open(route_file, "r", encoding="utf-8")
     route = routeFile.read()
 
     finalLine = route.split("\n")[len(route.split("\n")) - 1]
@@ -486,7 +486,7 @@ def main_loop():
                             "Please wait for the carrier to resume navigation.\n"
                             "o7", routeName)
             print("Message sent...")
-            saveFile = open("save.txt", "w+")
+            saveFile = open("save.txt", "w+", encoding="utf-8")
             saveFile.write(str(lineNo))
             saveFile.close()
             print("Progress saved...")
@@ -598,7 +598,7 @@ def process_journal(file_name):
                             "Please wait for the carrier to resume navigation.\n"
                             "o7", "")
             print("Message sent...")
-            saveFile = open("save.txt", "w+")
+            saveFile = open("save.txt", "w+", encoding="utf-8")
             saveFile.write(str(lineNo))
             saveFile.close()
             print("Progress saved...")

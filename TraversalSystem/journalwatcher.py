@@ -48,7 +48,7 @@ def process_journal(file_name):
 
     # print("Hello from thread!")
 
-    journal = open(file_name, "r")
+    journal = open(file_name, "r", encoding="utf-8")
     journalText = journal.read()
     journal.close()
 
