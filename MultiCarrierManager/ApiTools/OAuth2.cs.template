@@ -122,6 +122,7 @@ namespace MultiCarrierManager.ApiTools {
                 }
 
                 var oauth = new OAuth2();
+                Console.WriteLine(jo.ToString());
                 oauth.AccessToken = jo.Value<string>("access_token");
                 oauth.RefreshToken = jo.Value<string>("refresh_token");
                 oauth.TokenType = jo.Value<string>("token_type");
@@ -208,13 +209,12 @@ namespace MultiCarrierManager.ApiTools {
             return new OAuth2Request();
         }
 
-        public static OAuth2 Load(string cmdr) {
-            try
-            {
-                Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
-                string path = "tokens/access-token-" + cmdr + ".json";
-                path = invalidChars.Replace(path, "");
-                
+        public static OAuth2 Load(string cmdr)
+        {
+            try {
+                string escapedName = Uri.EscapeDataString(cmdr);
+                string path = "tokens/access-token-" + escapedName + ".json";
+
                 var jo = JObject.Parse(File.ReadAllText(path));
 
                 return new OAuth2
@@ -229,8 +229,9 @@ namespace MultiCarrierManager.ApiTools {
                 return null;
             }
         }
-        
-        public void Save(string cmdr) {
+
+        public void Save(string cmdr)
+        {
             var jo = new JObject
             {
                 ["access_token"] = AccessToken,
@@ -238,9 +239,8 @@ namespace MultiCarrierManager.ApiTools {
                 ["token_type"] = TokenType
             };
 
-            Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
-            string path = "tokens/access-token-" + cmdr + ".json";
-            path = invalidChars.Replace(path, "");
+            string escapedName = Uri.EscapeDataString(cmdr);
+            string path = "tokens/access-token-" + escapedName + ".json";
             Console.WriteLine(path);
 
             if (!Directory.Exists("tokens")) Directory.CreateDirectory("tokens");
@@ -303,4 +303,5 @@ namespace MultiCarrierManager.ApiTools {
             return request;
         }
     }
+}
 }

@@ -70,7 +70,7 @@ namespace MultiCarrierManager {
                 string text = File.ReadAllText(file);
                 JObject carrier = JObject.Parse(text);
                 string name = ConvertHex(carrier["name"]["vanityName"].ToString());
-                string cmdrName = file.Split('\\').Last().Replace(".json", "");
+                string cmdrName = WebUtility.UrlDecode(file.Split('\\').Last().Replace(".json", ""));
                 
                 Program.logger.Log("Carrier:" + name);
                 
@@ -81,7 +81,7 @@ namespace MultiCarrierManager {
                 
                 tabControl1.TabPages.Add(page);
                 
-                JObject cmdr = JObject.Parse(File.ReadAllText("carriers/profiles/"+cmdrName+".json"));
+                JObject cmdr = JObject.Parse(File.ReadAllText("carriers/profiles/" + Uri.EscapeDataString(cmdrName) + ".json"));
                 totalWorth += GetCommanderValue(cmdr, carrier);
             }
 
@@ -301,11 +301,15 @@ namespace MultiCarrierManager {
                 
                 auth.Save(cmdr);
                 
-                Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
-                string path1 = "carriers/" + cmdr + ".json";
-                string path2 = "carriers/profiles/" + cmdr + ".json";
-                path1 = invalidChars.Replace(path1, "");
-                path2 = invalidChars.Replace(path2, "");
+                string escapedName = Uri.EscapeDataString(cmdr);
+                string path1 = "carriers/" + escapedName + ".json";
+                string path2 = "carriers/profiles/" + escapedName + ".json";
+                
+                // Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
+                // string path1 = "carriers/" + cmdr + ".json";
+                // string path2 = "carriers/profiles/" + cmdr + ".json";
+                // path1 = invalidChars.Replace(path1, "");
+                // path2 = invalidChars.Replace(path2, "");
             
                 File.WriteAllText(path1, c.ToString(Newtonsoft.Json.Formatting.Indented));
                 File.WriteAllText(path2, p.ToString(Newtonsoft.Json.Formatting.Indented));
@@ -346,11 +350,9 @@ namespace MultiCarrierManager {
             var c = capi.GetCarrier();
             var p = capi.GetProfile();
             
-            Regex invalidChars = new Regex("[<>:\"\\|?\\*]");
-            string path1 = "carriers/" + cmdr_name + ".json";
-            string path2 = "carriers/profiles/" + cmdr_name + ".json";
-            path1 = invalidChars.Replace(path1, "");
-            path2 = invalidChars.Replace(path2, "");
+            string escapedName = Uri.EscapeDataString(cmdr_name);
+            string path1 = "carriers/" + escapedName + ".json";
+            string path2 = "carriers/profiles/" + escapedName + ".json";
             
             File.WriteAllText(path1, c.ToString(Newtonsoft.Json.Formatting.Indented));
             File.WriteAllText(path2, p.ToString(Newtonsoft.Json.Formatting.Indented));
