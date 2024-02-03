@@ -26,17 +26,17 @@ namespace MultiCarrierManager {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] { "Refuel", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] { "Repair", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] { "Rearm", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] { "Shipyard", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] { "Outfitting", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] { "Black Market", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] { "Voucher Redemption", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] { "Universal Cartographics", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] { "Bartender", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] { "Vista Genomics", "Available" }, -1);
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] { "Pioneer Supplies", "Available" }, -1);
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {"Refuel", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {"Repair", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {"Rearm", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {"Shipyard", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {"Outfitting", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {"Black Market", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem(new string[] {"Voucher Redemption", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {"Universal Cartographics", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {"Bartender", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem(new string[] {"Vista Genomics", "Available"}, -1);
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem(new string[] {"Pioneer Supplies", "Available"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.managerTab = new System.Windows.Forms.TabPage();
@@ -92,6 +92,7 @@ namespace MultiCarrierManager {
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.managerTab);
             this.tabControl1.Controls.Add(this.carrierTemplate);
             this.tabControl1.Location = new System.Drawing.Point(0, 2);
@@ -119,6 +120,7 @@ namespace MultiCarrierManager {
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.Location = new System.Drawing.Point(8, 461);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(966, 23);
@@ -127,7 +129,8 @@ namespace MultiCarrierManager {
             // 
             // listView1
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.columnHeader7, this.columnHeader8, this.columnHeader9, this.columnHeader12, this.columnHeader11, this.columnHeader10, this.columnHeader13 });
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.columnHeader7, this.columnHeader8, this.columnHeader9, this.columnHeader12, this.columnHeader11, this.columnHeader10, this.columnHeader13});
             this.listView1.Location = new System.Drawing.Point(8, 92);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(966, 366);
@@ -172,6 +175,7 @@ namespace MultiCarrierManager {
             // 
             // catsButton
             // 
+            this.catsButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.catsButton.Location = new System.Drawing.Point(8, 487);
             this.catsButton.Name = "catsButton";
             this.catsButton.Size = new System.Drawing.Size(154, 41);
@@ -241,7 +245,8 @@ namespace MultiCarrierManager {
             // 
             // buyList1
             // 
-            this.buyList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.buyCommHeader, this.buyAmountHeader, this.columnHeader5, this.buyPriceHeader, this.columnHeader6, this.columnHeader4 });
+            this.buyList1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.buyList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.buyCommHeader, this.buyAmountHeader, this.columnHeader5, this.buyPriceHeader, this.columnHeader6, this.columnHeader4});
             this.buyList1.Location = new System.Drawing.Point(440, 414);
             this.buyList1.Name = "buyList1";
             this.buyList1.Size = new System.Drawing.Size(534, 118);
@@ -281,7 +286,8 @@ namespace MultiCarrierManager {
             // 
             // buyLabel1
             // 
-            this.buyLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buyLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.buyLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.buyLabel1.Location = new System.Drawing.Point(440, 381);
             this.buyLabel1.Name = "buyLabel1";
             this.buyLabel1.Size = new System.Drawing.Size(290, 30);
@@ -290,7 +296,8 @@ namespace MultiCarrierManager {
             // 
             // sellList1
             // 
-            this.sellList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.sellCommHeader, this.sellAmountHeader, this.sellPriceHeader, this.columnHeader3 });
+            this.sellList1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.sellList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.sellCommHeader, this.sellAmountHeader, this.sellPriceHeader, this.columnHeader3});
             this.sellList1.Location = new System.Drawing.Point(440, 261);
             this.sellList1.Name = "sellList1";
             this.sellList1.Size = new System.Drawing.Size(534, 117);
@@ -320,7 +327,8 @@ namespace MultiCarrierManager {
             // 
             // sellLabel1
             // 
-            this.sellLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sellLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.sellLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.sellLabel1.Location = new System.Drawing.Point(440, 228);
             this.sellLabel1.Name = "sellLabel1";
             this.sellLabel1.Size = new System.Drawing.Size(290, 30);
@@ -329,7 +337,8 @@ namespace MultiCarrierManager {
             // 
             // commodityLabel1
             // 
-            this.commodityLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.commodityLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.commodityLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.commodityLabel1.Location = new System.Drawing.Point(440, 0);
             this.commodityLabel1.Name = "commodityLabel1";
             this.commodityLabel1.Size = new System.Drawing.Size(290, 30);
@@ -338,7 +347,8 @@ namespace MultiCarrierManager {
             // 
             // commodityList1
             // 
-            this.commodityList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.commodityHeader, this.amountHeader, this.averageHeader });
+            this.commodityList1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.commodityList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.commodityHeader, this.amountHeader, this.averageHeader});
             this.commodityList1.Location = new System.Drawing.Point(440, 30);
             this.commodityList1.Name = "commodityList1";
             this.commodityList1.Size = new System.Drawing.Size(534, 195);
@@ -363,8 +373,9 @@ namespace MultiCarrierManager {
             // 
             // servicesList1
             // 
-            this.servicesList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.columnHeader1, this.columnHeader2 });
-            this.servicesList1.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9, listViewItem10, listViewItem11 });
+            this.servicesList1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
+            this.servicesList1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {this.columnHeader1, this.columnHeader2});
+            this.servicesList1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {listViewItem1, listViewItem2, listViewItem3, listViewItem4, listViewItem5, listViewItem6, listViewItem7, listViewItem8, listViewItem9, listViewItem10, listViewItem11});
             this.servicesList1.Location = new System.Drawing.Point(8, 243);
             this.servicesList1.Name = "servicesList1";
             this.servicesList1.ShowGroups = false;
@@ -385,7 +396,8 @@ namespace MultiCarrierManager {
             // 
             // servicesLabel1
             // 
-            this.servicesLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.servicesLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.servicesLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.servicesLabel1.Location = new System.Drawing.Point(0, 210);
             this.servicesLabel1.Name = "servicesLabel1";
             this.servicesLabel1.Size = new System.Drawing.Size(290, 30);
@@ -394,7 +406,8 @@ namespace MultiCarrierManager {
             // 
             // spaceLabel1
             // 
-            this.spaceLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.spaceLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.spaceLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.spaceLabel1.Location = new System.Drawing.Point(0, 180);
             this.spaceLabel1.Name = "spaceLabel1";
             this.spaceLabel1.Size = new System.Drawing.Size(290, 30);
@@ -403,7 +416,8 @@ namespace MultiCarrierManager {
             // 
             // accessLabel1
             // 
-            this.accessLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.accessLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.accessLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.accessLabel1.Location = new System.Drawing.Point(0, 150);
             this.accessLabel1.Name = "accessLabel1";
             this.accessLabel1.Size = new System.Drawing.Size(290, 30);
@@ -412,7 +426,8 @@ namespace MultiCarrierManager {
             // 
             // fuelLabel1
             // 
-            this.fuelLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fuelLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.fuelLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.fuelLabel1.Location = new System.Drawing.Point(0, 120);
             this.fuelLabel1.Name = "fuelLabel1";
             this.fuelLabel1.Size = new System.Drawing.Size(290, 30);
@@ -421,7 +436,8 @@ namespace MultiCarrierManager {
             // 
             // creditsLabel1
             // 
-            this.creditsLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.creditsLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.creditsLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.creditsLabel1.Location = new System.Drawing.Point(0, 90);
             this.creditsLabel1.Name = "creditsLabel1";
             this.creditsLabel1.Size = new System.Drawing.Size(290, 30);
@@ -430,7 +446,8 @@ namespace MultiCarrierManager {
             // 
             // systemLabel1
             // 
-            this.systemLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.systemLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.systemLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.systemLabel1.Location = new System.Drawing.Point(0, 60);
             this.systemLabel1.Name = "systemLabel1";
             this.systemLabel1.Size = new System.Drawing.Size(290, 30);
@@ -439,7 +456,8 @@ namespace MultiCarrierManager {
             // 
             // callsignLabel1
             // 
-            this.callsignLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.callsignLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.callsignLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.callsignLabel1.Location = new System.Drawing.Point(0, 30);
             this.callsignLabel1.Name = "callsignLabel1";
             this.callsignLabel1.Size = new System.Drawing.Size(290, 30);
@@ -449,7 +467,8 @@ namespace MultiCarrierManager {
             // 
             // nameLabel1
             // 
-            this.nameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.nameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.nameLabel1.Location = new System.Drawing.Point(0, 0);
             this.nameLabel1.Name = "nameLabel1";
             this.nameLabel1.Size = new System.Drawing.Size(290, 30);
@@ -462,7 +481,7 @@ namespace MultiCarrierManager {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 564);
             this.Controls.Add(this.tabControl1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "ED Multi Carrier Manager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
