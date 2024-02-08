@@ -1,0 +1,94 @@
+﻿Ceeckia EQ-G c13-0
+Ceeckia FU-B c2-0
+Streau Eop HI-U c19-1
+Streau Eop NC-P c8-0
+Pyra Drye OV-F c27-0
+Pyra Drye TJ-O d7-3
+Pyra Drye TD-Z d1-1
+Cheia Drye IK-P c22-0
+Cheia Drye JO-K c11-0
+Cheia Drye KS-F c0
+Pyra Eop JL-W c18-0
+Pyra Eop PI-L b14-0
+Skueqiae HC-K c25-0
+Skueqiae TH-K b28-0
+Skueqiae SE-B b6-1
+Gria Gree WB-I b43-1
+Gria Gree SV-T d4-11
+Nyauthou SZ-H b57-6
+Nyauthoae OZ-Z c16-4
+Nyauthoae XJ-X d2-39
+Graea Blou TR-L c24-9
+Graea Blou PL-P b25-3
+Graea Blou KN-G b3-0
+Thuecho UF-L d9-116
+Thuecho TV-P c8-24
+Drootaea UJ-G c27-16
+Drootaea PB-D b32-1
+Drootaea NI-V b8-0
+Flyae Gree SE-P c22-13
+Flyae Gree OR-U b22-1
+Flyae Gree YH-F c0
+Swuenoe DW-K d9-25
+Swuenoe AF-X d2-26
+Synietchua FJ-J c25-2
+Synietchua WL-I b28-0
+Synietchua DK-Y b5-0
+Gru Pri QQ-P c21-0
+Gru Pri RU-K c10-0
+Slatchue RX-C c28-1
+Slatchue MO-U b34-0
+Slatchue MB-L b12-0
+Gru Flyi QY-R b49-0
+Gru Flyi KO-P d6-26
+Gru Flyi NR-C b3-1
+Blua Flyi PT-J b40-2
+Blaa Flyi FO-B b17-1
+Prua Pri IV-I b54-2
+Prua Pri BQ-N d7-35
+Prua Pri KF-R b8-1
+Dryiqou PO-G d11-28
+Dryiqou JT-Q b22-2
+Gooreia LP-Z b58-1
+Gooreia GY-V c17-14
+Gooreia NS-Q c6-56
+Bleethai TE-Q e5-720
+Bleethai TE-P d6-776
+Bleethai LX-W b4-11
+Phrio Byoe ID-G b41-37
+Phrio Byoe KN-S d4-170
+Scheau Byoe TD-D b56-10
+Scheau Byoe ZG-L d8-1804
+Scheau Byoe YK-X d1-661
+Phroea Blou AV-F d11-954
+Phroea Blou WH-G b26-41
+Phroea Blou IA-Z d24
+Schee Blou TA-G b40-4
+Schee Blou YI-W b17-11
+Dryoea Gree TO-F b54-2
+Dryoea Gree CW-M d7-145
+Dryoea Gree IM-V d2-371
+Eord Gree JV-J c23-273
+Eord Gree KZ-E c12-97
+Eord Gree OY-Z c48
+Dryio Blou TI-J d9-1364
+Dryio Blou TW-L c8-172
+Eoch Blou JC-C d13-76
+Eoch Blou WT-X c15-225
+Eoch Blou SW-U c3-106
+Juenoe ZU-P e5-3306
+Juenoe YE-Q d5-4245
+Juenoe ZT-A d2309
+Byoome MD-J d9-2345
+Byoome SO-P c6-58
+Wepua UA-E d12-3234
+Wepua VP-O d6-522
+Wepua XJ-A e940
+Agnaiz JO-H d10-2033
+Agnaiz UG-K c9-298
+Dryooe Prou PI-A d14-1551
+Dryooe Prou KW-M d7-2760
+Dryooe Prou YC-T c4-28
+Eol Prou AY-R b47-21
+Eol Prou BV-E c12-159
+Tir

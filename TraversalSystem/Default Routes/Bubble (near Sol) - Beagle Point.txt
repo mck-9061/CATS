@@ -1,0 +1,132 @@
+﻿Scorpius Dark Region FG-Y d115
+Parrot's Head Sector BQ-Y d98
+Blu Thua CA-A b4
+Aucoks UQ-P a46-4
+Bleia Eohn LM-F a93-5
+Droju JA-N a20-2
+Smojue UB-W c15-2
+Smojue KW-Y b55-2
+Traikaae JL-P b19-7
+Traikaae AY-X b42-3
+Byua Euq ZR-O b6-14
+Byua Euq XF-W b29-11
+Byua Euq SI-B d13-172
+Ploi Aewsy EZ-S d3-95
+Ploi Aewsy LP-E b39-4
+Prielea EM-Y c60
+Prielea DT-B c13-8
+Prielea DP-L b49-0
+Slulee DC-O c6-49
+Slulee BH-K b36-13
+Slulee SY-X c28-25
+Pru Ain FW-L b22-4
+Pru Ain ZD-U b45-0
+Bleae Aewsy PE-S c4-2
+Synookio CH-M d7-98
+Bleae Aewsy FB-C c27-21
+Puekee QS-S b18-1
+Puekee GA-O c20-31
+Froarks PQ-Y d1568
+Froarks AT-A c14-504
+Froarks JR-D d12-1868
+Byua Ain UD-A b15-182
+Byua Ain WY-I d9-3188
+Oephaird HA-Z b1-67
+Oephaird EA-Q d5-5886
+Oephaird NJ-R b47-5
+Dryao Aowsy FE-R c5-525
+Dryao Aowsy AF-W c16-1693
+Dryao Aowsy YA-B c28-2527
+Ogaimy WI-S d4-7749
+Ogaimy TT-H d10-11019
+Shrogaei ML-X d1-4757
+Shrogaei VN-Z c14-1899
+Shrogaei SE-E c26-237
+Dumbae WR-L c8-921
+Dumbae UD-J d9-451
+Zunuae SP-Z c1582
+Zunuae RW-C c13-3001
+Zunuae GW-D d12-201
+Myriesly LK-P c6-1056
+Myriesly HG-U c17-4196
+Phua Aub MO-B c3662
+Phua Aub KF-G c11-2213
+Phua Aub JW-K c22-2472
+Phipoea ME-S c4-1981
+Phipoea PH-M d7-7306
+Phipoea GC-A c28-276
+Dryao Chrea DO-J c9-5346
+Dryao Chrea CA-O c20-1595
+Eorm Briae NQ-Y d6544
+Eorm Briae AO-A c14-2655
+Eorm Briae ZE-F c25-3357
+Lyaisua DN-M c7-2519
+Lyaisua AP-I d9-2612
+Lasiae ER-Y c1384
+Lasiae CI-D c12-1640
+Lasiae AP-G c24-1650
+Phua Chrea BM-P c5-370
+Phua Chrea WH-U c16-314
+Phroi Bluae RK-C d14-3010
+Hyuqau JN-M c10-220
+Hyuqau RE-F b45-34
+Phroi Byoe GS-X b7-0
+Phroi Byoe DN-E c14-128
+Phroi Byoe LJ-F d12-1467
+Flyae Flyi EH-Q c7-62
+Flyae Flyi YQ-K d9-2458
+Prae Flyi JH-C d1585
+Prae Flyi QV-H c12-113
+Prae Flyi BU-X b47-50
+Dryiqau GI-W c4-95
+Dryiqau DP-Z c16-14
+Dryiqau MF-C d14-97
+Cyoagaea BB-Z b19-1
+Cyoagaea XO-Q c21-12
+Qosoa ZD-X b6-4
+Qosoa GD-Q d6-78
+Qosoa KI-J c25-0
+Graea Flyi LA-R c7-2
+Graea Flyi VT-P b38-1
+Fachiae QD-B e2
+Fachiae YG-P b24-0
+Fachiae RE-X b47-0
+Graea Pri LI-O b11-0
+Graea Pri JB-W b34-0
+Graea Pri ZI-E b58-0
+Striechooe XQ-T d4-14
+Striechooe KJ-F b44-0
+Swuenoi FX-X b6-0
+Swuenoi TO-G b30-3
+Swuenoi OR-O b53-3
+Auphaibs HQ-P c8-23
+Auphaibs GJ-N b40-6
+Drootie DJ-D c1-8
+Drootie CD-Q d6-69
+Drootie XL-L c24-8
+Thuechu LJ-X d2-140
+Thuecheae BE-A b34-3
+Thuecheae JV-E c28-15
+Pyrivo JX-N c9-21
+Pyrivo CM-J d10-23
+Nyauthou NM-Z b6-8
+Qaugneau DR-V b29-5
+Nyauthou JD-P b53-0
+Gria Gree JR-H b16-0
+Gria Gree CU-P b39-0
+Chua Eohn ON-L a7-0
+Chua Eohn BO-B a54-0
+Cho Thua EO-K b49-0
+Pyria Thua CR-N c6-0
+Pyroo Eohn SE-Y c17-0
+Pyroo Eohn IF-C d14-1
+Chua Dryiae UV-T d4-0
+Chua Dryiae QJ-P c22-0
+Nuwo MV-Y c3-0
+Nuwo ET-O d7-3
+Nuwo JO-G c27-0
+Straae Eohn SB-E b18-0
+Straae Eohn IX-S c20-0
+Ceeckia JZ-B c2-0
+Ceeckia BN-Q d6-0
+Beagle Point

@@ -72,7 +72,6 @@ namespace MultiCarrierManager {
                 runButton.Enabled = false;
                 loadButton.Enabled = false;
                 importButton.Enabled = false;
-                button1.Enabled = false;
                 button2.Enabled = false;
                 cats.run_cmd();
             }
@@ -86,7 +85,6 @@ namespace MultiCarrierManager {
                 runButton.Enabled = true;
                 loadButton.Enabled = true;
                 importButton.Enabled = true;
-                button1.Enabled = true;
                 button2.Enabled = true;
                 cats.close();
 
@@ -127,25 +125,25 @@ namespace MultiCarrierManager {
         }
 
         private void loadButton_Click(object sender, EventArgs e) {
-            OpenFileDialog dialog = new OpenFileDialog();
-            if (dialog.ShowDialog() == DialogResult.OK) {
-                try
-                {
-                    var filePath = dialog.FileName;
-                    string[] lines = System.IO.File.ReadAllLines(filePath);
-                    File.WriteAllLines("CATS\\route.txt", lines);
-                    loadFromRouteFile();
-                }
-                catch (SecurityException ex)
-                {
-                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
-                                    $"Details:\n\n{ex.StackTrace}");
+            using (OpenFileDialog dialog = new OpenFileDialog()) {
+                dialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), "CATS\\Default Routes\\");
+                dialog.RestoreDirectory = true;
+                if (dialog.ShowDialog() == DialogResult.OK) {
+                    try {
+                        var filePath = dialog.FileName;
+                        string[] lines = System.IO.File.ReadAllLines(filePath);
+                        File.WriteAllText("CATS\\route.txt", String.Join(Environment.NewLine, lines));
+                        loadFromRouteFile();
+                    }
+                    catch (SecurityException ex) {
+                        MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                                        $"Details:\n\n{ex.StackTrace}");
+                    }
                 }
             }
         }
 
-        // Save settings
-        private void button1_Click(object sender, EventArgs e) {
+        private void save() {
             string journal = textBox5.Text;
             string slot = textBox3.Text;
             string route = textBox2.Text;
@@ -164,8 +162,11 @@ namespace MultiCarrierManager {
             File.WriteAllText("CATS\\save.txt", Convert.ToString(index));
             
             populateComboBox();
+        }
 
-            MessageBox.Show("Saved settings and route!");
+        // Save settings
+        private void button1_Click(object sender, EventArgs e) {
+            
         }
 
         private void importButton_Click(object sender, EventArgs e) {
@@ -188,7 +189,8 @@ namespace MultiCarrierManager {
                     }
                     
                     
-                    File.WriteAllLines("CATS\\route.txt", systems.ToArray());
+                    
+                    File.WriteAllText("CATS\\route.txt", String.Join(Environment.NewLine, systems.ToArray()));
                     
                     loadFromRouteFile();
                 }
@@ -241,6 +243,10 @@ namespace MultiCarrierManager {
         private void button5_Click(object sender, EventArgs e) {
             DiscordForm form = new DiscordForm();
             form.ShowDialog();
+        }
+
+        private void textBox3_Leave(object sender, EventArgs e) {
+            save();
         }
     }
 }

@@ -1,0 +1,133 @@
+﻿Ceeckia WG-S d5-5
+Ceeckia FI-N a6-0
+Syre Thua RJ-I d9-7
+Syre Thua TY-S d3-1
+Puwee PQ-C c26-1
+Puwee FR-N d6-5
+Puwee RX-U c2-0
+Syneayoi UL-L c21-0
+Syneayoi XP-G c10-0
+Pyria Thua XC-Z c27-0
+Pyria Thua ND-K d8-2
+Pyria Thua LM-W d1-0
+Cho Thua DD-I c23-0
+Cho Thua OT-G b24-0
+Cho Thua TQ-Y b0
+Proyaa ID-R c18-1
+Proyaa VY-Y b14-0
+Bleae Briae RO-I b51-0
+Bleae Briae DB-O d6-56
+Bleae Briae KG-X c1-11
+Byua Chrea BZ-B b41-3
+Byua Chrea PS-J c9-8
+Truechoae LW-U b58-3
+Truechoae FY-J b38-3
+Truechoae OQ-B b15-2
+Smootiae JO-E c26-9
+Smootiae WE-B b29-1
+Smootiae MV-W c2-1
+Ploi Briae TE-N c21-0
+Ploi Briae PL-S b19-0
+Sutchae RM-B b56-1
+Sutchae ZO-T b32-1
+Sutchae NS-J b10-0
+Wruethoo OY-S b46-0
+Wruethoo QF-L b23-0
+Wruethoo WC-D b0
+Byua Aub RS-K d8-9
+Byua Aub NA-P c6-2
+Bleae Aub PT-F c25-0
+Bleae Aub EU-D b27-0
+Bleae Aub CB-W b3-0
+Byua Aowsy UJ-O c20-0
+Byua Aowsy QA-V b17-0
+Eactaiky VF-C c27-1
+Eactaiky LM-M d7-26
+Eactaiky LU-R c4-8
+Pru Aub UE-T b45-7
+Pru Aub WG-L b22-7
+Ploi Aub HO-T b58-8
+Ploi Aub KQ-L b35-9
+Ploi Aub SY-B b13-7
+Spooreau UO-G c24-208
+Spooreau OR-N d6-1311
+Spooreau FE-V b2-178
+Flyae Flyi VW-U c19-419
+Flyae Flyi VA-Q c8-1042
+Phroi Byoe UV-B d14-2846
+Phroi Byoe MW-X b33-9
+Phroi Byoe UO-P b10-39
+Hyuqau KC-V f2-4197
+Hyuqau FW-V e2-5211
+Hyuqau NH-C d1873
+Phroi Bluae ZJ-R b37-30
+Phroi Bluae DG-V d3-3504
+Hypoe Bluae FY-Q b51-0
+Hypoe Bluae FW-V e2-1501
+Hypoe Bluae YD-A b5-37
+Brairee NK-R c20-761
+Brairee EB-V d3-4913
+Eorld Byoe OG-F c27-1472
+Eorld Byoe VZ-N d7-1300
+Eorld Byoe YO-Y d1-3302
+Scaulo WB-O c22-3428
+Scaulo LS-R d5-7134
+Systimbu SH-C c29-2534
+Systimbu JR-V b35-10
+Systimbu TE-T c6-7042
+Phroi Pri HY-F d12-7048
+Phroi Pri RF-H c13-3800
+Phua Aub AH-Y c7656
+Byoomao VF-L d9-5483
+Byoomao RV-H b16-124
+Wepue ME-E d13-4365
+Wepue BS-D c15-1267
+Wepue DL-A c3-2498
+Hypoe Flyi EE-R c21-798
+Hypoe Flyi CB-U d4-5712
+Dryoi Pri IV-E c28-1870
+Dryoi Pri OT-O d7-4671
+Shrogaei TF-R c4-2281
+Ogaimy WY-H c23-2541
+Eorld Pri LT-K c11-550
+Ogaimy NA-A d8274
+Dryao Aowsy ZN-S c17-1994
+Dryao Aowsy ZS-U d2-1602
+Oephaird ZJ-G c24-979
+Oephaird QR-N d6-239
+Oephaird RU-U b2-136
+Byua Ain IA-P c19-690
+Boepp XU-R c7-1649
+Froarks JR-C c26-524
+Floarps FD-R a59-114
+Floarps RH-B a13-88
+Graea Hypue IM-K b42-72
+Puekee NB-P b19-32
+Clookeou IL-U a112-7
+Clookeou AY-B b33-1
+Clookeou QX-W c4-18
+Pru Ain WS-J c22-12
+Pru Ain VI-K b22-3
+Pru Ain NF-A d74
+Slulee ZX-S c17-60
+Slulee HU-B b13-7
+Prielea CK-G c24-39
+Prielea RR-N d6-103
+Prielea PA-A d229
+Lysoorb CX-E b39-5
+Lysoorb JI-K c8-51
+Byeia Euq SW-D b53-6
+Byeia Euq LZ-X c14-51
+Byeia Euq IC-V c2-3
+Blu Euq XL-X b42-8
+Blu Euq OJ-I c9-6
+Smojue PM-Y b55-2
+Smojai GR-Q b32-3
+Smojai QO-R c4-3
+Blu Thua PB-K c22-10
+Blu Thua WP-P d5-62
+Praea Euq GG-U b58-3
+M7 Sector UW-G b12-2
+Pipe (stem) Sector QD-S b4-3
+LHS 2764a
+Xi Ursae Majoris

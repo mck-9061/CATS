@@ -1,0 +1,81 @@
+﻿Ceeckia WG-S d5-5
+Ceeckia FI-N a6-0
+Syre Thua RJ-I d9-7
+Syre Thua TY-S d3-1
+Puwee PQ-C c26-1
+Puwee FR-N d6-5
+Puwee RX-U c2-0
+Syneayoi UV-L c21-0
+Syneayoi WJ-R d4-2
+Pyria Thua XH-Z c27-0
+Pyria Thua OD-K d8-0
+Pyria Thua IL-P c5-0
+Cho Thua DD-I c23-0
+Cho Thua OT-G b24-0
+Cho Thua TQ-Y b0
+Proyaa XM-G b38-0
+Proyaa GF-Y b14-4
+Bleae Briae PP-E c25-19
+Bleae Briae QI-Z b27-2
+Bleae Briae VP-R b4-0
+Byua Chrea SV-Z b41-7
+Byua Chrea ZO-R d4-80
+Truechoae YN-A b56-4
+Truechoae WP-U c17-8
+Truechoae ZH-H b12-1
+Smootiae NV-N b49-0
+Smootiae OH-G b26-3
+Smootiae AZ-A d37
+Ploi Briae RA-G b40-0
+Ploi Briae CT-X b16-0
+Sutchae PE-E c26-7
+Sutchae OS-W b30-0
+Sutchae LB-X d1-26
+Wruethoo SZ-M c21-1
+Wruethoo WY-R d4-4
+Byua Aub KI-A d14-5
+Byua Aub ZA-Q b34-0
+Byua Aub OM-V d2-6
+Bleae Aub HN-H c24-0
+Bleae Aub WX-G b25-0
+Bleae Aub CV-Y b1-0
+Byua Aowsy MX-R c18-1
+Byua Aowsy YI-T d3-17
+Eactaiky YP-D c26-3
+Eactaiky YR-Z b28-2
+Eactaiky BU-R b5-1
+Pru Aub TO-B b42-4
+Pru Aub EO-J c9-4
+Ploi Aub QU-Y b56-4
+Ploi Aub YW-Q b33-9
+Ploi Aub TK-Q c5-4
+Spooreau EV-Q b47-30
+Spooreau OI-I b24-52
+Joothee UO-A d816
+Greeroe QZ-H b38-44
+Greeroe VO-R d4-199
+Bleethuae ER-C d889
+Phraa Byoe CS-I d10-1006
+Phraa Byoe DH-T d4-1470
+Hyuqo LP-D d13-4275
+Hyuqo BZ-A c16-147
+Hyuqo MY-Y d1-2256
+Aemost AI-H d11-4159
+Aemost FP-J c11-47
+Hypio Bluae LA-C d14-3403
+Hypio Bluae DL-X c17-1438
+Hypio Bluae JO-L b13-10
+Braisoe AT-F d12-7733
+Braisoe BV-G c13-3749
+Braisoe CE-C c2-2883
+Eos Briae HZ-O c19-4070
+Eos Briae JI-K c8-687
+Dryau Chrea IV-C c26-1256
+Dryau Chrea KE-Y c14-6347
+Dryau Chrea EH-M b7-56
+Eos Chrea QU-G d10-4092
+Eos Chrea QZ-G c10-668
+Stuemeae RC-Z c27-7643
+Stuemeae WG-U c16-825
+Stuemeae WE-R c4-601
+Sagittarius A*

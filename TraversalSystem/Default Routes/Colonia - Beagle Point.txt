@@ -1,0 +1,94 @@
+﻿Eol Prou SO-H d10-402
+Dryooe Prou BK-A e2244
+Dryooe Prou GL-D c13-243
+Dryooe Prou GH-I c24-60
+Agnairt GO-R c5-197
+Agnaiz AC-L d8-2273
+Agnaiz BL-Z c28-310
+Wepua BS-I c10-214
+Wepua SO-R e4-3433
+Byoome DL-X d1-1484
+Byoome FC-B c14-144
+Byoome BB-O e6-5326
+Juenoe QS-T d3-1431
+Juenoe CR-S c18-250
+Eoch Blou BZ-A d4726
+Eoch Blou ZY-G c11-129
+Eoch Blou DW-J c23-104
+Dryio Blou HY-S c4-292
+Scaulou WV-M d7-2760
+Scaulou UL-C d13-866
+Eord Gree UF-M c8-19
+Eord Gree HS-I b39-35
+Dryoea Gree OX-A c1-182
+Dryoea Gree JN-H c11-64
+Dryoea Gree FT-M c22-10
+Schee Blou CA-Y d1-301
+Schee Blou HC-Z c15-70
+Schee Blou AX-F c26-47
+Phroea Blou ED-D b16-55
+Phroea Blou NX-J d9-868
+Scheau Byoe UL-F a4-0
+Scheau Byoe JY-Q d5-1052
+Scheau Byoe UY-K c23-56
+Phrio Byoe TR-M b10-0
+Phrio Byoe RJ-W b32-6
+Phrio Byoe XB-B d14-935
+Bleethai OG-V b19-27
+Bleethai ID-I d10-1318
+Gooreia SD-A d1-1907
+Gooreia XN-G b28-26
+Gooreia KF-I c25-0
+Dryiqou FL-W d2-69
+Dryiqou XA-U b34-1
+Dryiqou PC-E b57-1
+Preia Pri CX-S d4-14
+Preia Pri KC-E b43-1
+Blua Flyi OY-Z d34
+Blua Flyi AJ-D c14-14
+Blua Flyi ZO-Q b50-3
+Gru Flyi CO-H b14-0
+Gru Flyi TP-R b36-0
+Gru Flyi RM-B b59-1
+Slatchue IH-T d4-3
+Slatchue RG-O c22-3
+Gru Pri FB-U b8-0
+Gru Pri GP-B b32-0
+Gru Pri SP-D d13-7
+Synietchua DL-V d3-4
+Synietchua DW-K d9-13
+Prae Blou MT-E b3-0
+Prae Blou XB-S d5-30
+Prae Blou ZA-N c23-7
+Flyae Gree PE-X d2-18
+Flyae Gree DF-Z c16-8
+Flyae Gree ZQ-I b56-2
+Drootaea XU-Z b19-1
+Drootaea PM-I b43-9
+Thuecho TF-C b5-2
+Thuecho VY-J b28-1
+Thuecho SC-K c25-10
+Graea Blou UO-X d2-84
+Byua Chraei AO-S c17-14
+Nyauthoae TF-Y a1
+Qaugneau SR-J b22-9
+Nyauthou SR-H d11-14
+Gria Gree TO-Q a18-2
+Gria Gree GO-O d7-11
+Gria Gree OJ-G c27-1
+Skueqiae CM-F b17-0
+Skueqiae SA-L d9-2
+Pyra Eop TP-B c2-0
+Pyra Eop HI-Q d6-1
+Pyra Eop IL-N c23-0
+Cheia Drye NY-U c5-0
+Cheia Drye JU-Z c16-0
+Cheia Drye RF-C d14-2
+Pyra Drye JI-M c10-0
+Pyra Drye IE-R c21-0
+Streau Eop RR-A b6-0
+Streau Eop MZ-I b29-0
+Straae Eohn BV-Q b52-0
+Ceeckia XX-P a32-0
+Ceeckia AG-W c18-0
+Beagle Point

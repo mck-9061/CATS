@@ -1,0 +1,45 @@
+﻿Col 359 Sector MB-A b16-7
+IC 1287 Sector DB-X c1-18
+Pru Euq CT-D b53-3
+Bleia Eohn QD-L b14-5
+Bleia Eohn XE-Y c17-24
+Bleia Eohn UO-J b56-6
+Drojeae ND-F b17-1
+Drojeae ZV-K d9-0
+Drojeae YZ-C b59-0
+Blae Drye GH-X b20-2
+Blae Drye LX-J b41-3
+Gria Drye JU-C c1-6
+Pyraleau CW-S b22-2
+Pyraleau HM-F b43-2
+Nyeajaae MY-Z b4-5
+Nyeajaae MY-M b25-5
+Nyeajaae CY-G d11-95
+Flyiedge DE-X c3-17
+Flyiedge SO-D c14-22
+Flyiedge PE-R b50-0
+Skaude ZG-L b12-4
+Skaude DS-W b33-2
+Skaude NF-D d13-28
+Preia Phoe QW-P c7-38
+Prua Phoe AX-Q b36-7
+Prua Phoe CE-B c29-32
+Clooku JE-Y b18-0
+Clooku MZ-K b39-34
+Nuekuae MN-B d350
+Nuekuae AS-R b21-10
+Stuelou MU-E b42-16
+Blua Eaec YR-Y b3-29
+Blua Eaec YR-L b24-45
+Blua Eaec ZI-M c22-90
+Boelts QE-X c2-87
+Boeph WW-F b27-3
+Boeph BD-R b48-18
+Eoch Flyuae GQ-X d1-1039
+Eoch Flyuae MF-Y b30-72
+Eoch Flyuae KK-L b51-34
+Dryio Flyuae FN-R c5-88
+Dryooe Flyou EF-W c16-30
+Dryooe Flyou RU-C c27-374
+Eol Prou SS-T d3-1488
+Tir
