@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Security;
 using System.Windows.Forms;
@@ -248,5 +250,14 @@ namespace MultiCarrierManager {
         private void textBox3_Leave(object sender, EventArgs e) {
             save();
         }
+
+        private void label8_Click(object sender, EventArgs e) {
+            throw new System.NotImplementedException();
+        }
+
+        private void label3_Click(object sender, EventArgs e) {
+            throw new System.NotImplementedException();
+        }
+        
     }
 }
