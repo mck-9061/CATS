@@ -423,6 +423,7 @@ def main_loop():
                 follow_button_sequence("close_game.txt")
                 # Open the game again when the jump is complete
                 threading.Timer(timeToJump, open_game).start()
+                game_ready = False
                 print("Game open scheduled")
                 # Kill the launcher
                 for proc in psutil.process_iter():
