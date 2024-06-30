@@ -3,6 +3,10 @@ CATS is an Elite Dangerous fleet carrier auto-plotter, autojumper, and flight co
 <br>
 This app also allows you to view stats about carriers across multiple accounts.
 
+# Maintenance
+CATS is currently in maintenance mode. <strong>It will continue to work</strong>, but no new features will be added (unless a game update breaks something).
+The Discord server is in read-only mode; if you have an issue, there may be a solution in there, but no direct help will be provided. (https://discord.gg/57gHX6GfHy)
+
 ## Features
 ### Admin interface
 * View name, callsign, credits, fuel, current system and other stats for multiple carriers.
@@ -42,10 +46,6 @@ The release comes bundled with everything you need to use both the admin panel a
 * Save the settings with the button at the top.
 * Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route". Save again if you've changed this.
 * Click "Run CATS", then tab to the Elite Dangerous window. It should now start to plot jumps.
-
-## Support
-Feel free to join for support, or just come say hi. https://discord.gg/57gHX6GfHy
-Before making a support post, please check the FAQ channel to make sure your question hasn't already been answered.
 
 ## Traversal system disclaimer
 Use of programs like this is technically against Frontier's TOS. While they haven't yet banned people for automating carrier jumps, the developer does not take any responsibility for any actions that could be taken against your account.<br>
