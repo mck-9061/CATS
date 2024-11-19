@@ -68,6 +68,7 @@ namespace MultiCarrierManager {
 
             label1.Text = "Waiting for route...";
 
+            JObject parsed = null;
 
             // Send requests for route
             do {
@@ -76,8 +77,9 @@ namespace MultiCarrierManager {
                 response = await client.GetAsync("https://spansh.co.uk/api/results/" + responseString.Split('"')[3]);
 
                 responseString = await response.Content.ReadAsStringAsync();
+                parsed = JObject.Parse(responseString);
                 Program.logger.LogOutput(responseString);
-            } while (responseString.Split('"')[1] != "error" && (responseString.Split('"')[7] == "started" || responseString.Split('"')[7] == "unstarted"));
+            } while (responseString.Split('"')[1] != "error" && (parsed["state"].ToString() == "started" || parsed["state"].ToString() == "unstarted"));
 
             if (responseString.Split('"')[1] == "error") {
                 label1.Text = "Invalid systems!";
@@ -85,7 +87,7 @@ namespace MultiCarrierManager {
                 return;
             }
 
-            JObject parsed = JObject.Parse(responseString);
+            parsed = JObject.Parse(responseString);
             JToken jumps = parsed["result"]["jumps"];
             List<string> destinations = new List<string>();
 
