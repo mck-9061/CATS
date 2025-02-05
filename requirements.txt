@@ -5,3 +5,4 @@ pydirectinput==1.0.4
 pygetwindow==0.0.9
 pyperclip==1.9.0
 pytz==2025.1
+pyinstaller==6.11.1
