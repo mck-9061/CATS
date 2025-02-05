@@ -1,4 +1,5 @@
 import random
+import re
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 global lastSent
@@ -85,6 +86,10 @@ def update_fields(carrierStage, maintenanceStage):
                 new_maintenance_stage += "~~" + stage + "...DONE~~\n"
             elif i == maintenanceStage:
                 new_maintenance_stage += "**" + stage + "...**\n"
+                if stage == "Done" and lastEmbed.description:
+                    # Once the jump is finished, replace all countdowns with a static text blurb
+                    while re.match(r"<t:\d*:R>", lastEmbed.description):
+                        lastEmbed.description = str(re.sub(r"<t:\d*:R>", "Countdown Expired", lastEmbed.description))
             else:
                 new_maintenance_stage += stage + "\n"
             i += 1
@@ -94,14 +99,14 @@ def update_fields(carrierStage, maintenanceStage):
     
         lastHook.remove_embeds()
     
-        lastEmbed.del_embed_field(0)
-        lastEmbed.del_embed_field(0)
+        lastEmbed.del_embed_field(0) # type: ignore
+        lastEmbed.del_embed_field(0) # type: ignore
     
         lastEmbed.add_embed_field(name="Jump stage", value=new_carrier_stage)
         lastEmbed.add_embed_field(name="Maintenance stage", value=new_maintenance_stage)
     
         lastHook.add_embed(lastEmbed)
-    
-        lastHook.edit(lastSent)
+
+        lastHook.edit(lastSent) # type: ignore
     except:
         print("Discord webhook not set up")
