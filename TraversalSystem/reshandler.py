@@ -1,4 +1,4 @@
-﻿import math
+import math
 
 global width, height, sysNameX, sysNameUpperY, sysNameLowerY, jumpButtonX, jumpButtonY
 
