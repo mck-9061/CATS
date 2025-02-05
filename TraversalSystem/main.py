@@ -188,7 +188,7 @@ def jump_to_system(system_name):
 
         delta = departure_time - current_time
 
-        return int(delta.total_seconds())
+        return int(delta.total_seconds()), departure_time
 
     follow_button_sequence("jump_nav_1.txt")
 
@@ -220,7 +220,7 @@ def jump_to_system(system_name):
         print("Jump appears to have failed.")
         print("Re-attempting...")
         follow_button_sequence("jump_fail.txt")
-        return 0
+        return 0, 0
 
     current_time = datetime.datetime.now(datetime.timezone.utc)
     departure_time_str = journalwatcher.departureTime
@@ -251,7 +251,7 @@ def jump_to_system(system_name):
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('backspace')
 
-    return int(delta.total_seconds())
+    return int(delta.total_seconds()), departure_time
 
 
 global lineNo
@@ -409,12 +409,16 @@ def main_loop():
         print("ETA: " + arrivalTime.strftime("%d %b %Y %H:%M"))
 
         try:
-            timeToJump = jump_to_system(line)
+            timeToJump, departing_time = jump_to_system(line)
 
-            while timeToJump == 0:
-                timeToJump = jump_to_system(line)
+            while timeToJump == 0 or departing_time == 0:
+                timeToJump, departing_time = jump_to_system(line)
 
             fTime = str(datetime.timedelta(seconds=timeToJump))
+            # https://hammertime.cyou/
+            # Time of departure (in seconds since the Epoch) with this format will result in a dynamic countdown in Discord
+            # Countdown will look like "in {time} minutes" or "{time} minutes ago". See the link for more details
+            fTime_discord = f"<t:{departing_time.timestamp():.0f}:R>"
 
             print("Navigation complete. Jump occurs in " + fTime + ". Counting down...")
             if power_saving:
@@ -438,6 +442,9 @@ def main_loop():
             if totalTime > 900:
                 arrivalTime = arrivalTime + datetime.timedelta(seconds=totalTime - 900)
                 print(arrivalTime.strftime("%d %b %Y %H:%M"))
+                # Arrival time (in seconds since the Epoch) with this format will result in a dynamic timestamp + countdown in Discord
+                # Result will look like "{month} {day}, {year} {hour}:{minute} {AM/PM} (in {time} minutes)"
+                arrivalTime_discord = f"<t:{arrivalTime.timestamp():.0f}:f> (<t:{arrivalTime.timestamp():.0f}:R>)"
 
             if doneFirst:
                 previous_system = a[i - 1]
@@ -446,8 +453,8 @@ def main_loop():
                                                                 "The carrier is now jumping to the " + line + " system.\n"
                                                                                                               "Jumps remaining: " + str(
                                      jumpsLeft) +
-                                 "\nTime until next jump: " + fTime +
-                                 "\nEstimated time of route completion: " + arrivalTime.strftime("%d %b %Y %H:%M") +
+                                 "\nNext jump: " + fTime_discord +
+                                 "\nEstimated time of route completion: " + arrivalTime_discord +
                                  "\no7", routeName, "Wait...",
                                  "Wait...")
                 time.sleep(2)
@@ -458,9 +465,8 @@ def main_loop():
                                      "The Flight Computer has begun navigating the Carrier.\n"
                                      "The Carrier's route is as follows:\n" +
                                      route +
-                                     "\nTime until first jump: " + fTime +
-                                     "\nEstimated time of route completion: " + arrivalTime.strftime(
-                                         "%d %b %Y %H:%M") +
+                                     "\nFirst jump: " + fTime_discord +
+                                     "\nEstimated time of route completion: " + arrivalTime_discord +
                                      "\no7", routeName, "Wait...",
                                      "Wait...")
                     time.sleep(2)
@@ -468,9 +474,8 @@ def main_loop():
                 else:
                     post_with_fields("Flight Resumed", webhook_url,
                                      "The Flight Computer has resumed navigation.\n"
-                                     "Time until first jump: " + fTime +
-                                     "\nEstimated time of route completion: " + arrivalTime.strftime(
-                                         "%d %b %Y %H:%M") +
+                                     "First jump: " + fTime_discord +
+                                     "\nEstimated time of route completion: " + arrivalTime_discord +
                                      "\no7", routeName, "Wait...",
                                      "Wait..."
                                      )
