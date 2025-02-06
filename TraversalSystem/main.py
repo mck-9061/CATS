@@ -34,8 +34,6 @@ from journalwatcher import JournalWatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
 from reshandler import Reshandler
 
-import pygetwindow as gw
-
 user32 = ctypes.windll.user32
 ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
@@ -269,7 +267,6 @@ stopJournalThread = False
 def open_game():
     global game_ready
     global latestJournal
-    global th
     global stopJournalThread
     print("Re-opening game...")
 
@@ -375,9 +372,8 @@ def main_loop():
     # Split the route into a list of systems, stripping whitespace (incl newlines). Empty indexes are discarded
     route_list = route.strip().split("\n")
     if route_list == [""]:
-        print("Route file is empty. .")
+        print("Route file is empty. Exiting...")
         SystemExit(0)
-    print("Processed route list:", "\n".join(route_list))
 
     jumpsLeft = len(route_list) + 1
     finalLine = route_list[-1]  # last index in the route list
