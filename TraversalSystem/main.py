@@ -29,9 +29,9 @@ import ctypes
 import pytz
 import psutil
 
-import journalwatcher
+from journalwatcher import JournalWatcher
 from discordhandler import post_to_discord, post_with_fields, update_fields
-import reshandler
+from reshandler import Reshandler
 
 import pygetwindow as gw
 
@@ -66,6 +66,8 @@ print("Screen resolution: " + str(screen_width) + "x" + str(screen_height))
 
 pyautogui.FAILSAFE = False
 
+res_handler = Reshandler(screen_width, screen_height)
+journal_watcher = JournalWatcher()
 
 def load_settings():
     global tritium_slot
@@ -176,11 +178,11 @@ def jump_to_system(system_name):
         pyperclip.copy(system_name.lower())
         print(
             "alert:Please plot the jump to %s. It has been copied to your clipboard." % system_name)
-        while journalwatcher.last_carrier_request() != system_name:
+        while journal_watcher.last_carrier_request() != system_name:
             time.sleep(1)
 
         current_time = datetime.datetime.now(datetime.timezone.utc)
-        departure_time_str = journalwatcher.departureTime
+        departure_time_str = journal_watcher.departureTime
         departure_time = datetime.datetime.strptime(departure_time_str, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC)
 
         print(current_time)
@@ -192,7 +194,7 @@ def jump_to_system(system_name):
 
     follow_button_sequence("jump_nav_1.txt")
 
-    pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameUpperY)
+    pyautogui.moveTo(res_handler.sysNameX, res_handler.sysNameUpperY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     pyperclip.copy(system_name.lower())
@@ -204,18 +206,18 @@ def jump_to_system(system_name):
     pydirectinput.keyUp("ctrl")
     time.sleep(slight_random_time(3.0))
     # pydirectinput.press('down')
-    pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameLowerY)
+    pyautogui.moveTo(res_handler.sysNameX, res_handler.sysNameLowerY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(reshandler.jumpButtonX, reshandler.jumpButtonY)
+    pyautogui.moveTo(res_handler.jumpButtonX, res_handler.jumpButtonY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
 
     time.sleep(6)
 
-    if journalwatcher.last_carrier_request() != system_name:
-        print(journalwatcher.lastCarrierRequest)
+    if journal_watcher.last_carrier_request() != system_name:
+        print(journal_watcher.lastCarrierRequest)
         print(system_name)
         print("Jump appears to have failed.")
         print("Re-attempting...")
@@ -223,7 +225,7 @@ def jump_to_system(system_name):
         return 0, 0
 
     current_time = datetime.datetime.now(datetime.timezone.utc)
-    departure_time_str = journalwatcher.departureTime
+    departure_time_str = journal_watcher.departureTime
     departure_time = datetime.datetime.strptime(departure_time_str, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC)
 
     print(current_time)
@@ -292,7 +294,7 @@ def open_game():
 
     # Start the game in solo mode
     print("Starting game...")
-    pyautogui.moveTo(reshandler.sysNameX, reshandler.sysNameLowerY)
+    pyautogui.moveTo(res_handler.sysNameX, res_handler.sysNameLowerY)
     pyautogui.click()
     follow_button_sequence("start_game.txt")
 
@@ -311,7 +313,7 @@ def open_game():
 
 
     print("Switching to new journal...")
-    journalwatcher.reset_all()
+    journal_watcher.reset_all()
     latestJournal = latest_journal()
 
     stopJournalThread = False
@@ -435,7 +437,7 @@ def main_loop():
                         proc.kill()
                 print("Launcher killed")
 
-            journalwatcher.reset_jump()
+            journal_watcher.reset_jump()
 
             totalTime = timeToJump - 6
 
@@ -545,7 +547,7 @@ def main_loop():
                         print("Pausing execution until jump is confirmed...")
                         c = False
                         while not c:
-                            c = journalwatcher.get_jumped()
+                            c = journal_watcher.get_jumped()
                             if not c:
                                 print("Jump not complete...")
                                 time.sleep(10)
@@ -595,7 +597,7 @@ def main_loop():
 
 def process_journal(file_name):
     while not stopJournalThread:
-        c = journalwatcher.process_journal(file_name)
+        c = journal_watcher.process_journal(file_name)
         if not c:
             print("An error has occurred. Saving progress and aborting...")
             post_to_discord("Critical Error", webhook_url,
@@ -614,7 +616,7 @@ def process_journal(file_name):
     print("Journal thread halted")
 
 
-if reshandler.setup(screen_width, screen_height) == 0:
+if not res_handler.supported_res:
     raise SystemExit(0)
 else:
     if sys.argv[4] == "--power-saving":
