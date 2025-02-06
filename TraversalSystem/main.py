@@ -15,6 +15,7 @@
 #   At least it used to be much worse. Take a look at some of the old commits if you like. We love thousand-line
 #   python files that could be much simpler, right?
 
+print("Autopilot Script Online")
 
 import os
 import time
@@ -361,27 +362,31 @@ def main_loop():
 
         saved = True
 
-    print("Beginning in 5...")
-    time.sleep(5)
+    for countdown in range(5, 0, -1):
+        print(f"Beginning in {countdown}...")
+        time.sleep(1)
+
     # print("Stocking initial tritium...")
     # restock_tritium()
 
-    routeFile = open(route_file, "r", encoding="utf-8")
-    route = routeFile.read()
+    with open(route_file, "r", encoding="utf-8") as routeFile:
+        route = routeFile.read()
 
-    finalLine = route.split("\n")[len(route.split("\n")) - 1]
-    jumpsLeft = len(route.split("\n")) + 1
+    # Split the route into a list of systems, stripping whitespace (incl newlines). Empty indexes are discarded
+    route_list = route.strip().split("\n")
+    if route_list == [""]:
+        print("Route file is empty. .")
+        SystemExit(0)
+    print("Processed route list:", "\n".join(route_list))
 
-    d = 1
-    while finalLine == "" or finalLine == "\n":
-        d += 1
-        finalLine = route.split("\n")[len(route.split("\n")) - d]
+    jumpsLeft = len(route_list) + 1
+    finalLine = route_list[-1]  # last index in the route list
 
     routeName = "Carrier Updates: Route to " + finalLine
 
     print("Destination: " + finalLine)
 
-    a1 = route.split("\n")
+    a1 = route_list
     a = []
 
     delta = datetime.timedelta()
@@ -617,6 +622,7 @@ def process_journal(file_name):
 
 
 if not res_handler.supported_res:
+    print("Resolution not supported, exiting...")
     raise SystemExit(0)
 else:
     if sys.argv[4] == "--power-saving":
