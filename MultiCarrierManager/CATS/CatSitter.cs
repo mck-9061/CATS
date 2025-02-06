@@ -33,7 +33,7 @@ namespace MultiCarrierManager.CATS
         {
             output.Text = "";
             process = new Process();
-            process.StartInfo.FileName = "CATS\\main.exe";
+            process.StartInfo.FileName = "CATS\\pyinstaller\\TraversalSystem\\TraversalSystem.exe";
             process.StartInfo.WorkingDirectory = "CATS";
             // The old way of executing the Python script, using a Python installation to execute instead of compiling
             // process.StartInfo.FileName = "CATS\\Python39\\python.exe";
