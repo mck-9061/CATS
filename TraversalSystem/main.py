@@ -113,7 +113,7 @@ def load_settings():
 
 def latest_journal():
     global journal_directory
-    dir_name = journal_directory
+    dir_name = os.path.expanduser(journal_directory)
     # Get list of all files only in the given directory
     list_of_files = filter(lambda x: os.path.isfile(os.path.join(dir_name, x)),
                            os.listdir(dir_name))

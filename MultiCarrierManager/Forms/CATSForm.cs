@@ -142,12 +142,6 @@ namespace MultiCarrierManager
                 else if (line.StartsWith("journal_directory"))
                 {
                     textBox5.Text = line.Replace("journal_directory=", "");
-                    if (textBox5.Text.Contains("?user_dir?"))
-                    {
-                        // Use question marks because they are invalid in Windows file paths, making it impossible for someone to have a profile that matches this string organically
-                        textBox5.Text = textBox5.Text.Replace("?user_dir?", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-                        Program.logger.Log("?user_dir? placeholder filled with " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-                    }
                 }
                 else if (line.StartsWith("tritium_slot"))
                 {
@@ -193,6 +187,12 @@ namespace MultiCarrierManager
                 {
                     webhook = line.Replace("webhook_url=", "");
                 }
+            }
+
+            if (journal.Contains("~"))
+            {
+                journal = journal.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+                textBox5.Text = journal;
             }
 
             string[] lines = new[] { "webhook_url=" + webhook, "journal_directory=" + journal, "tritium_slot=" + slot, "route_file=route.txt" };
