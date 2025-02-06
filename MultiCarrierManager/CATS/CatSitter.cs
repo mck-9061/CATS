@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -37,6 +37,7 @@ namespace MultiCarrierManager.CATS
             process.StartInfo.WorkingDirectory = "CATS";
             // The old way of executing the Python script, using a Python installation to execute instead of compiling
             // process.StartInfo.FileName = "CATS\\Python39\\python.exe";
+            // process.StartInfo.WorkingDirectory = "CATS";
             // process.StartInfo.Arguments = "-u main.py";
             if (!Program.settings.AutoPlot) process.StartInfo.Arguments += " --manual";
             else process.StartInfo.Arguments += " --auto";
@@ -57,7 +58,7 @@ namespace MultiCarrierManager.CATS
 
                     countdownLabel.Text = "Current jump: " + TimeSpan.FromSeconds(remaining).ToString(@"hh\:mm\:ss");
                 }
-                catch (FormatException e1)
+                catch (FormatException)
                 {
                     try
                     {
@@ -109,7 +110,7 @@ namespace MultiCarrierManager.CATS
                             MessageBox.Show(alert, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Program.logger.LogOutput("Exception while writing to console, possible force CATS process kill");
                     }
@@ -117,6 +118,7 @@ namespace MultiCarrierManager.CATS
             });
             process.Start();
             process.BeginOutputReadLine();
+            Program.logger.LogOutput("Traversal System script started");
         }
 
         public void close()
@@ -126,7 +128,7 @@ namespace MultiCarrierManager.CATS
                 process.Kill();
                 process.Close();
             }
-            catch (Exception ignored) { }
+            catch (Exception) { }
         }
     }
 }
