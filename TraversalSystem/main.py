@@ -31,7 +31,7 @@ import pytz
 import psutil
 
 from journalwatcher import JournalWatcher
-from discordhandler import post_to_discord, post_with_fields, update_fields
+from discordhandler import DiscordHandler
 from reshandler import Reshandler
 
 user32 = ctypes.windll.user32
@@ -67,6 +67,7 @@ pyautogui.FAILSAFE = False
 
 res_handler = Reshandler(screen_width, screen_height)
 journal_watcher = JournalWatcher()
+discord_messenger = DiscordHandler()
 
 def load_settings():
     global tritium_slot
@@ -451,7 +452,7 @@ def main_loop():
 
             if doneFirst:
                 previous_system = a[i - 1]
-                post_with_fields("Carrier Jump", webhook_url,
+                discord_messenger.post_with_fields("Carrier Jump", webhook_url,
                                  "Jump to " + previous_system + " successful.\n"
                                                                 "The carrier is now jumping to the " + line + " system.\n"
                                                                                                               "Jumps remaining: " + str(
@@ -461,10 +462,10 @@ def main_loop():
                                  "\no7", routeName, "Wait...",
                                  "Wait...")
                 time.sleep(2)
-                update_fields(0, 0)
+                discord_messenger.update_fields(0, 0)
             else:
                 if not saved:
-                    post_with_fields("Flight Begun", webhook_url,
+                    discord_messenger.post_with_fields("Flight Begun", webhook_url,
                                      "The Flight Computer has begun navigating the Carrier.\n"
                                      "The Carrier's route is as follows:\n" +
                                      route +
@@ -473,9 +474,9 @@ def main_loop():
                                      "\no7", routeName, "Wait...",
                                      "Wait...")
                     time.sleep(2)
-                    update_fields(0, 0)
+                    discord_messenger.update_fields(0, 0)
                 else:
-                    post_with_fields("Flight Resumed", webhook_url,
+                    discord_messenger.post_with_fields("Flight Resumed", webhook_url,
                                      "The Flight Computer has resumed navigation.\n"
                                      "First jump: " + fTime_discord +
                                      "\nEstimated time of route completion: " + arrivalTime_discord +
@@ -483,13 +484,13 @@ def main_loop():
                                      "Wait..."
                                      )
                     time.sleep(2)
-                    update_fields(0, 0)
+                    discord_messenger.update_fields(0, 0)
 
 
         except Exception as e:
             print(e)
             print("An error has occurred. Saving progress and aborting...")
-            post_to_discord("Critical Error", webhook_url,
+            discord_messenger.post_to_discord("Critical Error", webhook_url,
                             "An error has occurred with the Flight Computer.\n"
                             "It's possible the game has crashed, or servers were taken down.\n"
                             "Please wait for the carrier to resume navigation.\n"
@@ -506,29 +507,29 @@ def main_loop():
             time.sleep(1)
 
             if totalTime == 600:
-                update_fields(1, 1)
+                discord_messenger.update_fields(1, 1)
             elif totalTime == 200:
-                update_fields(2, 2)
+                discord_messenger.update_fields(2, 2)
             elif totalTime == 190:
-                update_fields(2, 3)
+                discord_messenger.update_fields(2, 3)
             elif totalTime == 144:
-                update_fields(2, 4)
+                discord_messenger.update_fields(2, 4)
             elif totalTime == 103:
-                update_fields(2, 5)
+                discord_messenger.update_fields(2, 5)
             elif totalTime == 90:
-                update_fields(2, 6)
+                discord_messenger.update_fields(2, 6)
             elif totalTime == 75:
-                update_fields(2, 7)
+                discord_messenger.update_fields(2, 7)
             elif totalTime == 60:
-                update_fields(3, 7)
+                discord_messenger.update_fields(3, 7)
             elif totalTime == 30:
-                update_fields(4, 7)
+                discord_messenger.update_fields(4, 7)
 
             totalTime -= 1
 
         print("Jumping!")
 
-        update_fields(5, 7)
+        discord_messenger.update_fields(5, 7)
 
         lineNo += 1
 
@@ -539,9 +540,9 @@ def main_loop():
                 print(totalTime)
 
                 if totalTime == 340:
-                    update_fields(6, 7)
+                    discord_messenger.update_fields(6, 7)
                 elif totalTime == 320:
-                    update_fields(7, 7)
+                    discord_messenger.update_fields(7, 7)
                 elif totalTime == 300:
 
                     if not power_saving:
@@ -559,11 +560,11 @@ def main_loop():
                             time.sleep(10)
                         totalTime = 152
                     print("Jump complete!")
-                    update_fields(8, 7)
+                    discord_messenger.update_fields(8, 7)
                 elif totalTime == 151:
-                    update_fields(8, 8)
+                    discord_messenger.update_fields(8, 8)
                 elif totalTime == 100:
-                    update_fields(8, 9)
+                    discord_messenger.update_fields(8, 9)
 
                 elif totalTime == 150:
                     print("Restocking tritium...")
@@ -574,12 +575,12 @@ def main_loop():
 
                 time.sleep(1)
                 totalTime -= 1
-            update_fields(9, 9)
+            discord_messenger.update_fields(9, 9)
 
         else:
             print("Counting down until jump finishes...")
 
-            update_fields(9, 9)
+            discord_messenger.update_fields(9, 9)
 
             totalTime = 60
             while totalTime > 0:
@@ -590,7 +591,7 @@ def main_loop():
         doneFirst = True
 
     print("Route complete!")
-    post_to_discord("Carrier Arrived", webhook_url,
+    discord_messenger.post_to_discord("Carrier Arrived", webhook_url,
                     "The route is complete, and the carrier has arrived at " + finalLine + ".\n"
                                                                                            "o7", routeName)
     return True
@@ -601,7 +602,7 @@ def process_journal(file_name):
         c = journal_watcher.process_journal(file_name)
         if not c:
             print("An error has occurred. Saving progress and aborting...")
-            post_to_discord("Critical Error", webhook_url,
+            discord_messenger.post_to_discord("Critical Error", webhook_url,
                             "An error has occurred with the Flight Computer.\n"
                             "It's possible the game has crashed, or servers were taken down.\n"
                             "Please wait for the carrier to resume navigation.\n"
