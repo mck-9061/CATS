@@ -87,7 +87,7 @@ def load_settings():
                     webhook_url = line.split("=")[1]
                 if line.startswith("journal_directory="):
                     print(line)
-                    journal_directory = line.split("=")[1]
+                    journal_directory = os.path.expanduser(line.split("=")[1])
                     latest_journal()
 
                 if line.startswith("tritium_slot="):
@@ -116,7 +116,7 @@ def load_settings():
 
 def latest_journal():
     global journal_directory
-    dir_name = os.path.expanduser(journal_directory)
+    dir_name = journal_directory
     # Get list of all files only in the given directory
     list_of_files = filter(lambda x: os.path.isfile(os.path.join(dir_name, x)),
                            os.listdir(dir_name))
