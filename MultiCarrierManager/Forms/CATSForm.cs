@@ -24,7 +24,7 @@ namespace MultiCarrierManager
             cats = new CatSitter(textBox1, this, label1, label4);
             loadFromRouteFile();
             loadSettingsFile();
-            populateComboBox();
+            populateComboBox(sender, e);
             Program.logger.Log("TraversalFormLoaded");
         }
 
@@ -44,7 +44,7 @@ namespace MultiCarrierManager
 
         }
 
-        private void populateComboBox()
+        private void populateComboBox(object sender, EventArgs e)
         {
             ComboBox box = comboBox1;
             box.Items.Clear();
@@ -74,8 +74,39 @@ namespace MultiCarrierManager
             }
         }
 
+        private void updateSettings(object sender, EventArgs e)
+        {
+            string journal = textBox5.Text;
+            string slot = textBox3.Text;
+            string route = textBox2.Text;
+            int index = comboBox1.SelectedIndex;
+
+            string[] oldLines = File.ReadAllLines("CATS\\settings.txt");
+            foreach (string line in oldLines)
+            {
+                if (line.StartsWith("webhook_url"))
+                {
+                    webhook = line.Replace("webhook_url=", "");
+                }
+            }
+
+            if (journal.Contains("~"))
+            {
+                journal = journal.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+                textBox5.Text = journal;
+            }
+
+            string[] lines = new[] { "webhook_url=" + webhook, "journal_directory=" + journal, "tritium_slot=" + slot, "route_file=route.txt" };
+            File.WriteAllLines("CATS\\settings.txt", lines);
+            File.WriteAllText("CATS\\route.txt", route);
+            File.WriteAllText("CATS\\save.txt", Convert.ToString(index));
+
+            populateComboBox(sender, e);
+        }
+
         private void runButton_Click(object sender, EventArgs e)
         {
+            updateSettings(sender, e);
             if (!cats.isRunning)
             {
                 Program.logger.Log("TraversalRunning");
@@ -175,33 +206,7 @@ namespace MultiCarrierManager
         // Save settings
         private void button1_Click(object sender, EventArgs e)
         {
-            string journal = textBox5.Text;
-            string slot = textBox3.Text;
-            string route = textBox2.Text;
-            int index = comboBox1.SelectedIndex;
-
-            string[] oldLines = File.ReadAllLines("CATS\\settings.txt");
-            foreach (string line in oldLines)
-            {
-                if (line.StartsWith("webhook_url"))
-                {
-                    webhook = line.Replace("webhook_url=", "");
-                }
-            }
-
-            if (journal.Contains("~"))
-            {
-                journal = journal.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-                textBox5.Text = journal;
-            }
-
-            string[] lines = new[] { "webhook_url=" + webhook, "journal_directory=" + journal, "tritium_slot=" + slot, "route_file=route.txt" };
-            File.WriteAllLines("CATS\\settings.txt", lines);
-            File.WriteAllText("CATS\\route.txt", route);
-            File.WriteAllText("CATS\\save.txt", Convert.ToString(index));
-
-            populateComboBox();
-
+            updateSettings(sender, e);
             MessageBox.Show("Saved settings and route!");
         }
 
