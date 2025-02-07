@@ -35,7 +35,14 @@
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem" "$(TargetDir)CATS" &amp;&amp; echo F|xcopy /Y "$(SolutionDir)MultiCarrierManager\settings.ini" "$(TargetDir)settings\settings.ini"</PostBuildEvent>
+    <!-- PostBuildEvent explanation:
+    1. Copies TraversalSystem directory from solution's pyinstaller folder to target's CATS\pyinstaller folder
+    2. Copies sequences directory from solution's TraversalSystem to target's CATS folder
+    3. Copies all .txt files from solution's TraversalSystem to target's CATS folder
+    4. Copies all .csv files from solution's TraversalSystem to target's CATS folder
+    5. Copies settings.ini file from MultiCarrierManager to target's settings folder
+    -->
+    <PostBuildEvent>echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem\pyinstaller\TraversalSystem" "$(TargetDir)CATS\pyinstaller\TraversalSystem" &amp;&amp; echo D|xcopy /E /Y /S "$(SolutionDir)TraversalSystem\sequences" "$(TargetDir)CATS\sequences" &amp;&amp; echo D|xcopy /Y "$(SolutionDir)TraversalSystem\*.txt" "$(TargetDir)CATS" &amp;&amp; echo D|xcopy /Y "$(SolutionDir)TraversalSystem\*.csv" "$(TargetDir)CATS" &amp;&amp; echo F|xcopy /Y "$(SolutionDir)MultiCarrierManager\settings.ini" "$(TargetDir)settings\settings.ini"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
