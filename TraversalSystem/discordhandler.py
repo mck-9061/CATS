@@ -93,14 +93,16 @@ class DiscordHandler:
         
             self.lastHook.remove_embeds()
         
-            self.lastEmbed.del_embed_field(0) # type: ignore
-            self.lastEmbed.del_embed_field(0) # type: ignore
+            self.lastEmbed.delete_embed_field(0)
+            self.lastEmbed.delete_embed_field(0)
         
             self.lastEmbed.add_embed_field(name="Jump stage", value=new_carrier_stage)
             self.lastEmbed.add_embed_field(name="Maintenance stage", value=new_maintenance_stage)
         
             self.lastHook.add_embed(self.lastEmbed)
 
-            self.lastHook.edit(self.lastSent) # type: ignore
-        except:
-            print("Discord webhook not set up")
+            self.lastHook.edit()
+        except Exception as e:
+            print("Discord webhook failed with error: ", e)
+            print("Double-check that the webhook is set up")
+            print(f"DEBUG DATA: lastHook: {self.lastHook}, lastSent: {self.lastSent}, lastEmbed: {self.lastEmbed}")
