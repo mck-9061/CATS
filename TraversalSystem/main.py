@@ -28,6 +28,7 @@ import datetime
 import sys
 import ctypes
 import pytz
+import tzlocal
 import psutil
 
 from journalwatcher import JournalWatcher
@@ -384,7 +385,7 @@ def main_loop():
     a = []
 
     delta = datetime.timedelta()
-    currentTime = datetime.datetime.fromtimestamp(time.mktime(time.localtime()))
+    currentTime = datetime.datetime.fromtimestamp(time.mktime(time.localtime()), tzlocal.get_localzone())
     for i in a1:
         if (not i == "") and (not i == "\n"):
             a.append(i)
