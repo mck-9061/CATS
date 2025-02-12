@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,8 +7,10 @@ using MultiCarrierManager.CATS;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace MultiCarrierManager {
-    static class Program {
+namespace MultiCarrierManager
+{
+    static class Program
+    {
         public static SettingsManager settings;
         public static Logger logger;
         /// <summary>
@@ -17,54 +19,64 @@ namespace MultiCarrierManager {
         ///
         /// 
         [STAThread]
-        static void Main() {
+        static void Main()
+        {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(ErrorPopupHandler);
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(ErrorPopupHandler);
-            
+
             settings = new SettingsManager("settings/settings.ini");
             logger = new Logger();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             logger.Log("Start");
 
             // Check for updates by checking the latest github release
-            try {
+            try
+            {
                 var client = new RestClient("https://api.github.com/repos/");
                 var request = new RestRequest("mck-9061/CATS/releases/latest");
                 var response = client.Execute(request);
                 dynamic json = JsonConvert.DeserializeObject(response.Content);
                 string tag = json.tag_name;
-                
-                List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("2.1.4");
-                allowedReleases.Add("2.1.5");
-                logger.Log("Version: 2.1.5");
 
-                if (!allowedReleases.Contains(tag)) {
+                List<String> allowedReleases = new List<string>();
+                allowedReleases.Add("2.1.5");
+                allowedReleases.Add("3.0.0");
+                logger.Log("Version: 3.0.0");
+
+                if (!allowedReleases.Contains(tag))
+                {
                     MessageBox.Show("Update available: " + tag + ". Please download the latest version from GitHub.");
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 logger.Log("Error checking for updates: " + e.Message);
             }
 
-            if (settings.OpenToTraversal) {
+            if (settings.OpenToTraversal)
+            {
                 Application.Run(new CATSForm());
-            } else {
+            }
+            else
+            {
                 Application.Run(new Form1());
             }
         }
-        
-        static void ErrorPopupHandler(object sender, UnhandledExceptionEventArgs args) {
-            Exception e = (Exception) args.ExceptionObject;
+
+        static void ErrorPopupHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.ExceptionObject;
             Console.Error.WriteLine(e.Message);
             Console.Error.WriteLine(e.StackTrace);
             logger.LogError(e.Message);
             logger.LogError(e.StackTrace);
         }
 
-        static void ErrorPopupHandler(object sender, System.Threading.ThreadExceptionEventArgs args) {
-            Exception e = (Exception) args.Exception;
+        static void ErrorPopupHandler(object sender, System.Threading.ThreadExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.Exception;
             Console.Error.WriteLine(e.Message);
             Console.Error.WriteLine(e.StackTrace);
             logger.LogError(e.Message);
