@@ -185,8 +185,8 @@ def jump_to_system(system_name):
         departure_time_str = journal_watcher.departureTime
         departure_time = datetime.datetime.strptime(departure_time_str, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC)
 
-        print(current_time)
-        print(departure_time)
+        print(current_time.strftime("%m-%d-%Y %H:%M:%S (UTC%z)"))
+        print(departure_time.strftime("%m-%d-%Y %H:%M:%S (UTC%z)"))
 
         delta = departure_time - current_time
 
@@ -228,8 +228,8 @@ def jump_to_system(system_name):
     departure_time_str = journal_watcher.departureTime
     departure_time = datetime.datetime.strptime(departure_time_str, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC)
 
-    print(current_time)
-    print(departure_time)
+    print(current_time.strftime("%m-%d-%Y %H:%M:%S (UTC%z)"))
+    print(departure_time.strftime("%m-%d-%Y %H:%M:%S (UTC%z)"))
 
     delta = departure_time - current_time
 
@@ -338,9 +338,6 @@ def main_loop():
 
     latestJournal = latest_journal()
 
-    currentTime = datetime.datetime.now(datetime.timezone.utc)
-    arrivalTime = currentTime
-
     th = threading.Thread(target=process_journal, args=(latestJournal,))
     th.start()
 
@@ -387,6 +384,7 @@ def main_loop():
     a = []
 
     delta = datetime.timedelta()
+    currentTime = datetime.datetime.fromtimestamp(time.mktime(time.localtime()))
     for i in a1:
         if (not i == "") and (not i == "\n"):
             a.append(i)
@@ -394,7 +392,7 @@ def main_loop():
             continue
         if a1.index(i) < lineNo: continue
         delta = delta + datetime.timedelta(seconds=1320)
-    arrivalTime = arrivalTime + delta
+    arrivalTime = currentTime + delta
 
     doneFirst = False
     for i in range(len(a)):
@@ -410,7 +408,7 @@ def main_loop():
         print("Beginning navigation.")
         print("Please do not change windows until navigation is complete.")
 
-        print("ETA: " + arrivalTime.strftime("%d %b %Y %H:%M"))
+        print("ETA: " + arrivalTime.strftime("%A, %I:%M%p (UTC%z)"))
 
         try:
             timeToJump, departing_time = jump_to_system(line)
@@ -445,7 +443,7 @@ def main_loop():
 
             if totalTime > 900:
                 arrivalTime = arrivalTime + datetime.timedelta(seconds=totalTime - 900)
-                print(arrivalTime.strftime("%d %b %Y %H:%M"))
+                print(arrivalTime.strftime("%A, %I:%M%p (UTC%z)"))
                 # Arrival time (in seconds since the Epoch) with this format will result in a dynamic timestamp + countdown in Discord
                 # Result will look like "{month} {day}, {year} {hour}:{minute} {AM/PM} (in {time} minutes)"
                 arrivalTime_discord = f"<t:{arrivalTime.timestamp():.0f}:f> (<t:{arrivalTime.timestamp():.0f}:R>)"
