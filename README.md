@@ -41,7 +41,7 @@ The release comes bundled with everything you need to use both the admin panel a
 * Open the traversal system from the admin interface. Fill in the options:
   * Tritium slot: how many up-presses it takes to get to Tritium in the cargo transfer menu. IMPORTANT - take out a unit of Tritium first, as this changes where it's positioned.
   * Webhook URL: The URL to send Discord updates to.
-  * Journal Dir: The directory of your Elite Dangerous journal files.
+  * Journal Dir: The directory of your Elite Dangerous journal files (will autofill when settings are saved).
   * Route: Put each system on a new line. Alternatively, import from a plain text list of systems, or a CSV from Spansh's FC plotter.
 * Save the settings with the button at the top.
 * Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route". Save again if you've changed this.

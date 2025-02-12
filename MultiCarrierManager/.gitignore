@@ -1,4 +1,5 @@
 /bin/
 /obj/
+/.vs/
 App.config
 /ApiTools/OAuth2.cs

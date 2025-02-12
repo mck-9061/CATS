@@ -1,1 +1,10 @@
-﻿/TraversalSystem/Python39/
+﻿# TraversalSystem stuff
+/TraversalSystem/Python39/
+/TraversalSystem/pyinstaller/
+/TraversalSystem/main.exe
+
+# Visual Studio stuff
+/.vs
+
+# VSCode stuff
+/.vscode

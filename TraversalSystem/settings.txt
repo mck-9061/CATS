@@ -1,4 +1,4 @@
 webhook_url=
-journal_directory=C:\Users\[USERNAME]\Saved Games\Frontier Developments\Elite Dangerous\
+journal_directory=~\Saved Games\Frontier Developments\Elite Dangerous\
 tritium_slot=1
 route_file=route.txt
