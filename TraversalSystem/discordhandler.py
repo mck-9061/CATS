@@ -3,31 +3,40 @@ import re
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 class DiscordHandler:
-    __slots__ = ["lastHook", "lastSent", "lastEmbed"]
+    __slots__ = ["lastHook", "lastEmbed", "photo_list", "carrier_stage_list", "maintenance_stage_list"]
 
     def __init__(self) -> None:
-        pass
+        try:
+            with open("photos.txt", "r", encoding="utf-8") as photosFile:
+                self.photo_list = photosFile.read().split()
+        except Exception as e:
+            print("Failed to get image URLs in photos.txt with error: ", e)
+            print("Using fallback URL...")
+            self.photo_list = ["https://upload.wikimedia.org/wikipedia/en/e/e5/Elite_Dangerous.png"]
 
 
     def post_to_discord(self, subject, webhook_url, message, routeName):
-        photosFile = open("photos.txt", "r", encoding="utf-8")
-        photo = random.choice(photosFile.read().split("\n"))
-        photosFile.close()
+        try:
+            photo = random.choice(self.photo_list)
 
-        webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
+            webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
 
-        embed = DiscordEmbed(title=subject, description=message)
-        embed.set_image(url=photo)
-        embed.set_author(name=routeName)
-        embed.set_footer(text="Carrier Administration and Traversal System")
+            embed = DiscordEmbed(title=subject, description=message)
+            embed.set_image(url=photo)
+            embed.set_author(name=routeName)
+            embed.set_footer(text="Carrier Administration and Traversal System")
 
-        webhook.add_embed(embed)
+            webhook.add_embed(embed)
+
+            webhook.execute()
+        except Exception as e:
+            print("Discord webhook failed with error: ", e)
+            print("Double-check that the webhook is set up")
 
 
     def post_with_fields(self, subject, webhook_url, message, routeName, carrierStage, maintenanceStage):
         try:
-            with open("photos.txt", "r", encoding="utf-8") as photosFile:
-                photo = random.choice(photosFile.read().split("\n"))
+            photo = random.choice(self.photo_list)
         
             webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
         
@@ -44,7 +53,7 @@ class DiscordHandler:
         
             webhook.add_embed(embed)
         
-            self.lastSent = webhook.execute()
+            webhook.execute()
             self.lastHook = webhook
         except Exception as e:
             print("Discord webhook failed with error: ", e)
@@ -53,42 +62,49 @@ class DiscordHandler:
 
     def update_fields(self, carrierStage, maintenanceStage):
         try:
-            default_carrier_stage = "Waiting...\nJump locked\nLockdown protocol active\nPowering FSD\nInitiating FSD\nEntering hyperspace portal\nTraversing hyperspace\nExiting hyperspace portal\nFSD cooling down\nJump complete"
-        
-            default_maintenance_stage = "Waiting\nPreparing carrier for hyperspace\nServices taken down\nLanding pads retracting\nBulkheads closing\nAirlocks sealing\nTask confirmation\nWaiting\nRestocking Tritium\nDone"
-        
-            c_stage_list = default_carrier_stage.split("\n")
-            m_stage_list = default_maintenance_stage.split("\n")
-        
-            new_carrier_stage = ""
-            new_maintenance_stage = ""
-        
-        
-            i = 0
-            for stage in c_stage_list:
-                if i < carrierStage:
-                    new_carrier_stage += "~~" + stage + "~~\n"
-                elif i == carrierStage:
-                    new_carrier_stage += "**" + stage + "**\n"
-                else:
-                    new_carrier_stage += stage + "\n"
-                i += 1
-        
-            i = 0
-            for stage in m_stage_list:
-                if i < maintenanceStage:
-                    new_maintenance_stage += "~~" + stage + "...DONE~~\n"
-                elif i == maintenanceStage:
-                    new_maintenance_stage += "**" + stage + "...**\n"
-                    if stage == "Done" and self.lastEmbed.description:
-                        # Once the jump is finished, replace all countdowns with a static text blurb
-                        while re.match(r"<t:\d*:R>", self.lastEmbed.description):
-                            self.lastEmbed.description = str(re.sub(r"<t:\d*:R>", "Countdown Expired", self.lastEmbed.description))
-                else:
-                    new_maintenance_stage += stage + "\n"
-                i += 1
-        
-        
+            if (carrierStage, maintenanceStage) == (0, 0):
+                # Set back to defaults
+                self.carrier_stage_list = [
+                    "Waiting...",
+                    "Jump locked",
+                    "Lockdown protocol active",
+                    "Powering FSD",
+                    "Initiating FSD",
+                    "Entering hyperspace portal",
+                    "Traversing hyperspace",
+                    "Exiting hyperspace portal",
+                    "FSD cooling down",
+                    "Jump complete"
+                ]
+                self.maintenance_stage_list = [
+                    "Waiting",
+                    "Preparing carrier for hyperspace",
+                    "Services taken down",
+                    "Landing pads retracting",
+                    "Bulkheads closing",
+                    "Airlocks sealing",
+                    "Task confirmation",
+                    "Waiting",
+                    "Restocking Tritium",
+                    "Done"
+                ]
+
+            # Add strikethru to every carrier stage before current
+            for i, c_stage_name in enumerate(self.carrier_stage_list[:carrierStage]):
+                self.carrier_stage_list[i] = f"~~{c_stage_name.replace('*', '')}~~"
+            # Bold current stage
+            self.carrier_stage_list[carrierStage] = f"**{self.carrier_stage_list[carrierStage]}**"
+            
+            # Add strikethru & DONE signifier to every maintenance stage before current
+            for i, m_stage_name in enumerate(self.maintenance_stage_list[:maintenanceStage]):
+                self.maintenance_stage_list[i] = f"~~{m_stage_name.replace('*', '')}DONE~~"
+            # Bold current stage and add ellipsis
+            self.maintenance_stage_list[maintenanceStage] = f"**{self.maintenance_stage_list[maintenanceStage]}...**"
+
+            # Once the jump is finished, replace all countdowns with a static text blurb
+            if maintenanceStage == 9 and self.lastEmbed.description:
+                while re.match(r"<t:\d*:R>", self.lastEmbed.description):
+                    self.lastEmbed.description = str(re.sub(r"<t:\d*:R>", "Countdown Expired", self.lastEmbed.description))
         
         
             self.lastHook.remove_embeds()
@@ -96,8 +112,8 @@ class DiscordHandler:
             self.lastEmbed.delete_embed_field(0)
             self.lastEmbed.delete_embed_field(0)
         
-            self.lastEmbed.add_embed_field(name="Jump stage", value=new_carrier_stage)
-            self.lastEmbed.add_embed_field(name="Maintenance stage", value=new_maintenance_stage)
+            self.lastEmbed.add_embed_field(name="Jump stage", value="\n".join(self.carrier_stage_list))
+            self.lastEmbed.add_embed_field(name="Maintenance stage", value="\n".join(self.maintenance_stage_list))
         
             self.lastHook.add_embed(self.lastEmbed)
 
@@ -105,4 +121,4 @@ class DiscordHandler:
         except Exception as e:
             print("Discord webhook failed with error: ", e)
             print("Double-check that the webhook is set up")
-            print(f"DEBUG DATA: lastHook: {self.lastHook}, lastSent: {self.lastSent}, lastEmbed: {self.lastEmbed}")
+            # print(f"DEBUG DATA: lastHook: {self.lastHook}, lastEmbed: {self.lastEmbed}")
