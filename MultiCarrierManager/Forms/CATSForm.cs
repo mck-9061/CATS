@@ -95,6 +95,11 @@ namespace MultiCarrierManager
                 journal = journal.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
                 textBox5.Text = journal;
             }
+            
+            if (!journal.EndsWith("\\")) {
+                journal += "\\";
+                textBox5.Text = journal;
+            }
 
             string[] lines = new[] { "webhook_url=" + webhook, "journal_directory=" + journal, "tritium_slot=" + slot, "route_file=route.txt" };
             File.WriteAllLines("CATS\\settings.txt", lines);
