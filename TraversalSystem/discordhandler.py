@@ -41,13 +41,20 @@ class DiscordHandler:
             self.photo_list = ["https://upload.wikimedia.org/wikipedia/en/e/e5/Elite_Dangerous.png"]
 
 
-    def post_to_discord(self, subject, webhook_url, message, routeName):
+    def post_to_discord(self, subject: str, webhook_url: str, routeName: str, *message: str):
+        """Sends a message to a Discord webhook.
+        Args:
+            subject (str): The title of the embed message.
+            webhook_url (str): The URL of the Discord webhook.
+            routeName (str): The name of the route to be displayed as the author of the embed.
+            *message (str): The content to be included in the embed description. Each additional arg will be included as a new line.
+        """
         try:
             photo = random.choice(self.photo_list)
 
             webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
 
-            embed = DiscordEmbed(title=subject, description=message)
+            embed = DiscordEmbed(title=subject, description="\n".join(message))
             embed.set_image(url=photo)
             embed.set_author(name=routeName)
             embed.set_footer(text="Carrier Administration and Traversal System")
@@ -60,20 +67,27 @@ class DiscordHandler:
             print("Double-check that the webhook is set up")
 
 
-    def post_with_fields(self, subject, webhook_url, message, routeName, carrierStage, maintenanceStage):
+    def post_with_fields(self, subject: str, webhook_url: str, routeName: str, *message: str):
+        """Sends a message to a Discord webhook with specified fields.
+        Args:
+            subject (str): The title of the embed message.
+            webhook_url (str): The URL of the Discord webhook.
+            routeName (str): The name of the route to be displayed as the author of the embed.
+            *message (str): The content to be included in the embed description. Each additional arg will be included as a new line.
+        """
         try:
             photo = random.choice(self.photo_list)
         
             webhook = DiscordWebhook(url=webhook_url, rate_limit_retry=True)
         
-            embed = DiscordEmbed(title=subject, description=message)
+            embed = DiscordEmbed(title=subject, description="\n".join(message))
             embed.set_image(url=photo)
             embed.set_author(name=routeName)
             
             embed.set_footer(text="Carrier Administration and Traversal System")
         
-            embed.add_embed_field(name="Jump stage", value=carrierStage)
-            embed.add_embed_field(name="Maintenance stage", value=maintenanceStage)
+            embed.add_embed_field(name="Jump stage", value="Wait...")
+            embed.add_embed_field(name="Maintenance stage", value="Wait...")
         
             self.lastEmbed = embed
         

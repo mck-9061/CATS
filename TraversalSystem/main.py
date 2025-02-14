@@ -451,37 +451,44 @@ def main_loop():
 
             if doneFirst:
                 previous_system = a[i - 1]
-                discord_messenger.post_with_fields("Carrier Jump", webhook_url,
-                                 "Jump to " + previous_system + " successful.\n"
-                                                                "The carrier is now jumping to the " + line + " system.\n"
-                                                                                                              "Jumps remaining: " + str(
-                                     jumpsLeft) +
-                                 "\nNext jump: " + fTime_discord +
-                                 "\nEstimated time of route completion: " + arrivalTime_discord +
-                                 "\no7", routeName, "Wait...",
-                                 "Wait...")
+                discord_messenger.post_with_fields(
+                    "Carrier Jump",
+                    webhook_url,
+                    routeName,
+                    f"Jump to {previous_system} successful.",
+                    f"The carrier is now jumping to the {line} system.",
+                    f"Jumps remaining: {jumpsLeft}",
+                    f"Next jump: {fTime_discord}",
+                    f"Estimated time of route completion: {arrivalTime_discord}",
+                    "o7"
+                )
                 time.sleep(2)
                 discord_messenger.update_fields(0, 0)
             else:
                 if not saved:
-                    discord_messenger.post_with_fields("Flight Begun", webhook_url,
-                                     "The Flight Computer has begun navigating the Carrier.\n"
-                                     "The Carrier's route is as follows:\n" +
-                                     route +
-                                     "\nFirst jump: " + fTime_discord +
-                                     "\nEstimated time of route completion: " + arrivalTime_discord +
-                                     "\no7", routeName, "Wait...",
-                                     "Wait...")
+                    discord_messenger.post_with_fields(
+                        "Flight Begun",
+                        webhook_url,
+                        routeName,
+                        "The Flight Computer has begun navigating the Carrier.",
+                        "The Carrier's route is as follows:",
+                        "\n".join(route_list),
+                        f"First jump: {fTime_discord}",
+                        f"Estimated time of route completion: {arrivalTime_discord}",
+                        "o7"
+                    )
                     time.sleep(2)
                     discord_messenger.update_fields(0, 0)
                 else:
-                    discord_messenger.post_with_fields("Flight Resumed", webhook_url,
-                                     "The Flight Computer has resumed navigation.\n"
-                                     "First jump: " + fTime_discord +
-                                     "\nEstimated time of route completion: " + arrivalTime_discord +
-                                     "\no7", routeName, "Wait...",
-                                     "Wait..."
-                                     )
+                    discord_messenger.post_with_fields(
+                        "Flight Resumed",
+                        webhook_url,
+                        routeName,
+                        "The Flight Computer has resumed navigation.",
+                        f"First jump: {fTime_discord}",
+                        f"Estimated time of route completion: {arrivalTime_discord}",
+                        "o7"
+                    )
                     time.sleep(2)
                     discord_messenger.update_fields(0, 0)
 
@@ -489,11 +496,15 @@ def main_loop():
         except Exception as e:
             print(e)
             print("An error has occurred. Saving progress and aborting...")
-            discord_messenger.post_to_discord("Critical Error", webhook_url,
-                            "An error has occurred with the Flight Computer.\n"
-                            "It's possible the game has crashed, or servers were taken down.\n"
-                            "Please wait for the carrier to resume navigation.\n"
-                            "o7", routeName)
+            discord_messenger.post_to_discord(
+                "Critical Error",
+                webhook_url,
+                "Carrier Updates: Autopilot Error",
+                "An error has occurred with the Flight Computer.",
+                "It's possible the game has crashed, or servers were taken down.",
+                "Please wait for the carrier to resume navigation.",
+                "o7"
+            )
             print("Message sent...")
             saveFile = open("save.txt", "w+", encoding="utf-8")
             saveFile.write(str(lineNo))
@@ -589,9 +600,13 @@ def main_loop():
         doneFirst = True
 
     print("Route complete!")
-    discord_messenger.post_to_discord("Carrier Arrived", webhook_url,
-                    "The route is complete, and the carrier has arrived at " + finalLine + ".\n"
-                                                                                           "o7", routeName)
+    discord_messenger.post_to_discord(
+        "Carrier Arrived",
+        webhook_url,
+        routeName,
+        f"The route is complete, and the carrier has arrived at {finalLine}.",
+        "o7"
+    )
     return True
 
 
@@ -600,11 +615,15 @@ def process_journal(file_name):
         c = journal_watcher.process_journal(file_name)
         if not c:
             print("An error has occurred. Saving progress and aborting...")
-            discord_messenger.post_to_discord("Critical Error", webhook_url,
-                            "An error has occurred with the Flight Computer.\n"
-                            "It's possible the game has crashed, or servers were taken down.\n"
-                            "Please wait for the carrier to resume navigation.\n"
-                            "o7", "")
+            discord_messenger.post_to_discord(
+                "Critical Error",
+                webhook_url,
+                "Carrier Updates: Journal Error",
+                "An error has occurred with the Flight Computer.",
+                "It's possible the game has crashed, or servers were taken down.",
+                "Please wait for the carrier to resume navigation.",
+                "o7"
+            )
             print("Message sent...")
             saveFile = open("save.txt", "w+", encoding="utf-8")
             saveFile.write(str(lineNo))
