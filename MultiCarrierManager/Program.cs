@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,13 +24,16 @@ namespace MultiCarrierManager
         {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(ErrorPopupHandler);
             Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(ErrorPopupHandler);
-
             settings = new SettingsManager("settings/settings.ini");
             logger = new Logger();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             logger.Log("Start");
+            
+            // Create needed folders if they don't exist
+            Directory.CreateDirectory("carriers");
+            Directory.CreateDirectory("carriers/profiles");
 
             // Check for updates by checking the latest github release
             try
