@@ -372,7 +372,7 @@ def main_loop():
     route_list = route.strip().split("\n")
     if route_list == [""]:
         print("Route file is empty. Exiting...")
-        SystemExit(0)
+        os._exit(1)
 
     jumpsLeft = len(route_list) + 1
     finalLine = route_list[-1]  # last index in the route list
@@ -611,7 +611,7 @@ def process_journal(file_name):
             saveFile.write(str(lineNo))
             saveFile.close()
             print("Progress saved...")
-            raise SystemExit(0)
+            os._exit(2)
 
         time.sleep(1)
     print("Journal thread halted")
@@ -619,11 +619,14 @@ def process_journal(file_name):
 
 if not res_handler.supported_res:
     print("Resolution not supported, exiting...")
-    raise SystemExit(0)
+    os._exit(1)
 else:
     if sys.argv[4] == "--power-saving":
         power_saving = True
 
     if not main_loop():
         print("Aborted.")
-    raise SystemExit(0)
+        os._exit(2)
+    # Use os._exit because Pyinstaller doesn't like sys.exit for some reason
+    # Exit code docs: 0 = success, 1 = small error (unsupported res, no route), 2 = critical error (journal error, main loop crash)
+    os._exit(0)

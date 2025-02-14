@@ -49,6 +49,13 @@ namespace MultiCarrierManager.CATS
             else process.StartInfo.Arguments += " --no-ps";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
+            // Monitor the process for exit
+            process.EnableRaisingEvents = true;
+            process.Exited += new EventHandler((s, e) =>
+            {
+                form.stopButton_Click(s, e);
+                Program.logger.Log("TraversalExitCode=" + process.ExitCode);
+            });
             process.OutputDataReceived += new DataReceivedEventHandler((s2, e2) =>
             {
                 // First check if the output is a number, in which case pass it to the countdown clock instead of the console
@@ -66,6 +73,7 @@ namespace MultiCarrierManager.CATS
                         output.AppendText(line + Environment.NewLine);
                         if (!line.StartsWith("journal_directory=")) Program.logger.LogCats(line);
 
+                        // TODO: Convert to switch case
                         if (line == "Beginning in 5...")
                         {
                             form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Starting up...";
