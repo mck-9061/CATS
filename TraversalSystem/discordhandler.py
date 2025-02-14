@@ -2,8 +2,34 @@ import random
 import re
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
+# Define default carrier stage list and maintenance stage list
+CSL = [
+    "Waiting...",
+    "Jump locked",
+    "Lockdown protocol active",
+    "Powering FSD",
+    "Initiating FSD",
+    "Entering hyperspace portal",
+    "Traversing hyperspace",
+    "Exiting hyperspace portal",
+    "FSD cooling down",
+    "Jump complete"
+]
+MSL = [
+    "Waiting",
+    "Preparing carrier for hyperspace",
+    "Services taken down",
+    "Landing pads retracting",
+    "Bulkheads closing",
+    "Airlocks sealing",
+    "Task confirmation",
+    "Waiting",
+    "Restocking Tritium",
+    "Done"
+]
+
 class DiscordHandler:
-    __slots__ = ["lastHook", "lastEmbed", "photo_list", "carrier_stage_list", "maintenance_stage_list"]
+    __slots__ = ["lastHook", "lastEmbed", "photo_list"]
 
     def __init__(self) -> None:
         try:
@@ -60,50 +86,29 @@ class DiscordHandler:
             print("Double-check that the webhook is set up")
 
 
-    def update_fields(self, carrierStage, maintenanceStage):
+    def update_fields(self, carrierStage: int, maintenanceStage: int):
         try:
-            if (carrierStage, maintenanceStage) == (0, 0):
-                # Set back to defaults
-                self.carrier_stage_list = [
-                    "Waiting...",
-                    "Jump locked",
-                    "Lockdown protocol active",
-                    "Powering FSD",
-                    "Initiating FSD",
-                    "Entering hyperspace portal",
-                    "Traversing hyperspace",
-                    "Exiting hyperspace portal",
-                    "FSD cooling down",
-                    "Jump complete"
-                ]
-                self.maintenance_stage_list = [
-                    "Waiting",
-                    "Preparing carrier for hyperspace",
-                    "Services taken down",
-                    "Landing pads retracting",
-                    "Bulkheads closing",
-                    "Airlocks sealing",
-                    "Task confirmation",
-                    "Waiting",
-                    "Restocking Tritium",
-                    "Done"
-                ]
+            cur_CSL, cur_MSL = [], []  # Define carrier stage list and maintenance stage list for the current field update
 
             # Add strikethru to every carrier stage before current
-            for i, c_stage_name in enumerate(self.carrier_stage_list[:carrierStage]):
-                self.carrier_stage_list[i] = f"~~{c_stage_name.replace('*', '')}~~"
+            for c_stage_name in CSL[:carrierStage]:
+                cur_CSL.append(f"~~{c_stage_name}~~")
             # Bold current stage
-            self.carrier_stage_list[carrierStage] = f"**{self.carrier_stage_list[carrierStage]}**"
+            cur_CSL.append(f"**{CSL[carrierStage]}**")
+            # Add remaining stages as normal text
+            cur_CSL += CSL[carrierStage+1:]
             
-            # Add strikethru & DONE signifier to every maintenance stage before current
-            for i, m_stage_name in enumerate(self.maintenance_stage_list[:maintenanceStage]):
-                self.maintenance_stage_list[i] = f"~~{m_stage_name.replace('*', '')}DONE~~"
+            # Add strikethru & "...DONE" signifier to every maintenance stage before current
+            for m_stage_name in MSL[:maintenanceStage]:
+                cur_MSL.append(f"~~{m_stage_name}...DONE~~")
             # Bold current stage and add ellipsis
-            self.maintenance_stage_list[maintenanceStage] = f"**{self.maintenance_stage_list[maintenanceStage]}...**"
+            cur_MSL.append(f"**{MSL[maintenanceStage]}...**")
+            # Add remaining stages as normal text
+            cur_MSL += MSL[maintenanceStage+1:]
 
             # Once the jump is finished, replace all countdowns with a static text blurb
             if maintenanceStage == 9 and self.lastEmbed.description:
-                while re.match(r"<t:\d*:R>", self.lastEmbed.description):
+                while re.search(r"<t:\d*:R>", self.lastEmbed.description):
                     self.lastEmbed.description = str(re.sub(r"<t:\d*:R>", "Countdown Expired", self.lastEmbed.description))
         
         
@@ -112,8 +117,8 @@ class DiscordHandler:
             self.lastEmbed.delete_embed_field(0)
             self.lastEmbed.delete_embed_field(0)
         
-            self.lastEmbed.add_embed_field(name="Jump stage", value="\n".join(self.carrier_stage_list))
-            self.lastEmbed.add_embed_field(name="Maintenance stage", value="\n".join(self.maintenance_stage_list))
+            self.lastEmbed.add_embed_field(name="Jump stage", value="\n".join(cur_CSL))
+            self.lastEmbed.add_embed_field(name="Maintenance stage", value="\n".join(cur_MSL))
         
             self.lastHook.add_embed(self.lastEmbed)
 
