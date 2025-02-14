@@ -505,24 +505,25 @@ def main_loop():
             print(totalTime)
             time.sleep(1)
 
-            if totalTime == 600:
-                discord_messenger.update_fields(1, 1)
-            elif totalTime == 200:
-                discord_messenger.update_fields(2, 2)
-            elif totalTime == 190:
-                discord_messenger.update_fields(2, 3)
-            elif totalTime == 144:
-                discord_messenger.update_fields(2, 4)
-            elif totalTime == 103:
-                discord_messenger.update_fields(2, 5)
-            elif totalTime == 90:
-                discord_messenger.update_fields(2, 6)
-            elif totalTime == 75:
-                discord_messenger.update_fields(2, 7)
-            elif totalTime == 60:
-                discord_messenger.update_fields(3, 7)
-            elif totalTime == 30:
-                discord_messenger.update_fields(4, 7)
+            match totalTime:
+                case 600:
+                    discord_messenger.update_fields(1, 1)
+                case 200:
+                    discord_messenger.update_fields(2, 2)
+                case 190:
+                    discord_messenger.update_fields(2, 3)
+                case 144:
+                    discord_messenger.update_fields(2, 4)
+                case 103:
+                    discord_messenger.update_fields(2, 5)
+                case 90:
+                    discord_messenger.update_fields(2, 6)
+                case 75:
+                    discord_messenger.update_fields(2, 7)
+                case 60:
+                    discord_messenger.update_fields(3, 7)
+                case 30:
+                    discord_messenger.update_fields(4, 7)
 
             totalTime -= 1
 
@@ -532,60 +533,58 @@ def main_loop():
 
         lineNo += 1
 
-        if not line == finalLine:
-            print("Counting down until next jump...")
-            totalTime = 362
-            while totalTime > 0:
-                print(totalTime)
-
-                if totalTime == 340:
-                    discord_messenger.update_fields(6, 7)
-                elif totalTime == 320:
-                    discord_messenger.update_fields(7, 7)
-                elif totalTime == 300:
-
-                    if not power_saving:
-                        print("Pausing execution until jump is confirmed...")
-                        c = False
-                        while not c:
-                            c = journal_watcher.get_jumped()
-                            if not c:
-                                print("Jump not complete...")
-                                time.sleep(10)
-                    else:
-                        print("Pausing execution until game is open and ready...")
-                        while not game_ready:
-                            print("Game not ready...")
-                            time.sleep(10)
-                        totalTime = 152
-                    print("Jump complete!")
-                    discord_messenger.update_fields(8, 7)
-                elif totalTime == 151:
-                    discord_messenger.update_fields(8, 8)
-                elif totalTime == 100:
-                    discord_messenger.update_fields(8, 9)
-
-                elif totalTime == 150:
-                    print("Restocking tritium...")
-                    # win.activate()
-                    time.sleep(2)
-                    th = threading.Thread(target=restock_tritium)
-                    th.start()
-
-                time.sleep(1)
-                totalTime -= 1
-            discord_messenger.update_fields(9, 9)
-
-        else:
+        if line == finalLine and power_saving:
+            # When making the final jump on power saving mode, avoid reopening the game to do post-jump tasks
             print("Counting down until jump finishes...")
-
-            discord_messenger.update_fields(9, 9)
 
             totalTime = 60
             while totalTime > 0:
                 print(totalTime)
                 time.sleep(1)
                 totalTime -= 1
+
+            discord_messenger.update_fields(9, 9)
+        else:
+            print("Counting down until next jump...")
+            totalTime = 362
+            while totalTime > 0:
+                print(totalTime)
+
+                match totalTime:
+                    case 340:
+                        discord_messenger.update_fields(6, 7)
+                    case 320:
+                        discord_messenger.update_fields(7, 7)
+                    case 300:
+                        if not power_saving:
+                            print("Pausing execution until jump is confirmed...")
+                            c = False
+                            while not c:
+                                c = journal_watcher.get_jumped()
+                                if not c:
+                                    print("Jump not complete...")
+                                    time.sleep(10)
+                        else:
+                            print("Pausing execution until game is open and ready...")
+                            while not game_ready:
+                                print("Game not ready...")
+                                time.sleep(10)
+                            totalTime = 152
+                        print("Jump complete!")
+                        discord_messenger.update_fields(8, 7)
+                    case 151:
+                        discord_messenger.update_fields(8, 8)
+                    case 100:
+                        discord_messenger.update_fields(8, 9)
+                    case 150:
+                        print("Restocking tritium...")
+                        time.sleep(2)
+                        th = threading.Thread(target=restock_tritium)
+                        th.start()
+
+                time.sleep(1)
+                totalTime -= 1
+            discord_messenger.update_fields(9, 9)
 
         doneFirst = True
 
