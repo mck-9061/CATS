@@ -129,7 +129,7 @@ namespace MultiCarrierManager
             }
         }
 
-        private void stopButton_Click(object sender, EventArgs e)
+        public void stopButton_Click(object sender, EventArgs e)
         {
             if (cats.isRunning)
             {

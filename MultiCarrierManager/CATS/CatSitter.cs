@@ -49,6 +49,13 @@ namespace MultiCarrierManager.CATS
             else process.StartInfo.Arguments += " --no-ps";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
+            // Monitor the process for exit
+            process.EnableRaisingEvents = true;
+            process.Exited += new EventHandler((s, e) =>
+            {
+                form.stopButton_Click(s, e);
+                Program.logger.Log("TraversalExitCode=" + process.ExitCode);
+            });
             process.OutputDataReceived += new DataReceivedEventHandler((s2, e2) =>
             {
                 // First check if the output is a number, in which case pass it to the countdown clock instead of the console
@@ -66,48 +73,40 @@ namespace MultiCarrierManager.CATS
                         output.AppendText(line + Environment.NewLine);
                         if (!line.StartsWith("journal_directory=")) Program.logger.LogCats(line);
 
-                        if (line == "Beginning in 5...")
+                        switch (line)
                         {
-                            form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Starting up...";
-                        }
-                        else if (line.StartsWith("Next stop"))
-                        {
-                            nextSystem = line.Split(':')[1].Remove(0, 1);
-                            form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Navigating menus...";
-                        }
-                        else if (line.StartsWith("Navigation complete"))
-                        {
-                            form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Counting down...";
-                        }
-                        else if (line == "Jumping!")
-                        {
-                            form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | In hyperspace...";
-                        }
-                        else if (line == "Jump complete!")
-                        {
-                            form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Cooling down...";
-                        }
-                        else if (line == "Restocking tritium...")
-                        {
-                            form.Text =
-                                $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Restocking tritium...";
-                        }
-                        else if (line == "Tritium successfully refuelled")
-                        {
-                            form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Cooling down...";
-                        }
-                        else if (line == "Route complete!")
-                        {
-                            form.Text = "Carrier Administration and Traversal System (CATS)";
-                        }
-                        else if (line.StartsWith("ETA:"))
-                        {
-                            etaLabel.Text = line;
-                        }
-                        else if (line.StartsWith("alert:"))
-                        {
-                            string alert = line.Split(':')[1];
-                            MessageBox.Show(alert, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            case "Beginning in 5...":
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Starting up...";
+                                break;
+                            case string s when s.StartsWith("Next stop"):
+                                nextSystem = line.Split(':')[1].Remove(0, 1);
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Navigating menus...";
+                                break;
+                            case string s when s.StartsWith("Navigation complete"):
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Counting down...";
+                                break;
+                            case "Jumping!":
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | In hyperspace...";
+                                break;
+                            case "Jump complete!":
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Cooling down...";
+                                break;
+                            case "Restocking tritium...":
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Restocking tritium...";
+                                break;
+                            case "Tritium successfully refuelled":
+                                form.Text = $"CATS | En route to {finalSystem} | Next stop: {nextSystem} | Cooling down...";
+                                break;
+                            case "Route complete!":
+                                form.Text = "Carrier Administration and Traversal System (CATS)";
+                                break;
+                            case string s when s.StartsWith("ETA:"):
+                                etaLabel.Text = line;
+                                break;
+                            case string s when s.StartsWith("alert:"):
+                                string alert = line.Split(':')[1];
+                                MessageBox.Show(alert, "Alert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                break;
                         }
                     }
                     catch (Exception)
