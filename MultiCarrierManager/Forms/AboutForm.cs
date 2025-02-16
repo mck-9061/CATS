@@ -9,7 +9,7 @@ namespace MultiCarrierManager {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start("https://discord.gg/57gHX6GfHy");
+            System.Diagnostics.Process.Start("https://github.com/mck-9061/CATS/issues");
         }
 
         private int num = 0;

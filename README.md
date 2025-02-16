@@ -3,10 +3,6 @@ CATS is an Elite Dangerous fleet carrier auto-plotter, autojumper, and flight co
 <br>
 This app also allows you to view stats about carriers across multiple accounts.
 
-# Maintenance
-CATS is currently in maintenance mode. <strong>It will continue to work</strong>, but no new features will be added (unless a game update breaks something).
-The Discord server is in read-only mode; if you have an issue, there may be a solution in there, but no direct help will be provided. (https://discord.gg/57gHX6GfHy)
-
 ## Features
 ### Admin interface
 * View name, callsign, credits, fuel, current system and other stats for multiple carriers.
