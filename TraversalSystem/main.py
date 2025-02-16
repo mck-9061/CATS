@@ -394,6 +394,7 @@ def main_loop():
         if a1.index(i) < lineNo: continue
         delta = delta + datetime.timedelta(seconds=1320)
     arrivalTime = currentTime + delta
+    arrivalTime_discord = f"<t:{arrivalTime.timestamp():.0f}:f> (<t:{arrivalTime.timestamp():.0f}:R>)"
 
     doneFirst = False
     for i in range(len(a)):
