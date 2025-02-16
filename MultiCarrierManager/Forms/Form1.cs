@@ -441,8 +441,8 @@ namespace MultiCarrierManager {
                 }
                 catch (Exception e) {
                     try {
-                        Program.logger.LogOutput(e.Message);
-                        Program.logger.LogOutput(e.StackTrace);
+                        //Program.logger.LogOutput(e.Message);
+                        //Program.logger.LogOutput(e.StackTrace);
                         foreach (JToken t in token) {
                             // again, really fucking stupid
                             value += long.Parse(t["crewMember"]["hiringPrice"].ToString());
