@@ -5,3 +5,6 @@ Once you've got the keys, put them into `MultiCarrierManager/ApiTools/OAuth2.cs.
 You'll also need to compile the Python script using the command in `build_TraversalSystem.sh`.
 
 The project can then be built as a regular .NET Framework Windows Forms app.
+
+## Installer
+The installer can be built with Inno Setup. Open `setup/setup-script.iss` and compile.

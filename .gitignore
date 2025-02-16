@@ -8,3 +8,6 @@
 
 # VSCode stuff
 /.vscode
+
+# Built installer
+/setup/CATSSetup.exe
