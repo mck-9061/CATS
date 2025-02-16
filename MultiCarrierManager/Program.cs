@@ -28,9 +28,7 @@ namespace MultiCarrierManager
             logger = new Logger();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             logger.Log("Start");
-            
             // Create needed folders if they don't exist
             Directory.CreateDirectory("carriers");
             Directory.CreateDirectory("carriers/profiles");
@@ -45,9 +43,9 @@ namespace MultiCarrierManager
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("2.1.5");
                 allowedReleases.Add("3.0.0");
-                logger.Log("Version: 3.0.0");
+                allowedReleases.Add("3.1.0");
+                logger.Log("Version: 3.1.0");
 
                 if (!allowedReleases.Contains(tag))
                 {

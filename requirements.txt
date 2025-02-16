@@ -6,3 +6,5 @@ pyperclip==1.9.0
 pytz==2025.1
 pyinstaller==6.11.1
 tzlocal==5.2
+zstandard==0.23.0
+zstd==1.5.6.1
