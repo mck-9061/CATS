@@ -23,13 +23,12 @@ This app also allows you to view stats about carriers across multiple accounts.
 ## Limitations
 * This only works on Windows and probably won't be ported to anything else.
 * It also only works with PC accounts running on Odyssey (The admin interface also works with Live Horizons, but the traversal system is Odyssey-only for now)
-* The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested. If it doesn't work with your display, feel free to reach out on Discord.
+* The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested.
 * Elite Dangerous should be running on your primary monitor in fullscreen.
 * Officially supported resolutions can be found in the `resolutions.md` file.
-* If you come across a problem, feel free to join the Discord (see below)
 
 ## Installation
-The release comes bundled with everything you need to use both the admin panel and the traversal system. Just run the executable and you're good to go.
+The release comes bundled with everything you need to use both the admin panel and the traversal system. Just run the installer and you're good to go.
 
 ## Traversal system usage
 * Dock with your carrier.
