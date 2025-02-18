@@ -63,6 +63,9 @@ disable_refuel = False
 global power_saving
 power_saving = False
 
+global efficient_refueling
+efficient_refueling = False
+
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
@@ -82,6 +85,7 @@ def load_settings():
     global auto_plot_jumps
     global disable_refuel
     global power_saving
+    global efficient_refueling
     # AFAIK, it is impossible to launch the script without either settings file existing
 
     # Get settings from settings.txt
@@ -134,6 +138,10 @@ def load_settings():
             if line.startswith("power-saving="):
                 print(line)
                 power_saving = line.split("=")[1].strip().lower() == "true"
+            
+            if line.startswith("efficient-refueling"):
+                print(line)
+                efficient_refueling = line.split("=")[1].strip().lower() == "true"
     except Exception as e:
         print("There seems to be a problem with your settings.ini file. Please confirm that your options are properly selected.")
         print(e)
@@ -186,17 +194,26 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
-    if auto_plot_jumps and not disable_refuel:
-        # Navigate menu
-        follow_button_sequence("restock_nav_1.txt")
+    if not auto_plot_jumps or disable_refuel:
+        # If manual jumping is enabled or automatic refuel is disabled, skip function execution
+        return
+    
+    restock_order = ["open_cargo_transfer", "restock_cargo", "restock_fc"]  # default step order for restocking trit
 
-        for i in range(tritium_slot):
-            pydirectinput.press('w')
-            time.sleep(slight_random_time(0.1))
+    if efficient_refueling:
+        # If efficient refueling is enabled, restock the fleet carrier first, then add more trit to the CMDR's cargo hold
+        restock_order.insert(0, restock_order.pop())
 
-        follow_button_sequence("restock_nav_2.txt")
+    for step in restock_order:
+        follow_button_sequence(f"{step}.txt")  # follow the button sequence for each step
 
-        print("Tritium successfully refuelled.")
+        if step == "open_cargo_transfer":
+            # at the end of the cargo transfer step, we need to select the correct trit slot based on user input
+            for _ in range(tritium_slot):
+                pydirectinput.press('w')
+                time.sleep(slight_random_time(0.1))
+
+    print("Refuel process completed.")
 
 
 def jump_to_system(system_name):
