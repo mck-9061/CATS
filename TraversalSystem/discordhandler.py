@@ -32,6 +32,7 @@ class DiscordHandler:
     __slots__ = ["lastHook", "lastEmbed", "photo_list"]
 
     def __init__(self) -> None:
+        self.lastHook = None
         try:
             with open("photos.txt", "r", encoding="utf-8") as photosFile:
                 self.photo_list = photosFile.read().split()
@@ -49,6 +50,8 @@ class DiscordHandler:
             routeName (str): The name of the route to be displayed as the author of the embed.
             *message (str): The content to be included in the embed description. Each additional arg will be included as a new line.
         """
+        if webhook_url == "":
+            return
         try:
             photo = random.choice(self.photo_list)
 
@@ -75,6 +78,8 @@ class DiscordHandler:
             routeName (str): The name of the route to be displayed as the author of the embed.
             *message (str): The content to be included in the embed description. Each additional arg will be included as a new line.
         """
+        if webhook_url == "":
+            return
         try:
             photo = random.choice(self.photo_list)
         
@@ -101,6 +106,8 @@ class DiscordHandler:
 
 
     def update_fields(self, carrierStage: int, maintenanceStage: int):
+        if not self.lastHook:
+            return
         try:
             cur_CSL, cur_MSL = [], []  # Define carrier stage list and maintenance stage list for the current field update
 
