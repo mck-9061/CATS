@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
-namespace MultiCarrierManager {
-    partial class OptionsForm {
+namespace MultiCarrierManager
+{
+    partial class OptionsForm
+    {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,8 +13,10 @@ namespace MultiCarrierManager {
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
 
@@ -25,13 +29,15 @@ namespace MultiCarrierManager {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -65,7 +71,7 @@ namespace MultiCarrierManager {
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(12, 170);
+            this.button1.Location = new System.Drawing.Point(12, 200);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(344, 45);
             this.button1.TabIndex = 4;
@@ -91,18 +97,28 @@ namespace MultiCarrierManager {
             this.checkBox1.Text = "Power saving mode";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // checkBox6
+            // 
+            this.checkBox6.Location = new System.Drawing.Point(12, 162);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(333, 24);
+            this.checkBox6.TabIndex = 7;
+            this.checkBox6.Text = "Use efficient refueling";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 227);
+            this.ClientSize = new System.Drawing.Size(368, 257);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
-            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
+            this.Controls.Add(this.checkBox6);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OptionsForm";
             this.Text = "Options";
             this.Load += new System.EventHandler(this.OptionsForm_Load);
@@ -118,6 +134,7 @@ namespace MultiCarrierManager {
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox6;
 
         #endregion
     }

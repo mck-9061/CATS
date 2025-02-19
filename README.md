@@ -12,6 +12,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 ### Traversal system
 * Automatic jump plotting
 * Tritium restocking
+  * Optional max efficiency mode
 * Route time estimations
 * GUI
 * Keeps track of jump time (in case a jump is longer than 15 minutes)

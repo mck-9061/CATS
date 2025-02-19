@@ -48,16 +48,23 @@ hold_time = 10
 global route_file
 route_file = ""
 
-window_name = "Elite - Dangerous (CLIENT)"
-
 global webhook_url
 webhook_url = ""
 
 global journal_directory
 journal_directory = ""
 
+global auto_plot_jumps
+auto_plot_jumps = True
+
+global disable_refuel
+disable_refuel = False
+
 global power_saving
 power_saving = False
+
+global efficient_refueling
+efficient_refueling = False
 
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
@@ -75,43 +82,70 @@ def load_settings():
     global webhook_url
     global journal_directory
     global route_file
+    global auto_plot_jumps
+    global disable_refuel
+    global power_saving
+    global efficient_refueling
+    # AFAIK, it is impossible to launch the script without either settings file existing
 
+    # Get settings from settings.txt
+    with open("settings.txt", "r", encoding="utf-8") as settingsFile:
+        settings_lines = settingsFile.read().split('\n')
+
+    # Attempt to read settings from settings.txt
     try:
-        settingsFile = open("settings.txt", "r", encoding="utf-8")
-        a = settingsFile.read().split('\n')
+        for line in settings_lines:
+            if line.startswith("webhook_url="):
+                print(line)
+                webhook_url = line.split("=")[1]
 
-        try:
-            for line in a:
-                if line.startswith("webhook_url="):
-                    print(line)
-                    webhook_url = line.split("=")[1]
-                if line.startswith("journal_directory="):
-                    print(line)
-                    journal_directory = os.path.expanduser(line.split("=")[1])
-                    latest_journal()
+            if line.startswith("journal_directory="):
+                print(line)
+                journal_directory = os.path.expanduser(line.split("=")[1])
+                latest_journal()  # Check if the journal directory is valid
 
-                if line.startswith("tritium_slot="):
-                    print(line)
-                    tritium_slot = int(line.split("=")[1])
-                if line.startswith("route_file="):
-                    print(line)
-                    route_file = line.split("=")[1]
-        except Exception as e:
-            print(e)
-            print("There seems to be a problem with your settings file. Make sure of the following:\n"
-                  "- Your tritium slot is a valid integer. It should be the number of up presses it takes to reach "
-                  "tritium in your carrier's cargo hold from the transfer menu.\n"
-                  "- The journal directory is a valid directory for your operating system, and contains the Elite"
-                  " Dangerous journal files.")
+            if line.startswith("tritium_slot="):
+                print(line)
+                tritium_slot = int(line.split("=")[1])
 
+            if line.startswith("route_file="):
+                print(line)
+                route_file = line.split("=")[1]
+    except Exception as e:
+        print(
+            "There seems to be a problem with your settings.txt file. Make sure of the following:\n"
+            "- Your tritium slot is a valid integer. It should be the number of up presses it takes to reach tritium in your carrier's cargo hold from the transfer menu.\n"
+            "- The journal directory is a valid directory for your operating system, and contains the Elite Dangerous journal files."
+        )
+        print(e)
+        os._exit(1)
+    
+    # Get settings from settings.ini
+    with open("../settings/settings.ini", "r", encoding="utf-8") as configFile:
+        config_lines = configFile.read().split('\n')
 
-    except:
-        settingsFile = open("settings.txt", "w+", encoding="utf-8")
-        settingsFile.write("webhook_url=\n"
-                           "journal_directory=\n"
-                           "tritium_slot=\n")
+    # Attempt to read settings from settings.ini
+    try:
+        for line in config_lines:
+            if line.startswith("auto-plot-jumps="):
+                print(line)
+                auto_plot_jumps = line.split("=")[1].strip().lower() == "true"
 
-        print("Settings file created, please set up and run again")
+            if line.startswith("disable-refuel="):
+                print(line)
+                disable_refuel = line.split("=")[1].strip().lower() == "true"
+
+            if line.startswith("power-saving="):
+                print(line)
+                power_saving = line.split("=")[1].strip().lower() == "true"
+            
+            if line.startswith("efficient-refueling"):
+                print(line)
+                efficient_refueling = line.split("=")[1].strip().lower() == "true"
+    except Exception as e:
+        print("There seems to be a problem with your settings.ini file. Please confirm that your options are properly selected.")
+        print(e)
+        os._exit(1)
 
 
 def latest_journal():
@@ -160,21 +194,30 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
-    if not sys.argv[1] == "--manual" and not sys.argv[3] == "--nofuel":
-        # Navigate menu
-        follow_button_sequence("restock_nav_1.txt")
+    if not auto_plot_jumps or disable_refuel:
+        # If manual jumping is enabled or automatic refuel is disabled, skip function execution
+        return
+    
+    restock_order = ["open_cargo_transfer", "restock_cargo", "restock_fc"]  # default step order for restocking trit
 
-        for i in range(tritium_slot):
-            pydirectinput.press('w')
-            time.sleep(slight_random_time(0.1))
+    if efficient_refueling:
+        # If efficient refueling is enabled, restock the fleet carrier first, then add more trit to the CMDR's cargo hold
+        restock_order.insert(0, restock_order.pop())
 
-        follow_button_sequence("restock_nav_2.txt")
+    for step in restock_order:
+        follow_button_sequence(f"{step}.txt")  # follow the button sequence for each step
 
-        print("Tritium successfully refuelled.")
+        if step == "open_cargo_transfer":
+            # at the end of the cargo transfer step, we need to select the correct trit slot based on user input
+            for _ in range(tritium_slot):
+                pydirectinput.press('w')
+                time.sleep(slight_random_time(0.1))
+
+    print("Refuel process completed.")
 
 
 def jump_to_system(system_name):
-    if sys.argv[1] == "--manual":
+    if not auto_plot_jumps:
         # Manual jumping
         pyperclip.copy(system_name.lower())
         print(
@@ -342,13 +385,10 @@ def main_loop():
     th = threading.Thread(target=process_journal, args=(latestJournal,))
     th.start()
 
-    # win = gw.getWindowsWithTitle(window_name)[0]
-    # win.activate()
-
     lineNo = 0
     saved = False
 
-    if sys.argv[3] == "--nofuel":
+    if disable_refuel:
         print("Tritium refuelling is disabled!")
 
     if os.path.exists("save.txt"):
@@ -640,9 +680,6 @@ if not res_handler.supported_res:
     print("Resolution not supported, exiting...")
     os._exit(1)
 else:
-    if sys.argv[4] == "--power-saving":
-        power_saving = True
-
     if not main_loop():
         print("Aborted.")
         os._exit(2)

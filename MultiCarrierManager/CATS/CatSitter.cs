@@ -39,14 +39,6 @@ namespace MultiCarrierManager.CATS
             // process.StartInfo.FileName = "CATS\\Python39\\python.exe";
             // process.StartInfo.WorkingDirectory = "CATS";
             // process.StartInfo.Arguments = "-u main.py";
-            if (!Program.settings.AutoPlot) process.StartInfo.Arguments += " --manual";
-            else process.StartInfo.Arguments += " --auto";
-            // I cba refactoring - not actually ocr any more
-            process.StartInfo.Arguments += " --ocr";
-            if (Program.settings.DisableRefuel) process.StartInfo.Arguments += " --nofuel";
-            else process.StartInfo.Arguments += " --fuel";
-            if (Program.settings.PowerSaving) process.StartInfo.Arguments += " --power-saving";
-            else process.StartInfo.Arguments += " --no-ps";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             // Monitor the process for exit
