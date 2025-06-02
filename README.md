@@ -35,7 +35,7 @@ The release comes bundled with everything you need to use both the admin panel a
 * Dock with your carrier.
 * Make sure your cursor is over the "Carrier Services" option, and that your internal panel (right) is on the home tab.
 * Open the traversal system from the admin interface. Fill in the options:
-  * Tritium slot: how many up-presses it takes to get to Tritium in the cargo transfer menu. IMPORTANT - take out a unit of Tritium first, as this changes where it's positioned.
+  * Tritium slot: How many down-presses it takes to get to Tritium from the first item in the cargo transfer menu.
   * Webhook URL: The URL to send Discord updates to.
   * Journal Dir: The directory of your Elite Dangerous journal files (will autofill when settings are saved).
   * Route: Put each system on a new line. Alternatively, import from a plain text list of systems, or a CSV from Spansh's FC plotter.

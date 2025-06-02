@@ -39,7 +39,7 @@ user32 = ctypes.windll.user32
 ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
 # ----Options----
-# How many up presses to reach tritium in carrier hold:
+# How many down presses to reach tritium from first item in carrier hold:
 global tritium_slot
 tritium_slot = 0
 # Time to refill trit
@@ -210,7 +210,7 @@ def restock_tritium():
         if step == "open_cargo_transfer":
             # at the end of the cargo transfer step, we need to select the correct trit slot based on user input
             for _ in range(tritium_slot):
-                pydirectinput.press('w')
+                pydirectinput.press('s')
                 time.sleep(slight_random_time(0.1))
 
     print("Refuel process completed.")
