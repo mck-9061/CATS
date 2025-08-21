@@ -1,3 +1,5 @@
+import json
+
 class JournalWatcher:
     __slots__ = ["firstRun", "lastJournalText", "lastCarrierRequest", "hasJumped", "departureTime", "lastFuel", "lastUsedFileName"]
     
@@ -27,30 +29,27 @@ class JournalWatcher:
             newText = journalText.replace(self.lastJournalText, "").strip()
 
             for line in newText.split("\n"):
-                event = line.split(':')[4].split('"')[1].strip()
+                event = json.loads(line)
                 # print(event)
 
-                if event == "CarrierJumpRequest":
-                    destination = line.split(':')[6].split('"')[1].strip()
+                if event['event'] == "CarrierJumpRequest":
+                    destination = event['SystemName']
 
                     if not self.firstRun:
                         self.lastCarrierRequest = destination
                         print("Carrier destination: " + destination)
-                        try:
-                            self.departureTime = line.split('"')[25].strip()
-                        except:
-                            self.departureTime = line.split('"')[21].strip()
+                        self.departureTime = event['DepartureTime']
                         print("Departure time: " + self.departureTime)
 
-                elif event == "CarrierStats":
-                    fuel = line.split(':')[10].split(',')[0].strip()
-                    print("Fuel: " + fuel)
+                elif event['event'] == "CarrierStats":
+                    fuel = event['FuelLevel']
+                    print("Fuel: " + str(fuel)) 
 
-                    if int(fuel) < self.lastFuel and int(fuel) < 100:
+                    if fuel < self.lastFuel and fuel < 100:
                         print("alert:Your Tritium is running low.")
 
-                    self.lastFuel = int(fuel)
-                elif event == "CarrierJump":
+                    self.lastFuel = fuel
+                elif event['event'] == "CarrierJump":
                     self.hasJumped = True
 
             self.lastJournalText = journalText
