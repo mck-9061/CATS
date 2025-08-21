@@ -66,6 +66,9 @@ power_saving = False
 global efficient_refueling
 efficient_refueling = False
 
+global squadron_carrier
+squadron_carrier = False
+
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
@@ -86,6 +89,7 @@ def load_settings():
     global disable_refuel
     global power_saving
     global efficient_refueling
+    global squadron_carrier
     # AFAIK, it is impossible to launch the script without either settings file existing
 
     # Get settings from settings.txt
@@ -142,6 +146,10 @@ def load_settings():
             if line.startswith("efficient-refueling"):
                 print(line)
                 efficient_refueling = line.split("=")[1].strip().lower() == "true"
+
+            if line.startswith("squadron-carrier"):
+                print(line)
+                squadron_carrier = line.split("=")[1].strip().lower() == "true"
     except Exception as e:
         print("There seems to be a problem with your settings.ini file. Please confirm that your options are properly selected.")
         print(e)
@@ -194,6 +202,8 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
+    global squadron_carrier
+
     if not auto_plot_jumps or disable_refuel:
         # If manual jumping is enabled or automatic refuel is disabled, skip function execution
         return
@@ -205,18 +215,26 @@ def restock_tritium():
         restock_order.insert(0, restock_order.pop())
 
     for step in restock_order:
-        follow_button_sequence(f"{step}.txt")  # follow the button sequence for each step
+        if squadron_carrier and os.path.isfile(f"sequences/squadron/{step}.txt"):
+            follow_button_sequence(f"squadron/{step}.txt")  # follow the button sequence for each step
+        else:
+            follow_button_sequence(f"{step}.txt")
 
         if step == "open_cargo_transfer":
             # at the end of the cargo transfer step, we need to select the correct trit slot based on user input
             for _ in range(tritium_slot):
-                pydirectinput.press('w')
+                if squadron_carrier:
+                    pydirectinput.press('s')
+                else:
+                    pydirectinput.press('w')
                 time.sleep(slight_random_time(0.1))
 
     print("Refuel process completed.")
 
 
 def jump_to_system(system_name):
+    global squadron_carrier
+
     if not auto_plot_jumps:
         # Manual jumping
         pyperclip.copy(system_name.lower())
@@ -236,7 +254,10 @@ def jump_to_system(system_name):
 
         return int(delta.total_seconds()), departure_time
 
-    follow_button_sequence("jump_nav_1.txt")
+    if squadron_carrier:
+        follow_button_sequence("squadron/jump_nav_1.txt")
+    else:
+        follow_button_sequence("jump_nav_1.txt")
 
     pyautogui.moveTo(res_handler.sysNameX, res_handler.sysNameUpperY)
     time.sleep(slight_random_time(0.1))

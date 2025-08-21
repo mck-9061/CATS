@@ -14,6 +14,7 @@ namespace MultiCarrierManager
     {
         public static SettingsManager settings;
         public static Logger logger;
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -43,9 +44,9 @@ namespace MultiCarrierManager
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("3.0.0");
                 allowedReleases.Add("3.1.0");
-                logger.Log("Version: 3.1.0");
+                allowedReleases.Add("3.2.0");
+                logger.Log("Version: 3.2.0");
 
                 if (!allowedReleases.Contains(tag))
                 {

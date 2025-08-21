@@ -35,7 +35,7 @@ namespace MultiCarrierManager
                 MessageBox.Show("Ensure that your current ship's cargo hold is full of Tritium before beginning.");
             }
             Program.settings.SetEfficientRefueling(checkBox6.Checked);
-
+            Program.settings.SetSquadronCarrier(checkBox7.Checked);
 
             Close();
         }
@@ -49,6 +49,7 @@ namespace MultiCarrierManager
             checkBox5.Checked = Program.settings.DisableRefuel;
             checkBox1.Checked = Program.settings.PowerSaving;
             checkBox6.Checked = Program.settings.EfficientRefueling;
+            checkBox7.Checked = Program.settings.SquadronCarrier;
         }
     }
 }

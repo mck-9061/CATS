@@ -1,8 +1,9 @@
 import math
 
+
 class Reshandler:
     __slots__ = ["sysNameX", "sysNameUpperY", "sysNameLowerY", "jumpButtonX", "jumpButtonY", "supported_res"]
-    
+
     def __init__(self, w, h) -> None:
         multiplier = 1
         line = ""
@@ -40,17 +41,18 @@ class Reshandler:
                     resH = int(s[1])
                     resGCD = math.gcd(resW, resH)
 
-                    print(str(resW) + "x" + str(resH) + " @ " + str(resW/resGCD) + ":" + str(resH/resGCD))
+                    print(str(resW) + "x" + str(resH) + " @ " + str(resW / resGCD) + ":" + str(resH / resGCD))
 
-                    if rX == resW/resGCD and rY == resH/resGCD:
-                        print("Resolution with same aspect ratio found: %s. This might not work completely." % (str(resW)+"x"+str(resH)))
+                    if rX == resW / resGCD and rY == resH / resGCD:
+                        print("Resolution with same aspect ratio found: %s. This might not work completely." % (
+                                    str(resW) + "x" + str(resH)))
                         line = l
                         multiplier = w / resW
                         break
 
                 if line == "":
-                    print("Resolution is not supported. Please switch to a supported resolution, or join the Discord to "
-                        "get yours supported.")
+                    print("Resolution is not supported. Please switch to a supported resolution, or raise an issue on "
+                          "GitHub to get yours supported.")
                     self.supported_res = False
                     return
 

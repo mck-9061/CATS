@@ -4,7 +4,7 @@
 #include "CodeDependencies.iss"
 
 #define MyAppName "CATS"
-#define MyAppVersion "3.1.0"
+#define MyAppVersion "3.2.0"
 #define MyAppPublisher "mck"
 #define MyAppExeName "CATS.exe"
 
@@ -44,10 +44,11 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "..\MultiCarrierManager\bin\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\MultiCarrierManager\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\MultiCarrierManager\bin\Release\CATS\res.csv"; DestDir: "{app}\CATS"; Flags: ignoreversion
+; settings.ini has been updated, so needs to be replaced
+Source: "..\MultiCarrierManager\bin\Release\settings\settings.ini"; DestDir: "{app}\settings"; Flags: ignoreversion
 ; Settings files: only install if they don't exist already
-Source: "..\MultiCarrierManager\bin\Release\settings\settings.ini"; DestDir: "{app}\settings"; Flags: ignoreversion onlyifdoesntexist
 Source: "..\MultiCarrierManager\bin\Release\CATS\*.txt"; DestDir: "{app}\CATS"; Flags: ignoreversion onlyifdoesntexist
-Source: "..\MultiCarrierManager\bin\Release\CATS\sequences\*"; DestDir: "{app}\CATS\sequences"; Flags: ignoreversion
+Source: "..\MultiCarrierManager\bin\Release\CATS\sequences\*"; DestDir: "{app}\CATS\sequences"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\MultiCarrierManager\bin\Release\CATS\pyinstaller\*"; DestDir: "{app}\CATS\pyinstaller"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

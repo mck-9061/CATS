@@ -39,6 +39,7 @@ namespace MultiCarrierManager
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBox2
@@ -71,7 +72,7 @@ namespace MultiCarrierManager
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(12, 200);
+            this.button1.Location = new System.Drawing.Point(12, 236);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(344, 45);
             this.button1.TabIndex = 4;
@@ -88,15 +89,6 @@ namespace MultiCarrierManager
             this.checkBox5.Text = "Disable automatic refuel";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.Location = new System.Drawing.Point(12, 132);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(333, 24);
-            this.checkBox1.TabIndex = 6;
-            this.checkBox1.Text = "Power saving mode";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // checkBox6
             // 
             this.checkBox6.Location = new System.Drawing.Point(12, 162);
@@ -106,11 +98,30 @@ namespace MultiCarrierManager
             this.checkBox6.Text = "Use efficient refueling";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.Location = new System.Drawing.Point(12, 132);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(333, 24);
+            this.checkBox1.TabIndex = 6;
+            this.checkBox1.Text = "Power saving mode";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.Location = new System.Drawing.Point(12, 192);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(333, 24);
+            this.checkBox7.TabIndex = 8;
+            this.checkBox7.Text = "Squadron carrier mode";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 257);
+            this.ClientSize = new System.Drawing.Size(368, 293);
+            this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button1);
@@ -124,6 +135,8 @@ namespace MultiCarrierManager
             this.Load += new System.EventHandler(this.OptionsForm_Load);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.CheckBox checkBox7;
 
         private System.Windows.Forms.CheckBox checkBox1;
 

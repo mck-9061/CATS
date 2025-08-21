@@ -1,0 +1,8 @@
+space-3
+w
+w
+d:6
+s
+s
+space-4
+backspace
