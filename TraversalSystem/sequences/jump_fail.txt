@@ -1,9 +1,9 @@
 backspace
 backspace
+backspace-5
 backspace
 backspace
-backspace
-backspace
+backspace-5
 w
 w
 w

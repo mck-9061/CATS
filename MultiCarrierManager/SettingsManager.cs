@@ -15,6 +15,7 @@ namespace MultiCarrierManager
         public bool DisableRefuel { get; private set; }
         public bool PowerSaving { get; private set; }
         public bool EfficientRefueling { get; private set; }
+        public bool SquadronCarrier { get; private set; }
 
         public SettingsManager(string file)
         {
@@ -46,6 +47,10 @@ namespace MultiCarrierManager
                 else if (line.StartsWith("efficient-refueling"))
                 {
                     EfficientRefueling = Convert.ToBoolean(line.Split('=')[1]);
+                }
+                else if  (line.StartsWith("squadron-carrier"))
+                {
+                    SquadronCarrier = Convert.ToBoolean(line.Split('=')[1]);
                 }
             }
         }
@@ -102,6 +107,12 @@ namespace MultiCarrierManager
         {
             EfficientRefueling = b;
             ReplaceInArray("efficient-refueling", b);
+        }
+
+        public void SetSquadronCarrier(bool b)
+        {
+            SquadronCarrier = b;
+            ReplaceInArray("squadron-carrier", b);
         }
     }
 }
