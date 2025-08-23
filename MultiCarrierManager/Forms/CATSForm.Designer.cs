@@ -43,7 +43,6 @@ namespace MultiCarrierManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.loadButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -67,7 +66,7 @@ namespace MultiCarrierManager
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 123);
+            this.label5.Location = new System.Drawing.Point(12, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 4;
@@ -76,17 +75,17 @@ namespace MultiCarrierManager
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox2.Location = new System.Drawing.Point(12, 157);
+            this.textBox2.Location = new System.Drawing.Point(12, 121);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(651, 358);
+            this.textBox2.Size = new System.Drawing.Size(651, 404);
             this.textBox2.TabIndex = 7;
             // 
             // runButton
             // 
             this.runButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.runButton.Location = new System.Drawing.Point(12, 545);
+            this.runButton.Location = new System.Drawing.Point(12, 555);
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(651, 29);
             this.runButton.TabIndex = 8;
@@ -98,7 +97,7 @@ namespace MultiCarrierManager
             // 
             this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.stopButton.Enabled = false;
-            this.stopButton.Location = new System.Drawing.Point(12, 580);
+            this.stopButton.Location = new System.Drawing.Point(12, 590);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(651, 29);
             this.stopButton.TabIndex = 9;
@@ -109,7 +108,7 @@ namespace MultiCarrierManager
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 74);
+            this.label6.Location = new System.Drawing.Point(12, 38);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 10;
@@ -118,15 +117,16 @@ namespace MultiCarrierManager
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(112, 74);
+            this.textBox3.Location = new System.Drawing.Point(112, 38);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(551, 20);
             this.textBox3.TabIndex = 11;
+            this.textBox3.Leave += new System.EventHandler(this.textBox3_Leave);
             // 
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(12, 98);
+            this.label8.Location = new System.Drawing.Point(12, 62);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 23);
             this.label8.TabIndex = 13;
@@ -134,14 +134,15 @@ namespace MultiCarrierManager
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(112, 100);
+            this.textBox5.Location = new System.Drawing.Point(112, 64);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(551, 20);
             this.textBox5.TabIndex = 15;
+            this.textBox5.Leave += new System.EventHandler(this.textBox5_Leave);
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(112, 123);
+            this.loadButton.Location = new System.Drawing.Point(112, 87);
             this.loadButton.Name = "loadButton";
             this.loadButton.Size = new System.Drawing.Size(101, 23);
             this.loadButton.TabIndex = 16;
@@ -151,7 +152,7 @@ namespace MultiCarrierManager
             // 
             // importButton
             // 
-            this.importButton.Location = new System.Drawing.Point(219, 123);
+            this.importButton.Location = new System.Drawing.Point(219, 87);
             this.importButton.Name = "importButton";
             this.importButton.Size = new System.Drawing.Size(158, 23);
             this.importButton.TabIndex = 17;
@@ -159,32 +160,24 @@ namespace MultiCarrierManager
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(130, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(301, 28);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Save all settings";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(130, 521);
+            this.comboBox1.Location = new System.Drawing.Point(130, 531);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(533, 21);
             this.comboBox1.TabIndex = 19;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             this.comboBox1.GotFocus += new System.EventHandler(this.populateComboBox);
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 519);
+            this.label3.Location = new System.Drawing.Point(12, 529);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 23);
             this.label3.TabIndex = 20;
@@ -198,14 +191,14 @@ namespace MultiCarrierManager
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(355, 521);
+            this.textBox1.Size = new System.Drawing.Size(355, 531);
             this.textBox1.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(669, 583);
+            this.label1.Location = new System.Drawing.Point(669, 593);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(355, 23);
             this.label1.TabIndex = 22;
@@ -215,7 +208,7 @@ namespace MultiCarrierManager
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(669, 548);
+            this.label4.Location = new System.Drawing.Point(669, 558);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(355, 23);
             this.label4.TabIndex = 23;
@@ -223,7 +216,7 @@ namespace MultiCarrierManager
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(383, 123);
+            this.button2.Location = new System.Drawing.Point(383, 87);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(153, 23);
             this.button2.TabIndex = 24;
@@ -247,7 +240,7 @@ namespace MultiCarrierManager
             this.OptionsButton.Name = "OptionsButton";
             this.OptionsButton.Size = new System.Drawing.Size(121, 28);
             this.OptionsButton.TabIndex = 26;
-            this.OptionsButton.Text = "Options";
+            this.OptionsButton.Text = "Options...";
             this.OptionsButton.UseVisualStyleBackColor = true;
             this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
             // 
@@ -263,7 +256,7 @@ namespace MultiCarrierManager
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(8, 38);
+            this.button5.Location = new System.Drawing.Point(130, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(301, 28);
             this.button5.TabIndex = 28;
@@ -276,7 +269,7 @@ namespace MultiCarrierManager
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1036, 620);
+            this.ClientSize = new System.Drawing.Size(1036, 630);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.OptionsButton);
@@ -287,7 +280,6 @@ namespace MultiCarrierManager
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.textBox5);
@@ -326,8 +318,6 @@ namespace MultiCarrierManager
 
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
-
-        private System.Windows.Forms.Button button1;
 
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.Button importButton;

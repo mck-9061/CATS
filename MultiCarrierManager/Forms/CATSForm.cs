@@ -12,6 +12,7 @@ namespace MultiCarrierManager
     public partial class CATSForm : Form
     {
         private CatSitter cats;
+        private bool DisableSave = false;
         public CATSForm()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace MultiCarrierManager
             cats = new CatSitter(textBox1, this, label1, label4);
             loadFromRouteFile();
             loadSettingsFile();
-            populateComboBox(sender, e);
+            updateSettings(sender, e);
             Program.logger.Log("TraversalFormLoaded");
         }
 
@@ -46,6 +47,7 @@ namespace MultiCarrierManager
 
         private void populateComboBox(object sender, EventArgs e)
         {
+            DisableSave = true;
             ComboBox box = comboBox1;
             box.Items.Clear();
 
@@ -72,6 +74,7 @@ namespace MultiCarrierManager
                     box.SelectedIndex = 0;
                 }
             }
+            DisableSave = false;
         }
 
         private void updateSettings(object sender, EventArgs e)
@@ -80,6 +83,8 @@ namespace MultiCarrierManager
             string slot = textBox3.Text;
             string route = textBox2.Text;
             int index = comboBox1.SelectedIndex;
+            
+            if (index < 0) index = 0;
 
             string[] oldLines = File.ReadAllLines("CATS\\settings.txt");
             foreach (string line in oldLines)
@@ -123,8 +128,8 @@ namespace MultiCarrierManager
                 runButton.Enabled = false;
                 loadButton.Enabled = false;
                 importButton.Enabled = false;
-                button1.Enabled = false;
                 button2.Enabled = false;
+                button3.Enabled = false;
                 cats.run_cmd();
             }
         }
@@ -139,8 +144,8 @@ namespace MultiCarrierManager
                 runButton.Enabled = true;
                 loadButton.Enabled = true;
                 importButton.Enabled = true;
-                button1.Enabled = true;
                 button2.Enabled = true;
+                button3.Enabled = true;
                 cats.close();
 
                 Text = "Carrier Administration and Traversal System (CATS)";
@@ -157,7 +162,7 @@ namespace MultiCarrierManager
             {
                 box.Text = box.Text + l + Environment.NewLine;
             }
-
+            
             Program.logger.Log("RouteLoaded");
         }
 
@@ -199,6 +204,7 @@ namespace MultiCarrierManager
                     string[] lines = System.IO.File.ReadAllLines(filePath);
                     File.WriteAllLines("CATS\\route.txt", lines);
                     loadFromRouteFile();
+                    updateSettings(sender, e);
                 }
                 catch (SecurityException ex)
                 {
@@ -206,13 +212,6 @@ namespace MultiCarrierManager
                                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
-        }
-
-        // Save settings
-        private void button1_Click(object sender, EventArgs e)
-        {
-            updateSettings(sender, e);
-            MessageBox.Show("Saved settings and route!");
         }
 
         private void importButton_Click(object sender, EventArgs e)
@@ -242,6 +241,8 @@ namespace MultiCarrierManager
                     File.WriteAllLines("CATS\\route.txt", systems.ToArray());
 
                     loadFromRouteFile();
+                    
+                    updateSettings(sender, e);
                 }
                 catch (SecurityException ex)
                 {
@@ -301,6 +302,26 @@ namespace MultiCarrierManager
         {
             DiscordForm form = new DiscordForm();
             form.ShowDialog();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!DisableSave) updateSettings(sender, e);
+        }
+
+        private void comboBox1_Click(object sender, EventArgs e)
+        {
+            updateSettings(sender, e);
+        }
+
+        private void textBox3_Leave(object sender, EventArgs e)
+        {
+            updateSettings(sender, e);
+        }
+
+        private void textBox5_Leave(object sender, EventArgs e)
+        {
+            updateSettings(sender, e);
         }
     }
 }

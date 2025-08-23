@@ -37,9 +37,9 @@ namespace MultiCarrierManager
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkBox2
@@ -72,7 +72,7 @@ namespace MultiCarrierManager
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.Location = new System.Drawing.Point(12, 236);
+            this.button1.Location = new System.Drawing.Point(12, 243);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(344, 45);
             this.button1.TabIndex = 4;
@@ -89,15 +89,6 @@ namespace MultiCarrierManager
             this.checkBox5.Text = "Disable automatic refuel";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
-            // 
-            this.checkBox6.Location = new System.Drawing.Point(12, 162);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(333, 24);
-            this.checkBox6.TabIndex = 7;
-            this.checkBox6.Text = "Use efficient refueling";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
             // checkBox1
             // 
             this.checkBox1.Location = new System.Drawing.Point(12, 132);
@@ -107,28 +98,37 @@ namespace MultiCarrierManager
             this.checkBox1.Text = "Power saving mode";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // comboBox1
             // 
-            this.checkBox7.Location = new System.Drawing.Point(12, 192);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(333, 24);
-            this.checkBox7.TabIndex = 8;
-            this.checkBox7.Text = "Squadron carrier mode";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] { "Personal (First 8 items)", "Personal (After 8 items)", "Squadron" });
+            this.comboBox1.Location = new System.Drawing.Point(12, 188);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(344, 21);
+            this.comboBox1.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(12, 168);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Refuelling mode";
             // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 293);
-            this.Controls.Add(this.checkBox7);
+            this.ClientSize = new System.Drawing.Size(368, 300);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox6);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OptionsForm";
             this.Text = "Options";
@@ -136,7 +136,9 @@ namespace MultiCarrierManager
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.Label label1;
+
+        private System.Windows.Forms.ComboBox comboBox1;
 
         private System.Windows.Forms.CheckBox checkBox1;
 
@@ -147,7 +149,6 @@ namespace MultiCarrierManager
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox6;
 
         #endregion
     }
