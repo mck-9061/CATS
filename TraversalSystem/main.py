@@ -63,11 +63,8 @@ disable_refuel = False
 global power_saving
 power_saving = False
 
-global efficient_refueling
-efficient_refueling = False
-
-global squadron_carrier
-squadron_carrier = False
+global refuel_mode
+refuel_mode = 0
 
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
@@ -88,8 +85,7 @@ def load_settings():
     global auto_plot_jumps
     global disable_refuel
     global power_saving
-    global efficient_refueling
-    global squadron_carrier
+    global refuel_mode
     # AFAIK, it is impossible to launch the script without either settings file existing
 
     # Get settings from settings.txt
@@ -118,7 +114,7 @@ def load_settings():
     except Exception as e:
         print(
             "There seems to be a problem with your settings.txt file. Make sure of the following:\n"
-            "- Your tritium slot is a valid integer. It should be the number of up presses it takes to reach tritium in your carrier's cargo hold from the transfer menu.\n"
+            "- Your tritium slot is a valid integer.\n"
             "- The journal directory is a valid directory for your operating system, and contains the Elite Dangerous journal files."
         )
         print(e)
@@ -142,14 +138,10 @@ def load_settings():
             if line.startswith("power-saving="):
                 print(line)
                 power_saving = line.split("=")[1].strip().lower() == "true"
-            
-            if line.startswith("efficient-refueling"):
-                print(line)
-                efficient_refueling = line.split("=")[1].strip().lower() == "true"
 
-            if line.startswith("squadron-carrier"):
+            if line.startswith("refuel-mode"):
                 print(line)
-                squadron_carrier = line.split("=")[1].strip().lower() == "true"
+                refuel_mode = int(line.split("=")[1].strip())
     except Exception as e:
         print("There seems to be a problem with your settings.ini file. Please confirm that your options are properly selected.")
         print(e)
@@ -202,38 +194,39 @@ def follow_button_sequence(sequence_name):
 
 
 def restock_tritium():
-    global squadron_carrier
+    global refuel_mode
 
     if not auto_plot_jumps or disable_refuel:
         # If manual jumping is enabled or automatic refuel is disabled, skip function execution
         return
     
-    restock_order = ["open_cargo_transfer", "restock_cargo", "restock_fc"]  # default step order for restocking trit
-
-    if efficient_refueling:
-        # If efficient refueling is enabled, restock the fleet carrier first, then add more trit to the CMDR's cargo hold
-        restock_order.insert(0, restock_order.pop())
+    restock_order = ["restock_fc", "open_cargo_transfer", "restock_cargo"]
 
     for step in restock_order:
-        if squadron_carrier and os.path.isfile(f"sequences/squadron/{step}.txt"):
+        if refuel_mode == 2 and os.path.isfile(f"sequences/squadron/{step}.txt"):
             follow_button_sequence(f"squadron/{step}.txt")  # follow the button sequence for each step
         else:
             follow_button_sequence(f"{step}.txt")
 
         if step == "open_cargo_transfer":
             # at the end of the cargo transfer step, we need to select the correct trit slot based on user input
+            if refuel_mode == 1: # Bug fix mode
+                pydirectinput.press('w')
+                time.sleep(slight_random_time(0.1))
+            
             for _ in range(tritium_slot):
-                if squadron_carrier:
+                if refuel_mode == 2 or refuel_mode == 1: # Squadron or bug fix mode
                     pydirectinput.press('s')
-                else:
+                else: # Regular personal mode
                     pydirectinput.press('w')
+               
                 time.sleep(slight_random_time(0.1))
 
     print("Refuel process completed.")
 
 
 def jump_to_system(system_name):
-    global squadron_carrier
+    global refuel_mode
 
     if not auto_plot_jumps:
         # Manual jumping
@@ -254,7 +247,7 @@ def jump_to_system(system_name):
 
         return int(delta.total_seconds()), departure_time
 
-    if squadron_carrier:
+    if refuel_mode == 2:
         follow_button_sequence("squadron/jump_nav_1.txt")
     else:
         follow_button_sequence("jump_nav_1.txt")

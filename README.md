@@ -33,16 +33,44 @@ This app also allows you to view stats about carriers across multiple accounts.
 The release comes bundled with everything you need to use both the admin panel and the traversal system. Just run the installer and you're good to go.
 
 ## Traversal system usage
+### Refuelling setup
+Read this section carefully and follow the instructions, as refuelling needs to have the options set correctly in order to function.
+#### Using a PERSONAL carrier
+* Fill the carrier's tritium depot to full (1000 tritium).
+* Use a ship with at least 200 cargo capacity.
+* Fill your ship's cargo hold with tritium FROM your carrier.
+* In the cargo transfer menu on your carrier, there will be 2 entries for tritium. Locate the entry with tritium in the CARRIER, not in the ship.
+* If this entry is in the first 8 items, i.e. you can reach it without pressing S:
+  * In the CATS options, set the "Refuelling mode" to "Personal (First 8 items)".
+  * Count how many times you have to press W to get to that entry from the "Confirm Items Transfer" button.
+  * Enter this number in the "Tritium slot" option in CATS.
+* If the entry is not in the first 8 items:
+    * In the CATS options, set the "Refuelling mode" to "Personal (After 8 items)".
+    * Back out of the transfer menu, then go back into it.
+    * Press W, then count how many times you have to press S to get to that entry.
+    * Enter this number in the "Tritium slot" option in CATS.
+
+#### Using a SQUADRON carrier
+* In the CATS options, set the "Refuelling mode" to "Squadron".
+* Fill the carrier's tritium depot to full (1000 tritium).
+* Use a ship with at least 200 cargo capacity.
+* Fill your ship's cargo hold with tritium.
+* Go to the squadron bank menu and select the Commodities section.
+* Hover over the top commodity in the list.
+* Count how many times you have to press S to get to the tritium you want to use (if it's at the top, this would be 0).
+* Enter this number in the "Tritium slot" option in CATS.
+
+### Starting the route
 * Dock with your carrier.
 * Make sure your cursor is over the "Carrier Services" option, and that your internal panel (right) is on the home tab.
-* Open the traversal system from the admin interface. Fill in the options:
-  * Tritium slot: how many up-presses it takes to get to tritium in the cargo transfer menu. IMPORTANT - take out a unit of tritium first, as this changes where it's positioned.
-  * If you're using a squadron carrier, tritium will be taken out of the squadron bank. In this case, the tritium slot should be set to the number of DOWN presses (0 if it's at the top) it takes to get to tritium in the bank commodities menu.
-  * Webhook URL: The URL to send Discord updates to.
-  * Journal Dir: The directory of your Elite Dangerous journal files (will autofill when settings are saved).
+* Open the traversal system. Fill in the options:
+  * Journal Dir: The directory of your Elite Dangerous journal files.
   * Route: Put each system on a new line. Alternatively, import from a plain text list of systems, or a CSV from Spansh's FC plotter.
-* Save the settings with the button at the top.
-* Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route". Save again if you've changed this.
+* Check the options menu:
+  * Automatically plot jumps: If unchecked, you'll instead receive a pop-up telling you to plot a jump when it's time.
+  * Determine Tritium requirements when automatically findng route: Requires a carrier to be added to the admin interface.
+  * Power saving mode: EXPERIMENTAL. Will close and re-open the game between jumps. Requires the Steam version of Elite Dangerous.
+* Select the starting point: If you're already at a system on the route, select it here. Otherwise select "Before first system in route".
 * Click "Run CATS", then tab to the Elite Dangerous window. It should now start to plot jumps.
 
 ## Traversal system disclaimer

@@ -30,6 +30,8 @@ namespace MultiCarrierManager {
             foreach (string line in optionsLines) {
                 if (line.StartsWith("webhook_url=")) textBox2.Text = line.Replace("webhook_url=", "");
             }
+            
+            singleMessageCheckBox.Checked = Program.settings.SingleDiscordMessage;
         }
 
         private void button1_Click(object sender, EventArgs e) {
@@ -68,6 +70,9 @@ namespace MultiCarrierManager {
             }
             
             File.WriteAllLines("CATS\\settings.txt", toWrite);
+            
+            Program.settings.SetSingleDiscordMessage(singleMessageCheckBox.Checked);
+            
             Close();
         }
     }

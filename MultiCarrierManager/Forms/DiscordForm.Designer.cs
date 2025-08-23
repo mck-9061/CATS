@@ -25,7 +25,8 @@ namespace MultiCarrierManager {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.listView1 = new System.Windows.Forms.ListView();
@@ -35,6 +36,7 @@ namespace MultiCarrierManager {
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.singleMessageCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // imageList1
@@ -45,7 +47,8 @@ namespace MultiCarrierManager {
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(411, 204);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(411, 234);
@@ -54,7 +57,7 @@ namespace MultiCarrierManager {
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(411, 12);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -75,7 +78,7 @@ namespace MultiCarrierManager {
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(179, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(226, 26);
@@ -84,7 +87,7 @@ namespace MultiCarrierManager {
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(226, 26);
@@ -109,11 +112,21 @@ namespace MultiCarrierManager {
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // singleMessageCheckBox
+            // 
+            this.singleMessageCheckBox.Location = new System.Drawing.Point(12, 145);
+            this.singleMessageCheckBox.Name = "singleMessageCheckBox";
+            this.singleMessageCheckBox.Size = new System.Drawing.Size(320, 24);
+            this.singleMessageCheckBox.TabIndex = 7;
+            this.singleMessageCheckBox.Text = "Keep Discord updates to a single message";
+            this.singleMessageCheckBox.UseVisualStyleBackColor = true;
+            // 
             // DiscordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 450);
+            this.Controls.Add(this.singleMessageCheckBox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
@@ -127,6 +140,8 @@ namespace MultiCarrierManager {
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.CheckBox singleMessageCheckBox;
 
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button2;

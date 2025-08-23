@@ -44,9 +44,9 @@ namespace MultiCarrierManager
                 string tag = json.tag_name;
 
                 List<String> allowedReleases = new List<string>();
-                allowedReleases.Add("3.1.0");
                 allowedReleases.Add("3.2.0");
-                logger.Log("Version: 3.2.0");
+                allowedReleases.Add("3.2.1");
+                logger.Log("Version: 3.2.1");
 
                 if (!allowedReleases.Contains(tag))
                 {
