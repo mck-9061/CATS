@@ -13,7 +13,6 @@ This app also allows you to view stats about carriers across multiple accounts.
 * Automatic jump plotting
 * Supports all personal and squadron carriers, including Drake-, Fortune-, Victory-, Nautilus-, and Javelin-class carriers
 * Tritium restocking
-  * Optional max efficiency mode
 * Route time estimations
 * GUI
 * Keeps track of jump time (in case a jump is longer than 15 minutes)
