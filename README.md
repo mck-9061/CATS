@@ -34,6 +34,10 @@ The release comes bundled with everything you need to use both the admin panel a
 ## Traversal system usage
 ### Refuelling setup
 Read this section carefully and follow the instructions, as refuelling needs to have the options set correctly in order to function.
+
+### Important note: 16th October Type-11 Prospector Update 2
+#### FDev have indicated that fixes to transferring commodities between ships and carriers will be coming; this is likely to break refuelling. I will be testing and updating this when the update releases.
+
 #### Using a PERSONAL carrier
 * Fill the carrier's tritium depot to full (1000 tritium).
 * Use a ship with at least 200 cargo capacity.
