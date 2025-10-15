@@ -15,4 +15,3 @@ There is also experimental support for any resolution with these aspect ratios, 
 - 905:509
 
 If you have a supported ultrawide monitor and CATS isn't working, try changing your cursor to "OS Cursor" in the ED graphics settings.<br>
-If you want to get your monitor supported, join the Discord and send a message in the resolutions thread.
