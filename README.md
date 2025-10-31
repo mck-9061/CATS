@@ -27,6 +27,7 @@ This app also allows you to view stats about carriers across multiple accounts.
 * The autopilot has experimental support for displays running at resolutions other than 1920x1080, though most resolutions haven't been tested.
 * Elite Dangerous should be running on your primary monitor in fullscreen.
 * Officially supported resolutions can be found in the `resolutions.md` file.
+* Elite needs to be using the default keybinds - if you've got custom keybinds, or are using a controller or HOTAS, you should back up your binds then reset to default keyboard+mouse.
 
 ## Installation
 The release comes bundled with everything you need to use both the admin panel and the traversal system. Just run the installer and you're good to go.
