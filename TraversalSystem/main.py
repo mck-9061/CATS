@@ -15,6 +15,10 @@
 #   At least it used to be much worse. Take a look at some of the old commits if you like. We love thousand-line
 #   python files that could be much simpler, right?
 
+import sys
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
+
 print("Autopilot Script Online")
 
 import os
@@ -66,6 +70,12 @@ power_saving = False
 global refuel_mode
 refuel_mode = 0
 
+global refuel_threshold
+refuel_threshold = 200
+
+global target_monitor
+target_monitor = 0
+
 # Get the screen resolution
 screen_width, screen_height = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
@@ -74,6 +84,232 @@ print("Screen resolution: " + str(screen_width) + "x" + str(screen_height))
 pyautogui.FAILSAFE = False
 
 res_handler = Reshandler(screen_width, screen_height)
+
+
+def detect_elite_monitor():
+    """Detect which monitor Elite Dangerous is running on by finding the game window."""
+    try:
+        import win32gui
+        import win32process
+
+        def get_window_monitor(hwnd):
+            rect = win32gui.GetWindowRect(hwnd)
+            center_x = (rect[0] + rect[2]) // 2
+            center_y = (rect[1] + rect[3]) // 2
+            return center_x, center_y
+
+        def callback(hwnd, windows):
+            if win32gui.IsWindowVisible(hwnd):
+                title = win32gui.GetWindowText(hwnd)
+                if "Elite - Dangerous" in title:
+                    windows.append((hwnd, title))
+            return True
+
+        windows = []
+        win32gui.EnumWindows(callback, windows)
+
+        if windows:
+            hwnd, title = windows[0]
+            center_x, center_y = get_window_monitor(hwnd)
+            monitors = res_handler._get_monitors()
+
+            for i, mon in enumerate(monitors):
+                if (mon['x'] <= center_x < mon['x'] + mon['width'] and
+                    mon['y'] <= center_y < mon['y'] + mon['height']):
+                    print(f"Elite Dangerous detected on monitor {i}")
+                    return i
+
+        print("Elite Dangerous window not found, using primary monitor")
+        return 0
+    except ImportError:
+        print("win32gui not available, using primary monitor")
+        return 0
+    except Exception as e:
+        print(f"Error detecting Elite monitor: {e}")
+        return 0
+
+
+def find_elite_window():
+    """Find the Elite Dangerous window handle."""
+    try:
+        import win32gui
+        result = []
+        def callback(hwnd, windows):
+            if win32gui.IsWindowVisible(hwnd):
+                title = win32gui.GetWindowText(hwnd)
+                if "Elite - Dangerous" in title:
+                    windows.append(hwnd)
+            return True
+        win32gui.EnumWindows(callback, result)
+        return result[0] if result else None
+    except:
+        return None
+
+
+def focus_elite_window() -> bool:
+    """Bring Elite Dangerous window to foreground using multiple techniques."""
+    try:
+        import win32gui
+        import win32con
+        import win32com.client
+
+        hwnd = find_elite_window()
+        if not hwnd:
+            print("Elite Dangerous window not found")
+            return False
+
+        # Technique 1: ALT key trick - bypasses Windows foreground restrictions
+        try:
+            shell = win32com.client.Dispatch("WScript.Shell")
+            shell.SendKeys('%')
+            time.sleep(0.1)
+        except Exception as e:
+            print(f"ALT key trick failed: {e}")
+
+        # Now attempt SetForegroundWindow
+        win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+        try:
+            win32gui.SetForegroundWindow(hwnd)
+        except Exception:
+            pass
+
+        time.sleep(0.2)
+
+        # Verify success
+        if win32gui.GetForegroundWindow() == hwnd:
+            print("Elite Dangerous window focused and verified")
+            return True
+
+        # Technique 2: AttachThreadInput fallback
+        try:
+            foreground_hwnd = user32.GetForegroundWindow()
+            foreground_thread = user32.GetWindowThreadProcessId(foreground_hwnd, None)
+            current_thread = ctypes.windll.kernel32.GetCurrentThreadId()
+
+            if foreground_thread != current_thread:
+                user32.AttachThreadInput(current_thread, foreground_thread, True)
+
+            user32.BringWindowToTop(hwnd)
+            user32.ShowWindow(hwnd, 5)  # SW_SHOW
+            user32.SetForegroundWindow(hwnd)
+
+            if foreground_thread != current_thread:
+                user32.AttachThreadInput(current_thread, foreground_thread, False)
+
+            time.sleep(0.2)
+
+            if win32gui.GetForegroundWindow() == hwnd:
+                print("Elite Dangerous window focused via AttachThreadInput")
+                return True
+        except Exception as e:
+            print(f"AttachThreadInput failed: {e}")
+
+        # Technique 3: Simulate mouse click on window
+        try:
+            rect = win32gui.GetWindowRect(hwnd)
+            center_x = (rect[0] + rect[2]) // 2
+            center_y = (rect[1] + rect[3]) // 2
+            pyautogui.click(center_x, center_y)
+            time.sleep(0.3)
+
+            if win32gui.GetForegroundWindow() == hwnd:
+                print("Elite Dangerous window focused via click")
+                return True
+        except Exception as e:
+            print(f"Click focus failed: {e}")
+
+        print("Warning: Could not verify Elite Dangerous is focused")
+        return False
+
+    except ImportError as e:
+        print(f"Required module not available: {e}")
+        return False
+    except Exception as e:
+        print(f"Error focusing Elite window: {e}")
+        return False
+
+
+def is_elite_focused() -> bool:
+    """Check if Elite Dangerous is the currently focused window."""
+    try:
+        import win32gui
+        hwnd = win32gui.GetForegroundWindow()
+        title = win32gui.GetWindowText(hwnd)
+        return "Elite - Dangerous" in title
+    except:
+        return False
+
+
+def focus_elite_with_retry(max_attempts: int = 5) -> bool:
+    """Focus Elite Dangerous with retry logic. Halts automation if it fails."""
+    for attempt in range(max_attempts):
+        if focus_elite_window():
+            return True
+        print(f"Focus attempt {attempt + 1}/{max_attempts} failed, retrying...")
+        time.sleep(0.5 * (attempt + 1))
+
+    print("CRITICAL: Cannot focus Elite Dangerous after multiple attempts")
+    return False
+
+
+def ensure_elite_focused() -> bool:
+    """Ensure Elite is focused before proceeding. Waits for manual focus if needed."""
+    if is_elite_focused():
+        return True
+
+    print("Elite Dangerous not focused. Attempting to focus...")
+
+    if focus_elite_with_retry():
+        return True
+
+    print("alert:Cannot focus Elite Dangerous - please click on the game window")
+    sys.stdout.flush()
+
+    while not is_elite_focused():
+        time.sleep(1)
+
+    print("Focus restored manually. Resuming...")
+    return True
+
+
+def move_to_game_coords(x: int, y: int):
+    """Move mouse to coordinates, applying monitor offset if needed."""
+    abs_x, abs_y = res_handler.get_absolute_coords(x, y)
+    pyautogui.moveTo(abs_x, abs_y)
+
+
+def wait_for_proceed(timeout: int = 30) -> bool:
+    """Wait for C# to send 'proceed' signal via stdin. Returns True if received, False on timeout."""
+    import threading
+    import queue
+
+    result_queue = queue.Queue()
+
+    def read_stdin():
+        try:
+            while True:
+                line = sys.stdin.readline()
+                if not line:
+                    break
+                if line.strip().lower() == "proceed":
+                    result_queue.put(True)
+                    return
+        except Exception:
+            pass
+
+    reader_thread = threading.Thread(target=read_stdin, daemon=True)
+    reader_thread.start()
+
+    try:
+        result = result_queue.get(timeout=timeout)
+        if result:
+            return True
+    except queue.Empty:
+        pass
+
+    return False
+
+
 journal_watcher = JournalWatcher()
 discord_messenger = DiscordHandler()
 
@@ -86,6 +322,7 @@ def load_settings():
     global disable_refuel
     global power_saving
     global refuel_mode
+    global refuel_threshold
     # AFAIK, it is impossible to launch the script without either settings file existing
 
     # Get settings from settings.txt
@@ -142,6 +379,10 @@ def load_settings():
             if line.startswith("refuel-mode"):
                 print(line)
                 refuel_mode = int(line.split("=")[1].strip())
+
+            if line.startswith("refuel-threshold"):
+                print(line)
+                refuel_threshold = int(line.split("=")[1].strip())
     except Exception as e:
         print("There seems to be a problem with your settings.ini file. Please confirm that your options are properly selected.")
         print(e)
@@ -233,7 +474,7 @@ def jump_to_system(system_name):
         pyperclip.copy(system_name.lower())
         print(
             "alert:Please plot the jump to %s. It has been copied to your clipboard." % system_name)
-        while journal_watcher.last_carrier_request() != system_name:
+        while journal_watcher.last_carrier_request().lower() != system_name.lower():
             time.sleep(1)
 
         current_time = datetime.datetime.now(datetime.timezone.utc)
@@ -247,12 +488,17 @@ def jump_to_system(system_name):
 
         return int(delta.total_seconds()), departure_time
 
+    if not ensure_elite_focused():
+        print("Warning: Could not confirm Elite is focused. Waiting 5 seconds and retrying...")
+        time.sleep(5)
+        ensure_elite_focused()
+
     if refuel_mode == 2:
         follow_button_sequence("squadron/jump_nav_1.txt")
     else:
         follow_button_sequence("jump_nav_1.txt")
 
-    pyautogui.moveTo(res_handler.sysNameX, res_handler.sysNameUpperY)
+    move_to_game_coords(res_handler.sysNameX, res_handler.sysNameUpperY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     pyperclip.copy(system_name.lower())
@@ -263,18 +509,20 @@ def jump_to_system(system_name):
     time.sleep(slight_random_time(0.1))
     pydirectinput.keyUp("ctrl")
     time.sleep(slight_random_time(3.0))
-    # pydirectinput.press('down')
-    pyautogui.moveTo(res_handler.sysNameX, res_handler.sysNameLowerY)
+
+    move_to_game_coords(res_handler.sysNameX, res_handler.sysNameLowerY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
     time.sleep(slight_random_time(0.1))
-    pyautogui.moveTo(res_handler.jumpButtonX, res_handler.jumpButtonY)
+
+    move_to_game_coords(res_handler.jumpButtonX, res_handler.jumpButtonY)
     time.sleep(slight_random_time(0.1))
     pydirectinput.press('space')
 
     time.sleep(6)
 
-    if journal_watcher.last_carrier_request() != system_name:
+    last_request = journal_watcher.last_carrier_request()
+    if last_request.lower() != system_name.lower():
         print(journal_watcher.lastCarrierRequest)
         print(system_name)
         print("Jump appears to have failed.")
@@ -389,8 +637,13 @@ def main_loop():
     global game_ready
     global latestJournal
     global stopJournalThread
+    global target_monitor
 
     load_settings()
+
+    target_monitor = detect_elite_monitor()
+    res_handler.set_monitor(target_monitor)
+    print(f"Using monitor {target_monitor} for Elite Dangerous")
 
     time.sleep(5)
 
@@ -457,8 +710,13 @@ def main_loop():
 
         line = a[i]
 
-        # win.activate()
-        time.sleep(3)
+        print(f"interaction:plotting:{line}")
+        sys.stdout.flush()
+        wait_for_proceed()
+
+        print("Auto-refocus: Bringing Elite Dangerous to foreground before navigation...")
+        ensure_elite_focused()
+        time.sleep(1)
 
         print("Next stop: " + line)
         print("Beginning navigation.")
@@ -594,6 +852,9 @@ def main_loop():
             totalTime -= 1
 
         print("Jumping!")
+        print("Auto-refocus: Bringing Elite Dangerous to foreground...")
+        ensure_elite_focused()
+        time.sleep(1)
 
         discord_messenger.update_fields(5, 7)
 
@@ -643,10 +904,19 @@ def main_loop():
                     case 100:
                         discord_messenger.update_fields(8, 9)
                     case 150:
-                        print("Restocking tritium...")
-                        time.sleep(2)
-                        th = threading.Thread(target=restock_tritium)
-                        th.start()
+                        current_fuel = journal_watcher.get_fuel_level()
+                        if current_fuel < refuel_threshold:
+                            print(f"Fuel level {current_fuel} below threshold ({refuel_threshold}), initiating refuel...")
+                            print("interaction:refueling")
+                            sys.stdout.flush()
+                            wait_for_proceed()
+                            ensure_elite_focused()
+                            print("Restocking tritium...")
+                            time.sleep(2)
+                            th = threading.Thread(target=restock_tritium)
+                            th.start()
+                        else:
+                            print(f"Fuel level {current_fuel} above threshold ({refuel_threshold}), skipping refuel")
 
                 time.sleep(1)
                 totalTime -= 1

@@ -12,6 +12,7 @@ namespace MultiCarrierManager {
         
         public SpanshRouteForm() {
             InitializeComponent();
+            DarkTheme.ApplyTheme(this);
         }
 
         private void SpanshRouteForm_FormClosing_1(object sender, FormClosingEventArgs e) {

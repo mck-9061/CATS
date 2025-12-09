@@ -23,6 +23,7 @@ namespace MultiCarrierManager {
         private Array tabLayout;
         public Form1() {
             InitializeComponent();
+            DarkTheme.ApplyTheme(this);
             this.Shown += new System.EventHandler(this.Form1_Shown);
         }
         // lord above why did I not use objects for this....

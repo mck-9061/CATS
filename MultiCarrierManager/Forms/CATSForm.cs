@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Security;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using MultiCarrierManager.CATS;
+using MultiCarrierManager.Controls;
 
 namespace MultiCarrierManager
 {
@@ -13,11 +14,44 @@ namespace MultiCarrierManager
     {
         private CatSitter cats;
         private bool DisableSave = false;
+        private StatusIndicator statusIndicator;
+        private int originalStopButtonY;
+
         public CATSForm()
         {
             InitializeComponent();
+            DarkTheme.ApplyTheme(this);
+            InitializeStatusIndicator();
+            ApplyCustomStyles();
             this.Shown += new System.EventHandler(this.CATSForm_Shown);
             this.Closed += new System.EventHandler(this.CATSForm_Closed);
+        }
+
+        private void InitializeStatusIndicator()
+        {
+            originalStopButtonY = stopButton.Top;
+            statusIndicator = new StatusIndicator();
+            statusIndicator.Size = new Size(runButton.Width, 60);
+            statusIndicator.Location = new Point(runButton.Location.X, runButton.Location.Y);
+            statusIndicator.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            statusIndicator.Visible = false;
+            Controls.Add(statusIndicator);
+        }
+
+        private void ApplyCustomStyles()
+        {
+            if (!DarkTheme.IsEnabled) return;
+
+            DarkTheme.StylePrimaryButton(runButton);
+            DarkTheme.StyleDangerButton(stopButton);
+
+            DarkTheme.StyleButton(button2);
+            DarkTheme.StyleButton(button3);
+            DarkTheme.StyleButton(loadButton);
+            DarkTheme.StyleButton(importButton);
+            DarkTheme.StyleButton(OptionsButton);
+            DarkTheme.StyleButton(button4);
+            DarkTheme.StyleButton(button5);
         }
 
         private void CATSForm_Shown(object sender, EventArgs e)
@@ -125,7 +159,11 @@ namespace MultiCarrierManager
 
                 cats.isRunning = true;
                 stopButton.Enabled = true;
-                runButton.Enabled = false;
+                runButton.Visible = false;
+                statusIndicator.Visible = true;
+                statusIndicator.IsRunning = true;
+                statusIndicator.SetState(StatusIndicator.StatusState.Starting);
+                stopButton.Top = statusIndicator.Bottom + 5;
                 loadButton.Enabled = false;
                 importButton.Enabled = false;
                 button2.Enabled = false;
@@ -141,6 +179,10 @@ namespace MultiCarrierManager
                 Program.logger.Log("TraversalStopped");
                 cats.isRunning = false;
                 stopButton.Enabled = false;
+                statusIndicator.IsRunning = false;
+                statusIndicator.Visible = false;
+                stopButton.Top = originalStopButtonY;
+                runButton.Visible = true;
                 runButton.Enabled = true;
                 loadButton.Enabled = true;
                 importButton.Enabled = true;
@@ -150,6 +192,16 @@ namespace MultiCarrierManager
 
                 Text = "Carrier Administration and Traversal System (CATS)";
             }
+        }
+
+        public void UpdateStatusIndicator(StatusIndicator.StatusState state, string text = null)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => UpdateStatusIndicator(state, text)));
+                return;
+            }
+            statusIndicator.SetState(state, text);
         }
 
         private void loadFromRouteFile()
@@ -323,5 +375,6 @@ namespace MultiCarrierManager
         {
             updateSettings(sender, e);
         }
+
     }
 }

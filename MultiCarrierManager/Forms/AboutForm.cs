@@ -6,6 +6,7 @@ namespace MultiCarrierManager {
     public partial class AboutForm : Form {
         public AboutForm() {
             InitializeComponent();
+            DarkTheme.ApplyTheme(this);
         }
 
         private void button1_Click(object sender, EventArgs e) {

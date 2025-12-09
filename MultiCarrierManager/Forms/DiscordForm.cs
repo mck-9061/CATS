@@ -10,6 +10,7 @@ namespace MultiCarrierManager {
     public partial class DiscordForm : Form {
         public DiscordForm() {
             InitializeComponent();
+            DarkTheme.ApplyTheme(this);
         }
 
         private void DiscordForm_Load(object sender, EventArgs e) {

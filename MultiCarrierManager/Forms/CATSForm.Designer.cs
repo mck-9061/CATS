@@ -71,33 +71,33 @@ namespace MultiCarrierManager
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 4;
             this.label5.Text = "Route:";
-            // 
+            //
             // textBox2
-            // 
+            //
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.Location = new System.Drawing.Point(12, 121);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(651, 404);
+            this.textBox2.Size = new System.Drawing.Size(651, 376);
             this.textBox2.TabIndex = 7;
-            // 
+            //
             // runButton
-            // 
+            //
             this.runButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.runButton.Location = new System.Drawing.Point(12, 555);
+            this.runButton.Location = new System.Drawing.Point(12, 530);
             this.runButton.Name = "runButton";
             this.runButton.Size = new System.Drawing.Size(651, 29);
             this.runButton.TabIndex = 8;
             this.runButton.Text = "Run CATS";
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
-            // 
+            //
             // stopButton
-            // 
+            //
             this.stopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.stopButton.Enabled = false;
-            this.stopButton.Location = new System.Drawing.Point(12, 590);
+            this.stopButton.Location = new System.Drawing.Point(12, 565);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(651, 29);
             this.stopButton.TabIndex = 9;
@@ -159,25 +159,25 @@ namespace MultiCarrierManager
             this.importButton.Text = "Import from Spansh CSV...";
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.importButton_Click);
-            // 
+            //
             // comboBox1
-            // 
+            //
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(130, 531);
+            this.comboBox1.Location = new System.Drawing.Point(130, 503);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(533, 21);
             this.comboBox1.TabIndex = 19;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBox1.Click += new System.EventHandler(this.comboBox1_Click);
             this.comboBox1.GotFocus += new System.EventHandler(this.populateComboBox);
-            // 
+            //
             // label3
-            // 
+            //
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 529);
+            this.label3.Location = new System.Drawing.Point(12, 501);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 23);
             this.label3.TabIndex = 20;
@@ -253,9 +253,9 @@ namespace MultiCarrierManager
             this.button4.Text = "About/Support";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
+            //
             // button5
-            // 
+            //
             this.button5.Location = new System.Drawing.Point(130, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(301, 28);
@@ -263,7 +263,7 @@ namespace MultiCarrierManager
             this.button5.Text = "Manage Discord integration...";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
+            //
             // CATSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
